@@ -1,0 +1,494 @@
+[gd_scene load_steps=3 format=3 uid="uid://bndf3d7rwn2ed"]
+
+[ext_resource type="Script" path="res://scenes/ui/garage_managament_menu/garage_managament_menu.gd" id="1_jbaw8"]
+[ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_y8wvf"]
+
+[node name="GarageManagamentMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jbaw8")
+
+[node name="OptionsScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="Control" parent="OptionsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsScreen/VBoxContainer/Top"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="CashLabel" type="Label" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "CASH: $ 9,999,999,999"
+
+[node name="RepLabel" type="Label" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "REP: 999,999,999,999"
+
+[node name="MechanicsCountLabel" type="Label" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "MECHANICS: 999/999"
+
+[node name="Control2" type="Control" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Control3" type="Control" parent="OptionsScreen/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Middle" type="Control" parent="OptionsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Middle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Control" type="Control" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 200.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Garage Managament"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "<"
+
+[node name="Menu" type="Control" parent="OptionsScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="OptionsScreen/VBoxContainer/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsScreen/VBoxContainer/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HireMechanic" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Hire Mechanic"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_y8wvf")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "$99,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExpandGarage" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Expand Garage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_y8wvf")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "$99,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EditFloorTiles" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Edit Floor Tiles"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_y8wvf")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyFurniture" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Buy Furniture"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_y8wvf")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CarStorage" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Car Storage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_y8wvf")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoveObjects" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Redecorate"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_y8wvf")
+expand_mode = 1
+
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control/BackButton" to="." method="_leave_garage_managament_menu"]
+[connection signal="pressed" from="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button" to="." method="_on_hire_mechanic_button_pressed"]

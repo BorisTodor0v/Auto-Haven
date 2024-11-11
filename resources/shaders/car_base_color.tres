@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dosh73l1bx2d5"]
+
+[resource]
+resource_name = "Base Color"
+cull_mode = 2
+metallic = 0.495455
+roughness = 0.25

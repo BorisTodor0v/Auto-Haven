@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgfgngovtrvgu"]
+
+[ext_resource type="Script" path="res://scenes/base_scene/base_scene.gd" id="1_3ysmu"]
+[ext_resource type="PackedScene" uid="uid://ho04pojmu6cd" path="res://scenes/world_locations/garage/garage_scene.tscn" id="2_25v71"]
+[ext_resource type="Script" path="res://scripts/job_car_spawner.gd" id="2_b82dj"]
+[ext_resource type="Script" path="res://scenes/base_scene/ui_handler.gd" id="2_cvn57"]
+[ext_resource type="PackedScene" uid="uid://5fvbbtak1465" path="res://scenes/ui/base/base_ui.tscn" id="3_h0wqx"]
+[ext_resource type="PackedScene" uid="uid://bndf3d7rwn2ed" path="res://scenes/ui/garage_managament_menu/garage_managament_menu.tscn" id="3_nd08u"]
+
+[node name="BaseScene" type="Node"]
+script = ExtResource("1_3ysmu")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_cvn57")
+
+[node name="BaseUI" parent="UI" instance=ExtResource("3_h0wqx")]
+layout_mode = 1
+
+[node name="GarageManagamentMenu" parent="UI" instance=ExtResource("3_nd08u")]
+visible = false
+layout_mode = 1
+
+[node name="JobCarSpawner" type="Node" parent="."]
+script = ExtResource("2_b82dj")
+
+[node name="Timer" type="Timer" parent="JobCarSpawner"]
+autostart = true
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="MechanicJobCooldownTimer" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Scene" type="Node" parent="."]
+
+[node name="GarageScene" parent="." instance=ExtResource("2_25v71")]
+
+[connection signal="timeout" from="Timers/MechanicJobCooldownTimer" to="." method="_on_mechanic_job_cooldown_timer_timeout"]

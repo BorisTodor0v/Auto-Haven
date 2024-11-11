@@ -1,0 +1,300 @@
+[gd_scene load_steps=2 format=3 uid="uid://5fvbbtak1465"]
+
+[ext_resource type="Script" path="res://scenes/ui/base/base_ui.gd" id="1_5p2l4"]
+
+[node name="BaseUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5p2l4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Top" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelGauge" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Level" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Level"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL GAUGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rep" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Rep"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "REP: 999,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Cash" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2/Cash"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CASH: $ 9,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Mechanics" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2/Mechanics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MECHANICS: 999/999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "QUIT GAME"
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "OPTIONS"
+autowrap_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FuelGauge" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FUEL GAUGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fuel" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FUEL: 999,999/999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Middle" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Middle"]
+layout_mode = 2
+
+[node name="Left" type="Control" parent="MarginContainer/VBoxContainer/Middle/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="TravelButton" type="Button" parent="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Travel"
+
+[node name="ManageGarageButton" type="Button" parent="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+text = "Manage garage"
+autowrap_mode = 2
+
+[node name="Center" type="Control" parent="MarginContainer/VBoxContainer/Middle/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.0
+
+[node name="Right" type="Control" parent="MarginContainer/VBoxContainer/Middle/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bottom" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+
+[node name="MessageContainer" type="Control" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MessageBackground" type="Panel" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer/MessageContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+
+[node name="MessageLabel" type="Label" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer/MessageContainer/MessageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - THIS IS A MESSAGE - "
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CurrentLocationContainer" type="Control" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentLocationLabel" type="Label" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer/CurrentLocationContainer"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "CURRENT LOCATION"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/ManageGarageButton" to="." method="_on_manage_garage_button_pressed"]

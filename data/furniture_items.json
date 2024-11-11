@@ -1,0 +1,14 @@
+{
+	"cardboard_box":{
+		"name" : "Cardboard box",
+		"price" : 10
+	},
+	"wall":{
+		"name" : "Basic wall",
+		"price" : 10
+	},
+	"car_lift":{
+		"name" : "Car lift",
+		"price" : 1000
+	},
+}

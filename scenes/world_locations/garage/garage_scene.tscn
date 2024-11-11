@@ -1,0 +1,288 @@
+[gd_scene load_steps=9 format=3 uid="uid://ho04pojmu6cd"]
+
+[ext_resource type="PackedScene" uid="uid://cv08hk7c5qmm3" path="res://scenes/world_locations/garage/model/garage.glb" id="1_fibno"]
+[ext_resource type="Script" path="res://scenes/world_locations/garage/garage_scene.gd" id="1_hufk2"]
+[ext_resource type="PackedScene" uid="uid://bycbmw7m5gr1o" path="res://scenes/world_locations/garage/garage_tile/tile.tscn" id="2_wy7l3"]
+[ext_resource type="Script" path="res://scripts/camera_raycast.gd" id="4_cfu70"]
+[ext_resource type="PackedScene" uid="uid://c8v4kw1b3qk6k" path="res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn" id="4_iop7i"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sx2qc"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_v1rep"]
+sky_material = SubResource("ProceduralSkyMaterial_sx2qc")
+
+[sub_resource type="Environment" id="Environment_am3vk"]
+background_mode = 2
+sky = SubResource("Sky_v1rep")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="GarageScene" type="Node3D"]
+script = ExtResource("1_hufk2")
+
+[node name="garage" parent="." instance=ExtResource("1_fibno")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_am3vk")
+
+[node name="Tiles" type="Node3D" parent="." groups=["Tile"]]
+
+[node name="Tile" parent="Tiles" instance=ExtResource("2_wy7l3")]
+is_unlocked = true
+
+[node name="Tile2" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 0)
+visible = false
+can_unlock = true
+
+[node name="Tile3" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 0)
+visible = false
+
+[node name="Tile4" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 0)
+visible = false
+
+[node name="Tile5" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 0)
+visible = false
+
+[node name="Tile6" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+visible = false
+can_unlock = true
+
+[node name="Tile7" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+visible = false
+
+[node name="Tile8" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 20)
+visible = false
+
+[node name="Tile9" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 20)
+visible = false
+
+[node name="Tile10" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 20)
+visible = false
+
+[node name="Tile11" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
+visible = false
+
+[node name="Tile12" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 40)
+visible = false
+
+[node name="Tile13" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 40)
+visible = false
+
+[node name="Tile14" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 40)
+visible = false
+
+[node name="Tile15" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 40)
+visible = false
+
+[node name="Tile16" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 60)
+visible = false
+
+[node name="Tile17" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 60)
+visible = false
+
+[node name="Tile18" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 60)
+visible = false
+
+[node name="Tile19" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 60)
+visible = false
+
+[node name="Tile20" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 60)
+visible = false
+
+[node name="Tile21" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 80)
+visible = false
+
+[node name="Tile22" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 80)
+visible = false
+
+[node name="Tile23" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40, 0, 80)
+visible = false
+
+[node name="Tile24" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 80)
+visible = false
+
+[node name="Tile25" parent="Tiles" instance=ExtResource("2_wy7l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 0, 80)
+visible = false
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.41421, 0, -3.58579)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422619, 0, -0.422619, 0.906308, -7.15256e-07, 13.8432, 3.80357)
+projection = 1
+size = 30.0
+near = 0.001
+script = ExtResource("4_cfu70")
+
+[node name="Control" type="Control" parent="CameraPivot/Camera3D"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CameraPivot/Camera3D/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Far-Left" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="EditTileButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
+layout_mode = 2
+text = "Toggle tile edit"
+
+[node name="UnlockTileButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
+layout_mode = 2
+text = "Unlock new tile"
+
+[node name="AddCarLiftButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
+layout_mode = 2
+text = "Add car lift"
+
+[node name="SpawnJobCarButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
+layout_mode = 2
+text = "Spawn job car"
+
+[node name="Left" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Center" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="MoneyLabel" type="Label" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Center"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Money:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RepLabel" type="Label" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Center"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+text = "Reputation:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Far-Right" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 5
+
+[node name="Black" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right"]
+visible = false
+layout_mode = 2
+text = "Black"
+
+[node name="White" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right"]
+visible = false
+layout_mode = 2
+text = "White"
+
+[node name="Orange" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right"]
+visible = false
+layout_mode = 2
+text = "Orange"
+
+[node name="JobCarSpots" type="Node3D" parent="."]
+
+[node name="JobCarSpot1" type="Marker3D" parent="JobCarSpots"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.1, 0.05, 4.3)
+gizmo_extents = 2.0
+
+[node name="JobCarSpot2" type="Marker3D" parent="JobCarSpots"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.1, 0.05, 9.3)
+gizmo_extents = 2.0
+
+[node name="JobCarSpot3" type="Marker3D" parent="JobCarSpots"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.1, 0.05, 14.3)
+gizmo_extents = 2.0
+
+[node name="JobCarSpot4" type="Marker3D" parent="JobCarSpots"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.1, 0.05, 19.3)
+gizmo_extents = 2.0
+
+[node name="CarLifts" type="Node3D" parent="."]
+
+[node name="CarLift" parent="CarLifts" instance=ExtResource("4_iop7i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 2)
+
+[node name="CarLift2" parent="CarLifts" instance=ExtResource("4_iop7i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 5)
+
+[node name="CarLift3" parent="CarLifts" instance=ExtResource("4_iop7i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 8)
+
+[node name="CarLift4" parent="CarLifts" instance=ExtResource("4_iop7i")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 11)
+
+[node name="DecorCars" type="Node3D" parent="."]
+
+[node name="Furniture" type="Node3D" parent="."]
+
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/EditTileButton" to="CameraPivot/Camera3D" method="_on_edit_tile_button_pressed"]
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/UnlockTileButton" to="CameraPivot/Camera3D" method="_on_unlock_tile_button_pressed"]
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/AddCarLiftButton" to="CameraPivot/Camera3D" method="_on_add_car_lift_button_pressed"]
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/SpawnJobCarButton" to="CameraPivot/Camera3D" method="_on_spawn_job_car_button_pressed"]
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right/Black" to="CameraPivot/Camera3D" method="_on_black_pressed"]
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right/White" to="CameraPivot/Camera3D" method="_on_white_pressed"]
+[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right/Orange" to="CameraPivot/Camera3D" method="_on_orange_pressed"]

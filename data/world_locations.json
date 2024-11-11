@@ -1,0 +1,22 @@
+{
+	"garage":{
+		"name" : "Garage",
+		"path" : "res://scenes/tile_test/tile_test.tscn",
+		"requires_car" : false
+	},
+	"car_dealership":{
+		"name" : "Car Dealership",
+		"path" : "res://scenes/car_dealership/car_dealership.tscn",
+		"requires_car" : false
+	},
+	"drag_strip":{
+		"name" : "Drag Strip",
+		"path" : "res://scenes/drag_strip/drag_strip.tscn",
+		"requires_car" : true
+	},
+	"underground_race_meet":{
+		"name" : "Underground Race Meet",
+		"path" : "res://scenes/underground_race_meet/underground_race_meet.tscn",
+		"requires_car" : true
+	}
+}

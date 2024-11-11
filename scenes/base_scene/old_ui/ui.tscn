@@ -1,0 +1,353 @@
+[gd_scene format=3 uid="uid://ctoys4usna6bw"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HorizontalSegments" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="FarLeft" type="Control" parent="MarginContainer/HorizontalSegments"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/FarLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpawnJobCarButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer"]
+layout_mode = 2
+text = "Spawn job car"
+
+[node name="HireMechanicButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer"]
+layout_mode = 2
+text = "Hire mechanic"
+
+[node name="TravelButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Show travel locations"
+
+[node name="GarageSceneButtons" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer"]
+layout_mode = 2
+
+[node name="EditFloorTilesButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "Edit floor tiles"
+
+[node name="SpawnFurnitureButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "Add furniture"
+
+[node name="ExpandGarageButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "Expand garage"
+
+[node name="SpawnDecorCarButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons"]
+layout_mode = 2
+toggle_mode = true
+text = "Car storage"
+
+[node name="MoveObjectsButton" type="Button" parent="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons"]
+layout_mode = 2
+text = "Move placed objects"
+
+[node name="Left" type="Control" parent="MarginContainer/HorizontalSegments"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Center" type="Control" parent="MarginContainer/HorizontalSegments"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Center"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CashLabel" type="Label" parent="MarginContainer/HorizontalSegments/Center/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 22
+text = "Cash: "
+
+[node name="RepLabel" type="Label" parent="MarginContainer/HorizontalSegments/Center/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 22
+text = "Rep:"
+
+[node name="MechanicsCountLabel" type="Label" parent="MarginContainer/HorizontalSegments/Center/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 22
+text = "Mechanics:"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Center"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MessageLabel" type="Label" parent="MarginContainer/HorizontalSegments/Center/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Message goes here"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="MarginContainer/HorizontalSegments/Center/VBoxContainer2/MessageLabel"]
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/HorizontalSegments/Center"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Right" type="Control" parent="MarginContainer/HorizontalSegments"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CarInteractionMenu" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InteractionMenuOptions" type="Control" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CarNameLabel" type="Label" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "CAR NAME"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CustomizationButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer"]
+layout_mode = 2
+text = "Customize car"
+
+[node name="DriveButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer"]
+layout_mode = 2
+text = "Take it for a spin"
+
+[node name="StoreCarButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer"]
+layout_mode = 2
+text = "Send to storage"
+
+[node name="ExitMenuButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer"]
+layout_mode = 2
+text = "Close menu"
+
+[node name="CustomizationOptionsContainer" type="Control" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="OptionsList" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "Customization"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorPickerContainer" type="HBoxContainer" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList"]
+layout_mode = 2
+
+[node name="ColorPickerLabel" type="Label" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList/ColorPickerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 20
+text = "Color: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList/ColorPickerContainer"]
+layout_mode = 2
+text = "CAR COLOR PCIKER"
+
+[node name="PerformanceUpgradesButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList"]
+layout_mode = 2
+text = "Performance upgrades"
+
+[node name="WheelsButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList"]
+layout_mode = 2
+text = "Wheels"
+
+[node name="CustomizationOptionsBackButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList"]
+layout_mode = 2
+text = "Back"
+
+[node name="PerformanceUpgradesContainer" type="Control" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "Performance Upgrades"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EngineUpgradesButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Engine"
+
+[node name="TireUpgradesButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tires"
+
+[node name="AirIntakeUpgradesButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Air Intake"
+
+[node name="GearboxUpgradesButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Gearbox"
+
+[node name="PerformanceOptionsBackButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="DrivingOptionsContainer" type="Control" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 20
+text = "Choose where to go"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DragStripButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Drag strip"
+
+[node name="StreetRaceButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Underground race meet"
+
+[node name="DrivingBackButton" type="Button" parent="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="FarRight" type="Control" parent="MarginContainer/HorizontalSegments"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="List" type="VBoxContainer" parent="MarginContainer/HorizontalSegments/FarRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/SpawnJobCarButton" to="." method="_on_spawn_job_car_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/HireMechanicButton" to="." method="_on_hire_mechanic_button_pressed"]
+[connection signal="toggled" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/TravelButton" to="." method="_on_travel_button_toggled"]
+[connection signal="toggled" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons/EditFloorTilesButton" to="." method="_on_edit_floor_tiles_button_toggled"]
+[connection signal="toggled" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons/SpawnFurnitureButton" to="." method="_on_spawn_box_button_toggled"]
+[connection signal="toggled" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons/ExpandGarageButton" to="." method="_on_expand_garage_button_toggled"]
+[connection signal="toggled" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons/SpawnDecorCarButton" to="." method="_on_spawn_decor_car_button_toggled"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/FarLeft/VBoxContainer/GarageSceneButtons/MoveObjectsButton" to="." method="_on_move_objects_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer/CustomizationButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_customization_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer/DriveButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_drive_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer/StoreCarButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_store_car_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/InteractionMenuOptions/VBoxContainer/ExitMenuButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_exit_menu_button_pressed"]
+[connection signal="color_changed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList/ColorPickerContainer/ColorPickerButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_color_picker_button_color_changed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList/PerformanceUpgradesButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_performance_upgrades_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList/WheelsButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_wheels_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/CustomizationOptionsContainer/OptionsList/CustomizationOptionsBackButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_customization_options_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer/EngineUpgradesButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_engine_upgrades_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer/TireUpgradesButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_tire_upgrades_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer/AirIntakeUpgradesButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_air_intake_upgrades_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer/GearboxUpgradesButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_gearbox_upgrades_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/PerformanceUpgradesContainer/VBoxContainer/PerformanceOptionsBackButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_performance_options_back_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer/DragStripButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_drag_strip_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer/StreetRaceButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_street_race_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HorizontalSegments/Right/CarInteractionMenu/DrivingOptionsContainer/VBoxContainer/DrivingBackButton" to="MarginContainer/HorizontalSegments/Right/CarInteractionMenu" method="_on_driving_back_button_pressed"]

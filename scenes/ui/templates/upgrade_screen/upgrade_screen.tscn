@@ -1,0 +1,287 @@
+[gd_scene load_steps=2 format=3 uid="uid://rdi3stqt7xpw"]
+
+[ext_resource type="Texture2D" uid="uid://c2n5uu1efyxk0" path="res://icon.svg" id="1_yxgbb"]
+
+[node name="UpgradeScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="PreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(500, 256)
+layout_mode = 2
+texture = ExtResource("1_yxgbb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "LABEL 1"
+
+[node name="Label2" type="Label" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "LABEL 2"
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 0
+text = "Exit"
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CustomizationTypeLabel" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "TYPE OF CUSTOMIZATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionsGrid" type="GridContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 3
+
+[node name="CustomizationOptionButton" type="Button" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "OPTION NAME"
+horizontal_alignment = 1
+
+[node name="OptionPreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_yxgbb")
+
+[node name="CustomizationOptionButton2" type="Button" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "OPTION NAME"
+horizontal_alignment = 1
+
+[node name="OptionPreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_yxgbb")
+
+[node name="CustomizationOptionButton3" type="Button" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "OPTION NAME"
+horizontal_alignment = 1
+
+[node name="OptionPreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_yxgbb")
+
+[node name="CustomizationOptionButton4" type="Button" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "OPTION NAME"
+horizontal_alignment = 1
+
+[node name="OptionPreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_yxgbb")
+
+[node name="CustomizationOptionButton5" type="Button" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "OPTION NAME"
+horizontal_alignment = 1
+
+[node name="OptionPreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_yxgbb")
+
+[node name="CustomizationOptionButton6" type="Button" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionName" type="Label" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "OPTION NAME"
+horizontal_alignment = 1
+
+[node name="OptionPreviewTexture" type="TextureRect" parent="Panel/HBoxContainer/VBoxContainer/CenterContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("1_yxgbb")
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text"
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text"
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text"
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="Panel/HBoxContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text"
+vertical_alignment = 1
