@@ -7,9 +7,6 @@ var is_started_by_player : bool
 @onready var label : Label3D = $Label3D
 @onready var timer : Timer = $Timer
 
-# TODO: every time a new car bay is added, connect the signal in the tile_test.gd function
-signal repair_complete(by_player : bool)
-
 func _process(_delta):
 	if timer.is_stopped():
 		label.hide()
@@ -57,7 +54,7 @@ func get_is_started_by_player():
 func _on_timer_timeout():
 	current_car.finish_repair()
 	if is_started_by_player == false:
-		repair_complete.emit(self)
+		current_car.confirm_repair_completion()
 
 func job_is_complete() -> bool:
 	if timer.is_stopped():

@@ -137,6 +137,22 @@ text = "Garage Managament"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MessageLabel" type="Label" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -315.0
+offset_top = -23.0
+offset_right = 315.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE MESSAGE "
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BackButton" type="Button" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
@@ -490,5 +506,11 @@ layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Timers" type="Node" parent="."]
+
+[node name="MessageLabelTimer" type="Timer" parent="Timers"]
+one_shot = true
+
 [connection signal="pressed" from="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control/BackButton" to="." method="_leave_garage_managament_menu"]
 [connection signal="pressed" from="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button" to="." method="_on_hire_mechanic_button_pressed"]
+[connection signal="timeout" from="Timers/MessageLabelTimer" to="." method="clear_message"]

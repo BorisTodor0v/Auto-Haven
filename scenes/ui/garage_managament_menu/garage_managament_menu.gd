@@ -6,11 +6,19 @@ signal hire_mechanic
 @onready var cash_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/CashLabel
 @onready var rep_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/RepLabel
 @onready var mechanics_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/MechanicsCountLabel
+@onready var mechanic_cost_label : Label = $OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer/Label2
+
+@onready var message_label : Label = $OptionsScreen/VBoxContainer/Middle/MarginContainer/Control/MessageLabel
+@onready var message_label_timer : Timer = $Timers/MessageLabelTimer
+
+func _ready():
+	message_label.hide()
 
 func update_labels():
 	cash_label.text = "Cash: $%3d" % PlayerStats.get_cash()
 	rep_label.text = "Rep: %3d" % PlayerStats.get_rep()
 	mechanics_label.text = "Mechanics: " + str(PlayerStats.get_available_mechanics()) + "/" + str(PlayerStats.get_total_mechanics())
+	mechanic_cost_label.text = "$%d" % PlayerStats.get_mechanic_cost()
 
 # Back button in base Garage Managament Menu, go back to base UI
 func _leave_garage_managament_menu():
@@ -18,3 +26,13 @@ func _leave_garage_managament_menu():
 
 func _on_hire_mechanic_button_pressed():
 	hire_mechanic.emit()
+
+func show_message(text : String, duration : float):
+	message_label_timer.wait_time = duration
+	message_label.show()
+	message_label.text = text
+	message_label_timer.start()
+
+func clear_message():
+	message_label.text = ""
+	message_label.hide()

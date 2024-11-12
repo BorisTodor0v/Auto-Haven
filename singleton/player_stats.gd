@@ -2,9 +2,13 @@ extends Node
 
 var cash : int = 10000
 var rep : int = 0
+
 var tiles_owned : int = 1
+
 var total_mechanics : int = 0
 var available_mechanics : int = 0
+var mechanic_base_cost : int = 5000
+
 var owned_cars : Dictionary = {}
 
 func add_cash(_cash : int):
@@ -39,6 +43,9 @@ func assign_mechanic():
 func free_mechanic():
 	if available_mechanics < total_mechanics:
 		available_mechanics += 1
+
+func get_mechanic_cost() -> int:
+	return mechanic_base_cost * (total_mechanics + 1)
 
 func get_tiles_owned() -> int:
 	return tiles_owned

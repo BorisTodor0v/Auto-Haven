@@ -1,8 +1,0 @@
-Za zidovi i za floor tiles napravi nesto kako grid tekstura (ko u minecraft teksturite sho se), pa
-posle za sekoj razlicen zid i floor tile napravi unique material so UV offset za da ja pokazhuva
-tocnata tekstura. Vidi samo kako i dali ke mozhe da se optimizira da ne ispadne sekoj floor tile / 
-zid da imaat posebni materijali, iako se povtoruvaat
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------

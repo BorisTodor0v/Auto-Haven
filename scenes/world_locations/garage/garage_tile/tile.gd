@@ -111,22 +111,10 @@ func click_on_gridmap(intersect_position : Vector3, tile : int):
 		intersect_position.y = 0
 		if is_editing == true:
 			var point = grid_map.local_to_map(intersect_position)
-			# point.coordinate % 10
+			# When getting only point.x/y it can give coordinates outside of the bounds of the grid
+			# map. One grid has 10 tiles, so to get the coordinates of the tile within the bounds
+			# of the grid, the point.x/y coordinate is divided by 10 and the remainder of the
+			# division is taken as the local coordinate.
 			point.x = point.x % 10
 			point.z = point.z % 10
 			grid_map.set_cell_item(point, tile)
-
-
-# Koga se editnue tile na gridmap, editnuva tiles nadvor od 5x5 opsegot
-# treba nekako da se proveri dali e otklucen "Tile"-ot na koj sakame da go
-# smenime tile-ot od gridmapot.
-
-# Na ne-otkluceni "Tile"-s da ima nekoj mesh sho e hidden na gridmap tile-ot
-# Ako sakame da smenime tile na gridmapot, i ako momentalniot tile e toj mesh
-# Ne davaj da se smeni
-# Koga ke se otkluci "Tile"-ot, se menjavaat tiles na negovata grid mapa vo
-# defaultniot tile
-
-# Primer dodeka e locked, tiles da imaat cell_item 0, a koga ke se otklucat
-# da imaat cell_item 1. Dodeka e cell_item 0, nema menjavanje na indeksot na toj
-# tile, a ako e 1 ili povekje mozhe slobodno da se menuva

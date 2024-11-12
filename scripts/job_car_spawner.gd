@@ -21,7 +21,7 @@ func _on_timer_timeout():
 	spawn_job()
 
 func spawn_job():
-	timer.wait_time = randi_range(2, 10)
+	timer.wait_time = randi_range(2, 8)
 	for spot : Node3D in car_spots.get_children():
 		if spot.get_child_count() == 0:
 			var car : String = directory[randi_range(0, directory.size()-1)]
@@ -32,13 +32,11 @@ func spawn_job():
 			for child in instance.get_children():
 				if child is MeshInstance3D:
 					mesh = child
-			#var material = instance.get_surface_override_material(0)
 			if mesh != null && material != null:
 				material.albedo_color = Color(randf(), randf(), randf(), 1)
 				mesh.set_surface_override_material(0, material)
 			instance.add_to_group("Repair Car")
 			instance.set_script(load("res://scripts/interactables/job_car.gd"))
-			#instance.set_car(instance)
 			spot.add_child(instance)
 			job_car_spawned.emit(instance)
 			break
