@@ -4,6 +4,7 @@ var cash : int = 10000
 var rep : int = 0
 
 var tiles_owned : int = 1
+var tile_base_price : int = 5000
 
 var total_mechanics : int = 0
 var available_mechanics : int = 0
@@ -54,8 +55,8 @@ func set_tiles_owned(new_value : int):
 	tiles_owned = new_value
 
 # Don't know if this should be here, in the player stats function, but leave as is for now
-func get_tile_cost() -> int:
-	return 5000
+func get_garage_expansion_cost() -> int:
+	return tile_base_price * tiles_owned
 
 func add_car(new_car : Dictionary):
 	print("Adding " + new_car["model"] + " to player's car collection")

@@ -2,9 +2,7 @@ extends Camera3D
 
 @onready var camera : Camera3D = $"."
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+signal pressed_on_tile(tile : Tile)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -21,3 +19,5 @@ func _process(delta):
 			collider = intersection["collider"]
 			if collider is Interactable:
 				collider.interact()
+			if collider is Tile:
+				pressed_on_tile.emit(collider)

@@ -171,7 +171,7 @@ text = "<"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="OptionsScreen/VBoxContainer/Menu"]
+[node name="Control" type="Control" parent="OptionsScreen/VBoxContainer/Menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,7 +179,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="OptionsScreen/VBoxContainer/Menu"]
+[node name="Panel" type="Panel" parent="OptionsScreen/VBoxContainer/Menu/Control"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -187,17 +187,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsScreen/VBoxContainer/Menu/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HireMechanic" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+[node name="HireMechanic" type="Control" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -209,10 +217,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer"]
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -224,33 +232,33 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Hire Mechanic"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_y8wvf")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "$99,999,999,999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ExpandGarage" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+[node name="ExpandGarage" type="Control" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -262,10 +270,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer"]
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -277,33 +285,33 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Expand Garage"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_y8wvf")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "$99,999,999,999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EditFloorTiles" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+[node name="EditFloorTiles" type="Control" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -315,10 +323,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer"]
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -330,32 +338,32 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Edit Floor Tiles"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_y8wvf")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/EditFloorTiles/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BuyFurniture" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+[node name="BuyFurniture" type="Control" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -367,10 +375,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer"]
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -382,32 +390,32 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Buy Furniture"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_y8wvf")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/BuyFurniture/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CarStorage" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+[node name="CarStorage" type="Control" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -419,10 +427,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer"]
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -434,32 +442,32 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Car Storage"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_y8wvf")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/CarStorage/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MoveObjects" type="Control" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer"]
+[node name="MoveObjects" type="Control" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -471,10 +479,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer"]
+[node name="Button" type="Button" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button"]
+[node name="MarginContainer" type="MarginContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -486,22 +494,22 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Redecorate"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_y8wvf")
 expand_mode = 1
 
-[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/MoveObjects/MarginContainer/Button/MarginContainer/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -512,5 +520,6 @@ vertical_alignment = 1
 one_shot = true
 
 [connection signal="pressed" from="OptionsScreen/VBoxContainer/Middle/MarginContainer/Control/BackButton" to="." method="_leave_garage_managament_menu"]
-[connection signal="pressed" from="OptionsScreen/VBoxContainer/Menu/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button" to="." method="_on_hire_mechanic_button_pressed"]
+[connection signal="pressed" from="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/HireMechanic/MarginContainer/Button" to="." method="_on_hire_mechanic_button_pressed"]
+[connection signal="pressed" from="OptionsScreen/VBoxContainer/Menu/Control/ScrollContainer/HBoxContainer/ExpandGarage/MarginContainer/Button" to="." method="_on_expand_garage_button_pressed"]
 [connection signal="timeout" from="Timers/MessageLabelTimer" to="." method="clear_message"]

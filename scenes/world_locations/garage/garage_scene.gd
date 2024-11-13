@@ -4,11 +4,13 @@ extends Node3D
 @onready var car_lifts : Node3D = $CarLifts
 @onready var job_car_spots : Node3D = $JobCarSpots
 @onready var pending_cars : Array = []
+@onready var garage_tiles : Node3D = $Tiles
 
 signal repair_completed(cash_reward : int, rep_reward : int)
+signal pressed_on_tile(tile : Tile)
 
 func _ready():
-	pass
+	camera.connect("pressed_on_tile", pass_pressed_tile)
 
 func get_job_car_spots() -> Node3D:
 	return job_car_spots
@@ -38,3 +40,18 @@ func finish_car_repair(cash_reward : int, rep_reward : int, is_repaired_by_playe
 
 func get_pending_cars() -> Array:
 	return pending_cars
+
+func show_unlockable_tiles():
+	for tile : Tile in garage_tiles.get_children():
+		tile.check_adjacent_tiles()
+		if tile.can_unlock == true:
+			tile.show()
+
+func hide_unlockable_tiles():
+	for tile : Tile in garage_tiles.get_children():
+		tile.check_adjacent_tiles()
+		if tile.can_unlock == true:
+			tile.hide()
+
+func pass_pressed_tile(tile : Tile):
+	pressed_on_tile.emit(tile)
