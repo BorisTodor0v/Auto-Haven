@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ho04pojmu6cd"]
+[gd_scene load_steps=10 format=3 uid="uid://ho04pojmu6cd"]
 
 [ext_resource type="PackedScene" uid="uid://cv08hk7c5qmm3" path="res://scenes/world_locations/garage/model/garage.glb" id="1_fibno"]
 [ext_resource type="Script" path="res://scenes/world_locations/garage/garage_scene.gd" id="1_hufk2"]
 [ext_resource type="PackedScene" uid="uid://bycbmw7m5gr1o" path="res://scenes/world_locations/garage/garage_tile/tile.tscn" id="2_wy7l3"]
+[ext_resource type="Script" path="res://scripts/camera_movement.gd" id="4_4ivjp"]
 [ext_resource type="Script" path="res://scripts/camera_raycast.gd" id="4_cfu70"]
 [ext_resource type="PackedScene" uid="uid://c8v4kw1b3qk6k" path="res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn" id="4_iop7i"]
 
@@ -136,6 +137,7 @@ visible = false
 
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.41421, 0, -3.58579)
+script = ExtResource("4_4ivjp")
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422619, 0, -0.422619, 0.906308, -7.15256e-07, 13.8432, 3.80357)
@@ -143,105 +145,6 @@ projection = 1
 size = 30.0
 near = 0.001
 script = ExtResource("4_cfu70")
-
-[node name="Control" type="Control" parent="CameraPivot/Camera3D"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="CameraPivot/Camera3D/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 3
-
-[node name="Far-Left" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 5
-
-[node name="EditTileButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
-layout_mode = 2
-text = "Toggle tile edit"
-
-[node name="UnlockTileButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
-layout_mode = 2
-text = "Unlock new tile"
-
-[node name="AddCarLiftButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
-layout_mode = 2
-text = "Add car lift"
-
-[node name="SpawnJobCarButton" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left"]
-layout_mode = 2
-text = "Spawn job car"
-
-[node name="Left" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 5
-
-[node name="Center" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 2
-
-[node name="MoneyLabel" type="Label" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Center"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-text = "Money:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RepLabel" type="Label" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Center"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
-text = "Reputation:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Right" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 5
-
-[node name="Far-Right" type="VBoxContainer" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 5
-
-[node name="Black" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right"]
-visible = false
-layout_mode = 2
-text = "Black"
-
-[node name="White" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right"]
-visible = false
-layout_mode = 2
-text = "White"
-
-[node name="Orange" type="Button" parent="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right"]
-visible = false
-layout_mode = 2
-text = "Orange"
 
 [node name="JobCarSpots" type="Node3D" parent="."]
 
@@ -278,11 +181,3 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0,
 [node name="DecorCars" type="Node3D" parent="."]
 
 [node name="Furniture" type="Node3D" parent="."]
-
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/EditTileButton" to="CameraPivot/Camera3D" method="_on_edit_tile_button_pressed"]
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/UnlockTileButton" to="CameraPivot/Camera3D" method="_on_unlock_tile_button_pressed"]
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/AddCarLiftButton" to="CameraPivot/Camera3D" method="_on_add_car_lift_button_pressed"]
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Left/SpawnJobCarButton" to="CameraPivot/Camera3D" method="_on_spawn_job_car_button_pressed"]
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right/Black" to="CameraPivot/Camera3D" method="_on_black_pressed"]
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right/White" to="CameraPivot/Camera3D" method="_on_white_pressed"]
-[connection signal="pressed" from="CameraPivot/Camera3D/Control/MarginContainer/HBoxContainer/Far-Right/Orange" to="CameraPivot/Camera3D" method="_on_orange_pressed"]
