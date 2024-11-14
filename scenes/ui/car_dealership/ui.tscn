@@ -1,0 +1,204 @@
+[gd_scene load_steps=2 format=3 uid="uid://j8knir50o3ca"]
+
+[ext_resource type="Script" path="res://scenes/ui/car_dealership/ui.gd" id="1_kp85x"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kp85x")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Top" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="PlayerCashLabel" type="Label" parent="MarginContainer/VBoxContainer/Top"]
+layout_mode = 1
+offset_right = 131.0
+offset_bottom = 35.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Cash: $____"
+
+[node name="LeaveLocationButton" type="Button" parent="MarginContainer/VBoxContainer/Top"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -147.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Go back to garage"
+
+[node name="CarStats" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CarStats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left" type="Panel" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ManufacturerLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Manufacturer"
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 27
+text = "Car name"
+
+[node name="TopSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Top speed: 999 km/h"
+
+[node name="AccelerationLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Acceleration: 1"
+
+[node name="PriceLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Price: $9,999,999"
+
+[node name="CarColor" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ColorLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/CarColor"]
+layout_mode = 2
+text = "Color: "
+
+[node name="CarColorPickerButton" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/CarColor"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Gap" type="Control" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PurchaseCarButton" type="Button" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Purchase"
+
+[node name="Center" type="Control" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+
+[node name="MessageLabel" type="Label" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Center"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Message label"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Timer" type="Timer" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Center/MessageLabel"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Right" type="Control" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DealershipCars" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/DealershipCars"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/DealershipCars/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/DealershipCars/ScrollContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CarsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/DealershipCars/ScrollContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Top/LeaveLocationButton" to="." method="_on_leave_location_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/PurchaseCarButton" to="." method="_on_purchase_car_button_pressed"]
+[connection signal="timeout" from="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Center/MessageLabel/Timer" to="." method="clear_message"]

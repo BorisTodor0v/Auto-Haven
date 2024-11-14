@@ -14,6 +14,9 @@ func _ready():
 func _process(delta):
 	pass
 
+func set_camera(_camera : Camera3D):
+	camera = _camera
+
 func get_camera():
 	return camera
 
@@ -22,6 +25,9 @@ func return_to_garage():
 
 func get_ui():
 	return ui
+
+func set_ui(_ui : UI):
+	ui = _ui
 
 func get_player_car():
 	pass

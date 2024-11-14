@@ -10,7 +10,9 @@
 		"redline": 6500,
 		"max_rpm": 6600,
 		"peak_hp_rpm": 5800,
-		"scene_path": "res://models/cars/hatchback1/hatchback1.tscn",
+		"scene_path": "res://cars/models/swift/swift.tscn",
+		"model_path": "res://cars/models/swift/swift.glb",
+		"default_wheels": "wheel_001"
 	},
 	"350":{
 		"name": "Go-Ju",
@@ -23,7 +25,9 @@
 		"redline": 7000,
 		"max_rpm": 7200,
 		"peak_hp_rpm": 6800,
-		"scene_path": "res://models/cars/350/350.tscn",
+		"scene_path": "res://cars/models/350/350.tscn",
+		"model_path": "res://cars/models/350/350.glb",
+		"default_wheels": "wheel_001"
 	},
 	"chal":{
 		"name": "Phoenix",
@@ -36,6 +40,8 @@
 		"redline": 7500,
 		"max_rpm": 7700,
 		"peak_hp_rpm": 7100,
-		"scene_path": "res://models/cars/chal/chal.tscn",
+		"scene_path": "res://cars/models/chal/chal.tscn",
+		"model_path": "res://cars/models/chal/chal.glb",
+		"default_wheels": "wheel_001"
 	}
 }

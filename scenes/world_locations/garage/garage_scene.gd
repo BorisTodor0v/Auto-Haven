@@ -1,6 +1,5 @@
-extends Node3D
+extends WorldLocation
 
-@onready var camera : Camera3D = $CameraPivot/Camera3D
 @onready var car_lifts : Node3D = $CarLifts
 @onready var job_car_spots : Node3D = $JobCarSpots
 @onready var pending_cars : Array = []
@@ -10,13 +9,11 @@ signal repair_completed(cash_reward : int, rep_reward : int)
 signal pressed_on_tile(tile : Tile)
 
 func _ready():
+	set_camera($CameraPivot/Camera3D)
 	camera.connect("pressed_on_tile", pass_pressed_tile)
 
 func get_job_car_spots() -> Node3D:
 	return job_car_spots
-
-func get_camera() -> Camera3D:
-	return camera
 
 func add_pending_car(pending_car : StaticBody3D):
 	if pending_cars.size() < job_car_spots.get_child_count():

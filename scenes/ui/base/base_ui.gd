@@ -9,6 +9,7 @@ extends UI
 @onready var message_label : Label = $MarginContainer/VBoxContainer/Bottom/VBoxContainer/MessageContainer/MessageBackground/MessageLabel
 
 signal open_menu(menu_name : String)
+signal travel_button_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,3 +37,7 @@ func show_message(text : String, duration : float):
 func clear_message():
 	message_label.text = ""
 	message.hide()
+
+func _on_travel_button_pressed():
+	travel_button_pressed.emit()
+	pass # Replace with function body.

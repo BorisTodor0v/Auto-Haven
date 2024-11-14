@@ -3,6 +3,7 @@ extends Node
 @onready var garage_scene : Node3D = $GarageScene
 @onready var ui = $UI
 @onready var job_car_spawner : Node = $JobCarSpawner
+@onready var scene_holder : Node = $Scene
 
 var is_expanding_garage : bool = false
 
@@ -13,6 +14,7 @@ func _ready():
 	ui.connect("hire_mechanic", hire_mechanic)
 	ui.connect("expand_garage", toggle_garage_expansion)
 	ui.connect("open_menu", open_menu)
+	ui.connect("travel_to_location", travel_to_location_no_car)
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
 	ui.update_labels()
@@ -81,3 +83,59 @@ func open_menu(menu_name : String):
 	if is_expanding_garage == true:
 		toggle_garage_expansion()
 	ui.change_active_menu(menu_name)
+
+func travel_to_location_no_car(location_name : String):
+	var location = LocationsData.get_location(location_name)
+	if location_name != "garage":
+		garage_scene.hide()
+		var new_scene = load(location["path"]).instantiate()
+		scene_holder.add_child(new_scene)
+		if new_scene is WorldLocation:
+			new_scene.get_camera().current = true
+			## Connect specific signals from specific scenes
+			match location_name:
+				"car_dealership":
+					new_scene.connect("player_bought_car", buy_car)
+				_:
+					pass
+		ui.hide()
+		ui = new_scene.get_ui()
+		new_scene.connect("leave_location", travel_to_location_no_car.bind("garage"))
+	else:
+		scene_holder.get_child(0).queue_free()
+		garage_scene.show()
+		ui = $UI
+		ui.show()
+		ui.update_labels()
+		garage_scene.get_camera().current = true
+
+func buy_car(car_key : String, car_color : Color):
+	var car_data : Dictionary = CarsData.get_car(car_key)
+	if PlayerStats.get_cash() >= car_data["price"]:
+		PlayerStats.remove_cash(CarsData.get_car(car_key)["price"])
+		var new_car = {
+			"model": car_key,
+			"color": car_color,
+			"wheels": car_data["default_wheels"],
+			"upgrades": {
+				"engine": 0,
+				"weight": 0,
+				"transmission": 0,
+				"nitrous": 0
+			},
+			"is_stored": true
+		}
+		PlayerStats.add_car(new_car)
+		ui.show_message("Congratulations on your new car. Go to your garage to place it and show it off.", 5)
+	else:
+		ui.show_message("Not enough money to buy this car", 5)
+	ui.update_labels()
+
+#TODO: 
+# UI for car dealership
+# Complete location travel functionality
+# Scene for drag strip
+# Scene for underground race meeta
+
+func test_signal(a : String):
+	print_debug("Signal reached base scene " + a)

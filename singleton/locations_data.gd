@@ -18,3 +18,6 @@ func _ready():
 
 func get_locations():
 	return locations
+
+func get_location(key : String):
+	return locations[key]

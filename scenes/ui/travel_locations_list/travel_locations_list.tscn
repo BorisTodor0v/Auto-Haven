@@ -1,0 +1,254 @@
+[gd_scene load_steps=3 format=3 uid="uid://phrehkl71v7e"]
+
+[ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_j80e5"]
+[ext_resource type="Script" path="res://scenes/ui/travel_locations_list/travel_locations_list.gd" id="1_kxpsp"]
+
+[node name="TravelLocationsList" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kxpsp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 90
+theme_override_constants/margin_bottom = 70
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Top" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control2" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Choose where to go"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control3" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer/Control3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CancelButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer/Control3/MarginContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="Middle" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Locations" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="List" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Panel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Button2" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Button3" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Button4" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Button5" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Button6" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Button7" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "LOCATION NAME LOCATION NAME "
+autowrap_mode = 2
+
+[node name="Preview" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Preview"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_j80e5")
+
+[node name="Description" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Panel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Description/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Description/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Description/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - LOCATION DESCRIPTION - "
+
+[node name="Bottom" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Bottom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Bottom/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+
+[node name="CancelButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="TravelToLocationButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Bottom/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go"
+
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Top/HBoxContainer/Control3/MarginContainer/CancelButton" to="." method="on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Bottom/MarginContainer/HBoxContainer/CancelButton" to="." method="on_cancel_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/Bottom/MarginContainer/HBoxContainer/TravelToLocationButton" to="." method="_on_travel_to_location_button_pressed"]
