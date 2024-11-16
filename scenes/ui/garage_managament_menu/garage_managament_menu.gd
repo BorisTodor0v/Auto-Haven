@@ -3,6 +3,8 @@ extends UI
 signal open_menu(menu_name : String)
 signal hire_mechanic
 signal expand_garage
+signal on_submenu_item_pressed(item_type : String, item)
+signal submenu_closed
 
 @onready var cash_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/CashLabel
 @onready var rep_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/RepLabel
@@ -13,8 +15,15 @@ signal expand_garage
 @onready var message_label : Label = $OptionsScreen/VBoxContainer/Middle/MarginContainer/Control/MessageLabel
 @onready var message_label_timer : Timer = $Timers/MessageLabelTimer
 
+@onready var base_menu : Control = $OptionsScreen
+# Submenus
+@onready var car_storage_menu : Control = $SubMenu/CarStorageMenu
+
 func _ready():
 	message_label.hide()
+	# Submenu signals
+	car_storage_menu.connect("menu_closed", hide_submenu)
+	car_storage_menu.connect("on_menu_item_pressed", on_submenu_item_pressed.emit)
 
 func update_labels():
 	cash_label.text = "Cash: $%d" % PlayerStats.get_cash()
@@ -22,6 +31,8 @@ func update_labels():
 	mechanics_label.text = "Mechanics: " + str(PlayerStats.get_available_mechanics()) + "/" + str(PlayerStats.get_total_mechanics())
 	mechanic_cost_label.text = "$%d" % PlayerStats.get_mechanic_cost()
 	garage_expansion_cost_label.text = "$%d" % PlayerStats.get_garage_expansion_cost()
+	# Update submenu labels
+	car_storage_menu.update_labels()
 
 # Back button in base Garage Managament Menu, go back to base UI
 func _leave_garage_managament_menu():
@@ -35,6 +46,7 @@ func show_message(text : String, duration : float):
 	message_label.show()
 	message_label.text = text
 	message_label_timer.start()
+	car_storage_menu.show_message(text, duration)
 
 func clear_message():
 	message_label.text = ""
@@ -42,3 +54,16 @@ func clear_message():
 
 func _on_expand_garage_button_pressed():
 	expand_garage.emit()
+
+func _on_car_storage_button_pressed():
+	car_storage_menu.show()
+	car_storage_menu.fill_list()
+	base_menu.hide()
+
+func hide_submenu():
+	car_storage_menu.hide()
+	base_menu.show()
+	submenu_closed.emit()
+
+func update_submenu_list():
+	car_storage_menu.update_list()

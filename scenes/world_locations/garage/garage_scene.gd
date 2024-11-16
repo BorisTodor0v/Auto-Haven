@@ -5,12 +5,19 @@ extends WorldLocation
 @onready var pending_cars : Array = []
 @onready var garage_tiles : Node3D = $Tiles
 
+var raycast_default_state_enabled : bool = false
+@onready var raycast_default_state : State = $CameraStates/DefaultState
+@onready var raycast_place_object_state : State = $CameraStates/PlaceObjectState
+
 signal repair_completed(cash_reward : int, rep_reward : int)
 signal pressed_on_tile(tile : Tile)
+signal end_placing_item
 
 func _ready():
 	set_camera($CameraPivot/Camera3D)
 	camera.connect("pressed_on_tile", pass_pressed_tile)
+	raycast_place_object_state.connect("item_placed", finish_placing_item)
+	set_camera_raycast_states("default")
 
 func get_job_car_spots() -> Node3D:
 	return job_car_spots
@@ -52,3 +59,29 @@ func hide_unlockable_tiles():
 
 func pass_pressed_tile(tile : Tile):
 	pressed_on_tile.emit(tile)
+
+func set_camera_raycast_states(state : String):
+	match state:
+		"default":
+			print_debug("ENABLING DEFAULT STATE")
+			raycast_default_state.enable_state()
+			raycast_place_object_state.disable_state()
+		"place_object":
+			print_debug("ENABLING PLACE STATE")
+			raycast_default_state.disable_state()
+			raycast_place_object_state.enable_state()
+
+func begin_placing_item(item_type : String, item):
+	raycast_place_object_state.set_item(item_type, item)
+	set_camera_raycast_states("place_object")
+
+func finish_placing_item(placed_successfully : bool, placed_item_type : String, placed_item_id): # : String):
+	if placed_successfully == true && placed_item_type != "" && placed_item_id != null:
+		end_placing_item.emit(placed_item_type, placed_item_id)
+		print_debug("Placed item successfully")
+	else:
+		print_debug("Cancelled placing item")
+		raycast_place_object_state.clear_item()
+		end_placing_item.emit("", null)
+	set_camera_raycast_states("default")
+	

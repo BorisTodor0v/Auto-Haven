@@ -129,7 +129,6 @@ script = ExtResource("1_me2q3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_whu4i")
-skeleton = NodePath("")
 
 [node name="WheelPositions" type="Node3D" parent="."]
 

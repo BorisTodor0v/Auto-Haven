@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://6uk4orhwgd00"]
+
+[ext_resource type="Script" path="res://scenes/ui/model_preview_button/model_preview_button.gd" id="1_aoosa"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_utxas"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_phjcx"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ssao_enabled = true
+ssao_intensity = 4.0
+ssao_power = 2.04906
+ssao_detail = 5.0
+ssao_sharpness = 1.0
+
+[sub_resource type="World3D" id="World3D_3tmv4"]
+environment = SubResource("Environment_phjcx")
+
+[node name="ModelPreviewButton" type="Button"]
+custom_minimum_size = Vector2(128, 128)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aoosa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "car name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PreviewTextureMargins" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 3
+
+[node name="SubViewportTexture" type="TextureRect" parent="VBoxContainer/PreviewTextureMargins"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("ViewportTexture_utxas")
+expand_mode = 1
+
+[node name="PriceLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "price"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
+world_3d = SubResource("World3D_3tmv4")
+transparent_bg = true

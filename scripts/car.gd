@@ -15,7 +15,7 @@ var internal_id : int
 func _ready():
 	## Check to avoid crash
 	for child in self.get_children():
-		if child is AnimationPlayer:
+		if child is AnimationPlayer and animation_player == null:
 			animation_player = child
 	if animation_player == null:
 		#print_debug("Create an animation player node for this car: " + str(name))
@@ -61,6 +61,7 @@ func get_wheels():
 	return wheel_positions
 
 func get_mesh() -> MeshInstance3D:
+	print_debug(mesh)
 	return mesh
 
 func set_internal_id(id : int):

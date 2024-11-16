@@ -1,11 +1,11 @@
-extends Camera3D
+extends State
 
-@onready var camera : Camera3D = $"."
+@onready var camera : Camera3D = $"../../CameraPivot/Camera3D"
 
 signal pressed_on_tile(tile : Tile)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	var ray_origin = camera.project_ray_origin(mouse_position)
 	var ray_end = camera.project_ray_normal(mouse_position) * 2000
@@ -21,3 +21,4 @@ func _process(delta):
 				collider.interact()
 			if collider is Tile:
 				pressed_on_tile.emit(collider)
+				

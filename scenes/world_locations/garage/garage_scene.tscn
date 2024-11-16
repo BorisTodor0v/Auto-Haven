@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://ho04pojmu6cd"]
+[gd_scene load_steps=11 format=3 uid="uid://ho04pojmu6cd"]
 
 [ext_resource type="PackedScene" uid="uid://cv08hk7c5qmm3" path="res://scenes/world_locations/garage/model/garage.glb" id="1_fibno"]
 [ext_resource type="Script" path="res://scenes/world_locations/garage/garage_scene.gd" id="1_hufk2"]
 [ext_resource type="PackedScene" uid="uid://bycbmw7m5gr1o" path="res://scenes/world_locations/garage/garage_tile/tile.tscn" id="2_wy7l3"]
 [ext_resource type="Script" path="res://scripts/camera_movement.gd" id="4_4ivjp"]
-[ext_resource type="Script" path="res://scripts/camera_raycast.gd" id="4_cfu70"]
 [ext_resource type="PackedScene" uid="uid://c8v4kw1b3qk6k" path="res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn" id="4_iop7i"]
+[ext_resource type="Script" path="res://scripts/camera_raycast_states/default_state.gd" id="6_4fivs"]
+[ext_resource type="Script" path="res://scripts/camera_raycast_states/place_object_state.gd" id="6_iriuf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sx2qc"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -144,7 +145,6 @@ transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422619, 0, -0.422619, 0.906308, 
 projection = 1
 size = 30.0
 near = 0.001
-script = ExtResource("4_cfu70")
 
 [node name="JobCarSpots" type="Node3D" parent="."]
 
@@ -181,3 +181,13 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0,
 [node name="DecorCars" type="Node3D" parent="."]
 
 [node name="Furniture" type="Node3D" parent="."]
+
+[node name="CameraStates" type="Node" parent="."]
+
+[node name="DefaultState" type="Node3D" parent="CameraStates"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.41421, 0, -3.58579)
+script = ExtResource("6_4fivs")
+
+[node name="PlaceObjectState" type="Node3D" parent="CameraStates"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.41421, 0, -3.58579)
+script = ExtResource("6_iriuf")

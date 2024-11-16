@@ -9,6 +9,8 @@ signal hire_mechanic
 signal expand_garage
 signal open_menu(menu_name : String)
 signal travel_to_location(location_name : String)
+signal on_garage_submenu_item_pressed(item_type : String, item)
+signal garage_submenu_closed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,6 +24,8 @@ func _ready():
 	garage_managament_menu.connect("open_menu", open_menu.emit)
 	garage_managament_menu.connect("hire_mechanic", hire_mechanic.emit)
 	garage_managament_menu.connect("expand_garage", expand_garage.emit)
+	garage_managament_menu.connect("on_submenu_item_pressed", on_garage_submenu_item_pressed.emit)
+	garage_managament_menu.connect("submenu_closed", garage_submenu_closed.emit)
 	travel_locations_menu.connect("travel_to_location", travel_to_location.emit)
 
 func change_active_menu(menu_name : String):
@@ -52,3 +56,6 @@ func show_message(text : String, duration : float):
 
 func show_travel_locations():
 	travel_locations_menu.show()
+
+func update_submenu_list():
+	garage_managament_menu.update_submenu_list()

@@ -11,10 +11,13 @@ var is_expanding_garage : bool = false
 func _ready():
 	garage_scene.connect("repair_completed", complete_job)
 	garage_scene.connect("pressed_on_tile", pressed_on_tile)
+	garage_scene.connect("end_placing_item", end_placing_item)
 	ui.connect("hire_mechanic", hire_mechanic)
 	ui.connect("expand_garage", toggle_garage_expansion)
 	ui.connect("open_menu", open_menu)
 	ui.connect("travel_to_location", travel_to_location_no_car)
+	ui.connect("on_garage_submenu_item_pressed", begin_placing_item)
+	ui.connect("garage_submenu_closed", cancel_placing_item)
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
 	ui.update_labels()
@@ -102,7 +105,8 @@ func travel_to_location_no_car(location_name : String):
 		ui = new_scene.get_ui()
 		new_scene.connect("leave_location", travel_to_location_no_car.bind("garage"))
 	else:
-		scene_holder.get_child(0).queue_free()
+		if scene_holder.get_child_count() > 0:
+			scene_holder.get_child(0).queue_free()
 		garage_scene.show()
 		ui = $UI
 		ui.show()
@@ -131,11 +135,26 @@ func buy_car(car_key : String, car_color : Color):
 		ui.show_message("Not enough money to buy this car", 5)
 	ui.update_labels()
 
-#TODO: 
-# UI for car dealership
-# Complete location travel functionality
-# Scene for drag strip
-# Scene for underground race meeta
+func begin_placing_item(item_type : String, item):
+	print_debug(item)
+	ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button or go back to cancel.", 9999)
+	garage_scene.begin_placing_item(item_type, item)
+
+func end_placing_item(placed_item_type : String, placed_item_id):
+	if placed_item_type != "" && placed_item_id != null:
+		print_debug("Update submenu list")
+		
+		## Specific procedures for placing specific types of items
+		match placed_item_type:
+			"car":
+				PlayerStats.get_car(placed_item_id)["is_stored"] = false
+				ui.update_submenu_list()
+			_:
+				pass
+	ui.show_message("", 0)
+
+func cancel_placing_item():
+	garage_scene.finish_placing_item(false, "", null)
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)
