@@ -14,3 +14,8 @@ func set_car(car_data : Dictionary):
 				wheel_position.add_child(wheel_model.duplicate())
 			break
 	$CarPosition.add_child(car_model)
+
+func set_model(model_path : String):
+	var model : Node3D = load(model_path).instantiate()
+	model.scale = Vector3(0.7, 0.7, 0.7)
+	$CarPosition.add_child(model)

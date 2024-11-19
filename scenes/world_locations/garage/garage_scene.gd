@@ -4,6 +4,8 @@ extends WorldLocation
 @onready var job_car_spots : Node3D = $JobCarSpots
 @onready var pending_cars : Array = []
 @onready var garage_tiles : Node3D = $Tiles
+@onready var player_cars : Node3D = $PlayerCars
+@onready var furniture : Node3D = $Furniture
 
 var raycast_default_state_enabled : bool = false
 @onready var raycast_default_state : State = $CameraStates/DefaultState
@@ -15,7 +17,7 @@ signal end_placing_item
 
 func _ready():
 	set_camera($CameraPivot/Camera3D)
-	camera.connect("pressed_on_tile", pass_pressed_tile)
+	raycast_default_state.connect("pressed_on_tile", pass_pressed_tile)
 	raycast_place_object_state.connect("item_placed", finish_placing_item)
 	set_camera_raycast_states("default")
 
@@ -75,10 +77,20 @@ func begin_placing_item(item_type : String, item):
 	raycast_place_object_state.set_item(item_type, item)
 	set_camera_raycast_states("place_object")
 
-func finish_placing_item(placed_successfully : bool, placed_item_type : String, placed_item_id): # : String):
+func finish_placing_item(placed_successfully : bool, placed_item_type : String, placed_item_id, placed_item : Node3D): # : String):
 	if placed_successfully == true && placed_item_type != "" && placed_item_id != null:
 		end_placing_item.emit(placed_item_type, placed_item_id)
 		print_debug("Placed item successfully")
+		match placed_item_type:
+			"car":
+				placed_item.reparent(player_cars, true)
+			"furniture":
+				if placed_item_id.begins_with("car_lift"):
+					placed_item.reparent(car_lifts, true)
+				else:
+					placed_item.reparent(furniture, true)
+			_:
+				print_debug("Invalid item type, can't reparent. Won't be saved")
 	else:
 		print_debug("Cancelled placing item")
 		raycast_place_object_state.clear_item()

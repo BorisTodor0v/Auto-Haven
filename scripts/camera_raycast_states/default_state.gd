@@ -21,4 +21,5 @@ func _process(_delta):
 				collider.interact()
 			if collider is Tile:
 				pressed_on_tile.emit(collider)
-				
+			if collider is PlaceableObject or collider is Car:
+				print_debug("Can move this object")

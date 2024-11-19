@@ -1,14 +1,20 @@
 {
 	"cardboard_box":{
 		"name" : "Cardboard box",
-		"price" : 10
+		"price" : 10,
+		"model_path" : "",
+		"scene_path" : ""
 	},
 	"wall":{
 		"name" : "Basic wall",
-		"price" : 10
+		"price" : 10,
+		"model_path" : "",
+		"scene_path" : ""
 	},
-	"car_lift":{
+	"car_lift_001":{
 		"name" : "Car lift",
-		"price" : 1000
+		"price" : 1000,
+		"model_path" : "res://garage_decorations/car_lifts/car_lift_001/car_lift.glb",
+		"scene_path" : "res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn"
 	},
 }

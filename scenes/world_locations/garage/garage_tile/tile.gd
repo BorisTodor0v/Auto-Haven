@@ -72,7 +72,6 @@ func get_is_unlocked() -> bool:
 	return is_unlocked
 
 func get_can_unlock() -> bool:
-	print_debug(str(can_unlock))
 	return can_unlock
 
 ## If the adjacent tile is unlocked, this tile can be unlocked

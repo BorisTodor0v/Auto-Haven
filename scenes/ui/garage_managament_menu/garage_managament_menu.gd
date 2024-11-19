@@ -57,7 +57,7 @@ func _on_expand_garage_button_pressed():
 
 func _on_car_storage_button_pressed():
 	car_storage_menu.show()
-	car_storage_menu.fill_list()
+	car_storage_menu.show_submenu("car")
 	base_menu.hide()
 
 func hide_submenu():
@@ -67,3 +67,23 @@ func hide_submenu():
 
 func update_submenu_list():
 	car_storage_menu.update_list()
+
+func _on_redecorate_button_pressed():
+	car_storage_menu.show()
+	car_storage_menu.enable_edit_mode()
+	base_menu.hide()
+
+func _on_buy_furniture_button_pressed():
+	car_storage_menu.show()
+	car_storage_menu.show_submenu("furniture")
+	base_menu.hide()
+
+func _on_edit_floor_tiles_button_pressed():
+	car_storage_menu.show()
+	car_storage_menu.show_submenu("floor_tiles")
+	base_menu.hide()
+
+func _on_buy_walls_button_pressed():
+	car_storage_menu.show()
+	car_storage_menu.show_submenu("walls")
+	base_menu.hide()

@@ -17,11 +17,11 @@ var deny_placement_material : StandardMaterial3D = load("res://resources/shaders
 
 func set_item(item_type : String, item):
 	print("Begin placing item:")
+	if current_item != null:
+		clear_item()
 	current_item_type = item_type
 	match item_type:
 		"car":
-			if current_item != null:
-				clear_item()
 			var player_car_data = PlayerStats.get_car(item)
 			var car_model : String = player_car_data["model"]
 			var car_scene_path : String = CarsData.get_car(player_car_data["model"])["scene_path"]
@@ -43,6 +43,24 @@ func set_item(item_type : String, item):
 
 			self.add_child(current_item)
 			current_item.global_rotation.y = 0
+		"furniture":
+			print_debug("Furniture item")
+			var furniture_item_data = FurnitureData.get_values_from_key(item)
+			var furniture_item_model = furniture_item_data["model_path"]
+			var furniture_item_scene = furniture_item_data["scene_path"]
+			
+			var furniture_item_instance = load(furniture_item_scene).instantiate()
+			
+			current_item = furniture_item_instance
+			current_item_id = item
+			current_item_mesh = current_item.get_child(0)
+			if current_item_mesh != null:
+				current_item_default_material = current_item_mesh.get_active_material(0)
+			else:
+				print_debug("PROBLEM, MESH IS NULL")
+
+			self.add_child(current_item)
+			current_item.global_rotation.y = 0
 		_:
 			print_debug("Invalid item type")
 
@@ -57,7 +75,7 @@ func clear_item():
 
 func place_item(placed_sucessfully : bool):
 	if placed_sucessfully && current_item.is_unobstructed():
-		item_placed.emit(placed_sucessfully, current_item_type, current_item_id)
+		item_placed.emit(placed_sucessfully, current_item_type, current_item_id, current_item)
 		current_item_mesh.set_surface_override_material(0, current_item_default_material)
 
 		current_item = null
@@ -66,7 +84,7 @@ func place_item(placed_sucessfully : bool):
 		current_item_id = null
 		current_item_type = ""
 	else:
-		item_placed.emit(placed_sucessfully, "", null)
+		item_placed.emit(placed_sucessfully, "", null, null)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

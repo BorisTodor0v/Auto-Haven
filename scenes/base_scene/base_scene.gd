@@ -73,7 +73,7 @@ func toggle_garage_expansion():
 		garage_scene.hide_unlockable_tiles()
 
 func pressed_on_tile(tile : Tile):
-	if is_expanding_garage == true && tile.can_unlock == true:
+	if is_expanding_garage == true && tile.get_can_unlock() == true:
 		if PlayerStats.get_cash() >= PlayerStats.get_garage_expansion_cost():
 			PlayerStats.remove_cash(PlayerStats.get_garage_expansion_cost())
 			tile.unlock_tile()
@@ -137,8 +137,19 @@ func buy_car(car_key : String, car_color : Color):
 
 func begin_placing_item(item_type : String, item):
 	print_debug(item)
-	ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button or go back to cancel.", 9999)
-	garage_scene.begin_placing_item(item_type, item)
+	match item_type:
+		"car": # Car price is not important as player already owns car / is in storage, begin placing
+			ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button or go back to cancel.", 9999)
+			garage_scene.begin_placing_item(item_type, item)
+		"furniture":
+			var furniture_item_data = FurnitureData.get_values_from_key(item)
+			if PlayerStats.get_cash() >= furniture_item_data["price"]:
+				ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button or go back to cancel.", 9999)
+				garage_scene.begin_placing_item(item_type, item)
+			else:
+				ui.show_message("Not enough money to buy this furniture item", 5)
+		_:
+			print_debug("Placing something else")
 
 func end_placing_item(placed_item_type : String, placed_item_id):
 	if placed_item_type != "" && placed_item_id != null:
@@ -149,12 +160,16 @@ func end_placing_item(placed_item_type : String, placed_item_id):
 			"car":
 				PlayerStats.get_car(placed_item_id)["is_stored"] = false
 				ui.update_submenu_list()
+			"furniture":
+				var furniture_item_data = FurnitureData.get_values_from_key(placed_item_id)
+				PlayerStats.remove_cash(furniture_item_data["price"])
 			_:
 				pass
+	ui.update_labels()
 	ui.show_message("", 0)
 
 func cancel_placing_item():
-	garage_scene.finish_placing_item(false, "", null)
+	garage_scene.finish_placing_item(false, "", null, null)
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)

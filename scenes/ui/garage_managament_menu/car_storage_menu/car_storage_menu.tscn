@@ -97,6 +97,11 @@ size_flags_stretch_ratio = 3.0
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="EditModeBlank" type="Control" parent="OptionsScreen/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="Middle" type="Control" parent="OptionsScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -111,6 +116,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="Control" type="Control" parent="OptionsScreen/VBoxContainer/Middle/MarginContainer"]
 layout_mode = 2

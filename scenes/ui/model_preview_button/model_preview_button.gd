@@ -15,8 +15,19 @@ func assign_car(car_id : int):
 	var preview_scene_instance = preview_scene.instantiate()
 	preview_scene_instance.set_car(general_car_data)
 	sub_viewport.add_child(preview_scene_instance)
-	set_labels(general_car_data["name"], general_car_data["price"])
+	set_labels(general_car_data["name"], -1)
+
+func assign_furniture(furniture_id : String):
+	var furniture_item_data = FurnitureData.get_values_from_key(furniture_id)
+	var preview_scene_instance = preview_scene.instantiate()
+	preview_scene_instance.set_model(furniture_item_data["model_path"])
+	sub_viewport.add_child(preview_scene_instance)
+	print_debug(furniture_item_data["name"] +" "+ str(furniture_item_data["price"]))
+	set_labels(furniture_item_data["name"], furniture_item_data["price"])
 
 func set_labels(name : String, price : int) -> void:
 	name_label.text = name
-	price_label.text = ""
+	if price == -1:
+		price_label.text = ""
+	else:
+		price_label.text = "$%d" % price
