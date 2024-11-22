@@ -37,6 +37,8 @@ func spawn_job():
 				mesh.set_surface_override_material(0, material)
 			instance.add_to_group("Repair Car")
 			instance.set_script(load("res://scripts/interactables/job_car.gd"))
+			# Disables collision area around car to allow moving car lift while car is placed on it
+			instance.disable_area_3d()
 			spot.add_child(instance)
 			job_car_spawned.emit(instance)
 			break

@@ -168,15 +168,19 @@ gizmo_extents = 2.0
 
 [node name="CarLift" parent="CarLifts" instance=ExtResource("4_iop7i")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 2)
+internal_name = "car_lift_001"
 
 [node name="CarLift2" parent="CarLifts" instance=ExtResource("4_iop7i")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 5)
+internal_name = "car_lift_001"
 
 [node name="CarLift3" parent="CarLifts" instance=ExtResource("4_iop7i")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 8)
+internal_name = "car_lift_001"
 
 [node name="CarLift4" parent="CarLifts" instance=ExtResource("4_iop7i")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 11)
+internal_name = "car_lift_001"
 
 [node name="PlayerCars" type="Node3D" parent="."]
 

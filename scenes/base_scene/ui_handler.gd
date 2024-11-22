@@ -11,6 +11,7 @@ signal open_menu(menu_name : String)
 signal travel_to_location(location_name : String)
 signal on_garage_submenu_item_pressed(item_type : String, item)
 signal garage_submenu_closed
+signal edit_mode_enabled(state : bool)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,12 +21,14 @@ func _ready():
 	## be unlocked will always be displayed, which should not happen outside of the managament menu.
 	base_ui.connect("open_menu", open_menu.emit)
 	base_ui.connect("travel_button_pressed", show_travel_locations)
-	## Same comment as above (line 15)
+	## Same comment as above (line 16)
 	garage_managament_menu.connect("open_menu", open_menu.emit)
 	garage_managament_menu.connect("hire_mechanic", hire_mechanic.emit)
 	garage_managament_menu.connect("expand_garage", expand_garage.emit)
 	garage_managament_menu.connect("on_submenu_item_pressed", on_garage_submenu_item_pressed.emit)
 	garage_managament_menu.connect("submenu_closed", garage_submenu_closed.emit)
+	## TODO: If no additional checks are needed for the signal, pass it directly in the connect function
+	garage_managament_menu.connect("edit_mode_enabled", set_edit_mode)
 	travel_locations_menu.connect("travel_to_location", travel_to_location.emit)
 
 func change_active_menu(menu_name : String):
@@ -59,3 +62,7 @@ func show_travel_locations():
 
 func update_submenu_list():
 	garage_managament_menu.update_submenu_list()
+
+func set_edit_mode(state : bool):
+	## TODO: Check if additional checks are needed for each state
+	edit_mode_enabled.emit(state)

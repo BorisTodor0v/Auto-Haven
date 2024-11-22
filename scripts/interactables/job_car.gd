@@ -26,3 +26,15 @@ func confirm_repair_completion():
 	if is_repair_started == true && is_repair_finished == true:
 		var rewards = get_parent().end()
 		repair_completed.emit(rewards[0], rewards[1], is_repaired_by_player)
+
+func disable_collision():
+	$CollisionShape3D.disabled = true
+
+func enable_collision():
+	$CollisionShape3D.disabled = false
+
+func disable_area_3d():
+	$Area3D/CollisionShape3D.disabled = true
+
+func enable_area_3d():
+	$Area3D/CollisionShape3D.disabled = false

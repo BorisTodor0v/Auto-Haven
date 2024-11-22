@@ -3,6 +3,7 @@ extends State
 @onready var camera : Camera3D = $"../../CameraPivot/Camera3D"
 
 signal pressed_on_tile(tile : Tile)
+signal pressed_on_object(object_node : Node3D, object_name : String, car_id : int)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -22,4 +23,9 @@ func _process(_delta):
 			if collider is Tile:
 				pressed_on_tile.emit(collider)
 			if collider is PlaceableObject or collider is Car:
-				print_debug("Can move this object")
+				# If it's a car, it needs to provide which ID it is in the player owned car list, aswell as the model
+				if collider is Car:
+					pressed_on_object.emit(collider, PlayerStats.get_car(int(collider.get_internal_id()))["model"], int(collider.get_internal_id()))
+				# Else, if it's a furniture item, pass only the model name
+				else:
+					pressed_on_object.emit(collider, collider.get_internal_name(), -1)

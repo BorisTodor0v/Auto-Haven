@@ -26,7 +26,7 @@ func disable_car_collision():
 
 func enable_car_collision():
 	current_car.enable_collision()
-	current_car.enable_area_3d()
+	current_car.disable_area_3d()
 
 func start(car : StaticBody3D, _started_by_player : bool):
 	is_started_by_player = _started_by_player

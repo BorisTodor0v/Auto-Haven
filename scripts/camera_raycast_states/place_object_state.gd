@@ -12,11 +12,18 @@ var current_item_mesh : MeshInstance3D = null
 # This variable stores the original material of the item, so that when it is placed it can be restored
 var current_item_default_material
 
+var edit_mode_enabled : bool = false
+var edit_object_original_position
+var edit_object_original_rotation
+
 var allow_placement_material : StandardMaterial3D = load("res://resources/shaders/green_transparent.tres")
 var deny_placement_material : StandardMaterial3D = load("res://resources/shaders/red_transparent.tres")
 
 func set_item(item_type : String, item):
-	print("Begin placing item:")
+	edit_mode_enabled = false # Placing a new item in the garage
+	edit_object_original_position = null
+	edit_object_original_rotation = null
+	print_debug("Begin placing item:")
 	if current_item != null:
 		clear_item()
 	current_item_type = item_type
@@ -33,6 +40,8 @@ func set_item(item_type : String, item):
 			# TODO: Instantiate wheels and add them to the car
 
 			current_item = car_instance
+			current_item.set_internal_name(car_model)
+			current_item.set_internal_id(item)
 			current_item_id = item
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
@@ -50,8 +59,13 @@ func set_item(item_type : String, item):
 			var furniture_item_scene = furniture_item_data["scene_path"]
 			
 			var furniture_item_instance = load(furniture_item_scene).instantiate()
+
 			
 			current_item = furniture_item_instance
+			current_item.set_internal_name(str(item))
+			if current_item.get_internal_name().begins_with("car_lift"):
+				if current_item.has_car():
+					current_item.disable_car_collision()
 			current_item_id = item
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
@@ -63,6 +77,35 @@ func set_item(item_type : String, item):
 			current_item.global_rotation.y = 0
 		_:
 			print_debug("Invalid item type")
+
+func set_edit_item(item_node : Node3D, item_name : String, car_id : int):
+	edit_mode_enabled = true # Moving an existing object in the garage
+	edit_object_original_position = item_node.global_position # Memorize the previous position of the object
+	edit_object_original_rotation = item_node.global_rotation # Memorize the previous rotation of the object
+	if car_id == -1: # Item is a furniture object
+		print_debug("Furniture item")		
+		current_item = item_node
+		current_item_type = "furniture"
+		current_item_id = item_name
+		current_item_mesh = current_item.get_child(0)
+		if current_item_mesh != null:
+			current_item_default_material = current_item_mesh.get_active_material(0)
+		else:
+			print_debug("PROBLEM, MESH IS NULL")
+		current_item.reparent(self, true)
+	elif car_id >= 0: # Item is a player owned car
+		# TODO: Instantiate wheels and add them to the car
+		current_item = item_node
+		current_item_type = "car"
+		current_item.set_internal_name(str(item_name))
+		current_item_id = car_id
+		current_item_mesh = current_item.get_child(0)
+		if current_item_mesh != null:
+			current_item_default_material = current_item_mesh.get_active_material(0)
+		else:
+			print_debug("PROBLEM, MESH IS NULL")
+	else:
+		print_debug("Unknown item type") # Unknown item type
 
 func clear_item():
 	if current_item != null:
@@ -78,13 +121,33 @@ func place_item(placed_sucessfully : bool):
 		item_placed.emit(placed_sucessfully, current_item_type, current_item_id, current_item)
 		current_item_mesh.set_surface_override_material(0, current_item_default_material)
 
+		if current_item.get_internal_name().begins_with("car_lift"):
+			if current_item.has_car():
+				current_item.enable_car_collision()
+
 		current_item = null
 		current_item_mesh = null
 		current_item_default_material = null
 		current_item_id = null
 		current_item_type = ""
 	else:
-		item_placed.emit(placed_sucessfully, "", null, null)
+		if edit_mode_enabled == false:
+			item_placed.emit(placed_sucessfully, "", null, null)
+		else:
+			current_item.global_position = edit_object_original_position
+			current_item.global_rotation = edit_object_original_rotation
+			item_placed.emit(true, current_item_type, current_item_id, current_item)
+			current_item_mesh.set_surface_override_material(0, current_item_default_material)
+
+			if current_item.get_internal_name().begins_with("car_lift"):
+				if current_item.has_car():
+					current_item.enable_car_collision()
+
+			current_item = null
+			current_item_mesh = null
+			current_item_default_material = null
+			current_item_id = null
+			current_item_type = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -101,16 +164,19 @@ func _process(_delta):
 		collider = intersection["collider"]
 		if collider is Tile:
 			if collider.get_is_unlocked() == true:
-				#position = intersection["position"]
+				## Position is in the same position of the cursor, no snapping
+				#current_item.global_position = intersection["position"]
 				## Snap current item position to integer values.
 				current_item.global_position.x = int(intersection["position"][0])
 				current_item.global_position.y = int(intersection["position"][1])
 				current_item.global_position.z = int(intersection["position"][2])
 				## Check for obstructions while moving the item
-				if current_item.is_unobstructed():
-					current_item_mesh.set_surface_override_material(0, allow_placement_material)
-				else:
-					current_item_mesh.set_surface_override_material(0, deny_placement_material)
+	
+	if current_item != null:
+		if current_item.is_unobstructed():
+			current_item_mesh.set_surface_override_material(0, allow_placement_material)
+		else:
+			current_item_mesh.set_surface_override_material(0, deny_placement_material)
 					
 	
 	if(Input.is_action_just_pressed("mouse1")):

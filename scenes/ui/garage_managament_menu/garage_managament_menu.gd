@@ -5,6 +5,7 @@ signal hire_mechanic
 signal expand_garage
 signal on_submenu_item_pressed(item_type : String, item)
 signal submenu_closed
+signal edit_mode_enabled(state : bool)
 
 @onready var cash_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/CashLabel
 @onready var rep_label : Label = $OptionsScreen/VBoxContainer/Top/HBoxContainer/Control/MarginContainer/Panel/MarginContainer/CenterContainer/VBoxContainer/RepLabel
@@ -62,6 +63,7 @@ func _on_car_storage_button_pressed():
 
 func hide_submenu():
 	car_storage_menu.hide()
+	edit_mode_enabled.emit(false)
 	base_menu.show()
 	submenu_closed.emit()
 
@@ -71,6 +73,7 @@ func update_submenu_list():
 func _on_redecorate_button_pressed():
 	car_storage_menu.show()
 	car_storage_menu.enable_edit_mode()
+	edit_mode_enabled.emit(true)
 	base_menu.hide()
 
 func _on_buy_furniture_button_pressed():

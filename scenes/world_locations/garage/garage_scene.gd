@@ -13,11 +13,13 @@ var raycast_default_state_enabled : bool = false
 
 signal repair_completed(cash_reward : int, rep_reward : int)
 signal pressed_on_tile(tile : Tile)
+signal pressed_on_object(object_node : Node3D, object_name : String, car_id : int)
 signal end_placing_item
 
 func _ready():
 	set_camera($CameraPivot/Camera3D)
-	raycast_default_state.connect("pressed_on_tile", pass_pressed_tile)
+	raycast_default_state.connect("pressed_on_tile", pressed_on_tile.emit)
+	raycast_default_state.connect("pressed_on_object", pressed_on_object.emit)
 	raycast_place_object_state.connect("item_placed", finish_placing_item)
 	set_camera_raycast_states("default")
 
@@ -59,9 +61,6 @@ func hide_unlockable_tiles():
 		if tile.can_unlock == true:
 			tile.hide()
 
-func pass_pressed_tile(tile : Tile):
-	pressed_on_tile.emit(tile)
-
 func set_camera_raycast_states(state : String):
 	match state:
 		"default":
@@ -75,6 +74,10 @@ func set_camera_raycast_states(state : String):
 
 func begin_placing_item(item_type : String, item):
 	raycast_place_object_state.set_item(item_type, item)
+	set_camera_raycast_states("place_object")
+
+func begin_edit_item(item_node : Node3D, item_name : String, car_id : int):
+	raycast_place_object_state.set_edit_item(item_node, item_name, car_id)
 	set_camera_raycast_states("place_object")
 
 func finish_placing_item(placed_successfully : bool, placed_item_type : String, placed_item_id, placed_item : Node3D): # : String):

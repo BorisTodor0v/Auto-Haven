@@ -6,18 +6,21 @@ extends Node
 @onready var scene_holder : Node = $Scene
 
 var is_expanding_garage : bool = false
+var is_redecorating : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	garage_scene.connect("repair_completed", complete_job)
 	garage_scene.connect("pressed_on_tile", pressed_on_tile)
 	garage_scene.connect("end_placing_item", end_placing_item)
+	garage_scene.connect("pressed_on_object", set_edit_object)
 	ui.connect("hire_mechanic", hire_mechanic)
 	ui.connect("expand_garage", toggle_garage_expansion)
 	ui.connect("open_menu", open_menu)
 	ui.connect("travel_to_location", travel_to_location_no_car)
 	ui.connect("on_garage_submenu_item_pressed", begin_placing_item)
 	ui.connect("garage_submenu_closed", cancel_placing_item)
+	ui.connect("edit_mode_enabled", set_edit_mode)
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
 	ui.update_labels()
@@ -139,12 +142,12 @@ func begin_placing_item(item_type : String, item):
 	print_debug(item)
 	match item_type:
 		"car": # Car price is not important as player already owns car / is in storage, begin placing
-			ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button or go back to cancel.", 9999)
+			ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
 			garage_scene.begin_placing_item(item_type, item)
 		"furniture":
 			var furniture_item_data = FurnitureData.get_values_from_key(item)
 			if PlayerStats.get_cash() >= furniture_item_data["price"]:
-				ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button or go back to cancel.", 9999)
+				ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
 				garage_scene.begin_placing_item(item_type, item)
 			else:
 				ui.show_message("Not enough money to buy this furniture item", 5)
@@ -162,14 +165,32 @@ func end_placing_item(placed_item_type : String, placed_item_id):
 				ui.update_submenu_list()
 			"furniture":
 				var furniture_item_data = FurnitureData.get_values_from_key(placed_item_id)
-				PlayerStats.remove_cash(furniture_item_data["price"])
+				if is_redecorating == false:
+					PlayerStats.remove_cash(furniture_item_data["price"])
 			_:
 				pass
 	ui.update_labels()
-	ui.show_message("", 0)
+	ui.show_message("", 1)
+	if is_redecorating:
+		ui.show_message("Click over an object to change its position", 9999)
 
 func cancel_placing_item():
 	garage_scene.finish_placing_item(false, "", null, null)
+	if is_redecorating:
+		ui.show_message("Click over an object to change its position", 9999)
+
+func set_edit_mode(state : bool):
+	is_redecorating = state
+	if is_redecorating:
+		ui.show_message("Click over an object to change its position", 9999)
+	else:
+		ui.show_message("", 1)
+
+func set_edit_object(object_node : Node3D, object_name : String, car_id : int):
+	if is_redecorating:
+		print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
+		garage_scene.begin_edit_item(object_node, object_name, car_id)
+		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)
