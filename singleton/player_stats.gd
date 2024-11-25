@@ -11,6 +11,7 @@ var available_mechanics : int = 0
 var mechanic_base_cost : int = 5000
 
 var owned_cars : Dictionary = {}
+var active_car : int = -1
 
 func add_cash(_cash : int):
 	cash += _cash
@@ -72,3 +73,9 @@ func get_owned_cars():
 ## Returns the car that corresponds with the id
 func get_car(id : int):
 	return owned_cars[id]
+
+func get_active_car():
+	return active_car
+
+func set_active_car(id : int):
+	active_car = id

@@ -13,7 +13,7 @@ func _ready():
 	garage_scene.connect("repair_completed", complete_job)
 	garage_scene.connect("pressed_on_tile", pressed_on_tile)
 	garage_scene.connect("end_placing_item", end_placing_item)
-	garage_scene.connect("pressed_on_object", set_edit_object)
+	garage_scene.connect("pressed_on_object", handle_object_clicked)
 	ui.connect("hire_mechanic", hire_mechanic)
 	ui.connect("expand_garage", toggle_garage_expansion)
 	ui.connect("open_menu", open_menu)
@@ -186,11 +186,16 @@ func set_edit_mode(state : bool):
 	else:
 		ui.show_message("", 1)
 
-func set_edit_object(object_node : Node3D, object_name : String, car_id : int):
+func handle_object_clicked(object_node : Node3D, object_name : String, car_id : int):
 	if is_redecorating:
 		print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
 		garage_scene.begin_edit_item(object_node, object_name, car_id)
 		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
+	else:
+		if car_id >= 0:
+			ui.car_interaction_menu_assign_car(car_id)
+			open_menu("car_interaction_menu")
+			
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)

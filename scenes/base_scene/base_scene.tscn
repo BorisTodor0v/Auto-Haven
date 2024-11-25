@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgfgngovtrvgu"]
+[gd_scene load_steps=9 format=3 uid="uid://dgfgngovtrvgu"]
 
 [ext_resource type="Script" path="res://scenes/base_scene/base_scene.gd" id="1_3ysmu"]
 [ext_resource type="PackedScene" uid="uid://ho04pojmu6cd" path="res://scenes/world_locations/garage/garage_scene.tscn" id="2_25v71"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://5fvbbtak1465" path="res://scenes/ui/base/base_ui.tscn" id="3_h0wqx"]
 [ext_resource type="PackedScene" uid="uid://bndf3d7rwn2ed" path="res://scenes/ui/garage_managament_menu/garage_managament_menu.tscn" id="3_nd08u"]
 [ext_resource type="PackedScene" uid="uid://phrehkl71v7e" path="res://scenes/ui/travel_locations_list/travel_locations_list.tscn" id="5_hh60g"]
+[ext_resource type="PackedScene" uid="uid://dm4woahvtnyyt" path="res://scenes/ui/car_interaction_menu/car_interaction_menu.tscn" id="6_ruyxs"]
 
 [node name="BaseScene" type="Node"]
 script = ExtResource("1_3ysmu")
@@ -28,6 +29,10 @@ visible = false
 layout_mode = 1
 
 [node name="TravelLocationsList" parent="UI" instance=ExtResource("5_hh60g")]
+visible = false
+layout_mode = 1
+
+[node name="CarInteractionMenu" parent="UI" instance=ExtResource("6_ruyxs")]
 visible = false
 layout_mode = 1
 

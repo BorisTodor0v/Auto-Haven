@@ -3,6 +3,7 @@ extends UI
 @onready var base_ui : UI = $BaseUI
 @onready var garage_managament_menu : UI = $GarageManagamentMenu
 @onready var travel_locations_menu : Control = $TravelLocationsList
+@onready var car_interaction_menu : UI = $CarInteractionMenu
 var active_menu = "base_ui"
 
 signal hire_mechanic
@@ -21,7 +22,7 @@ func _ready():
 	## be unlocked will always be displayed, which should not happen outside of the managament menu.
 	base_ui.connect("open_menu", open_menu.emit)
 	base_ui.connect("travel_button_pressed", show_travel_locations)
-	## Same comment as above (line 16)
+	## Same comment as above (line 19)
 	garage_managament_menu.connect("open_menu", open_menu.emit)
 	garage_managament_menu.connect("hire_mechanic", hire_mechanic.emit)
 	garage_managament_menu.connect("expand_garage", expand_garage.emit)
@@ -30,6 +31,7 @@ func _ready():
 	## TODO: If no additional checks are needed for the signal, pass it directly in the connect function
 	garage_managament_menu.connect("edit_mode_enabled", set_edit_mode)
 	travel_locations_menu.connect("travel_to_location", travel_to_location.emit)
+	car_interaction_menu.connect("open_menu", open_menu.emit)
 
 func change_active_menu(menu_name : String):
 	match menu_name:
@@ -40,7 +42,13 @@ func change_active_menu(menu_name : String):
 		"base_ui":
 			base_ui.show()
 			garage_managament_menu.hide()
+			car_interaction_menu.hide()
 			active_menu = "base_ui"
+		"car_interaction_menu":
+			if garage_managament_menu.visible == false:
+				base_ui.hide()
+				car_interaction_menu.show()
+				active_menu = "car_interaction_menu"
 		_:
 			print_debug("Invalid menu name")
 
@@ -64,5 +72,7 @@ func update_submenu_list():
 	garage_managament_menu.update_submenu_list()
 
 func set_edit_mode(state : bool):
-	## TODO: Check if additional checks are needed for each state
 	edit_mode_enabled.emit(state)
+
+func car_interaction_menu_assign_car(car_id : int):
+	car_interaction_menu.assign_car(car_id)

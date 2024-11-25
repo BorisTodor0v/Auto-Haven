@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://rdi3stqt7xpw"]
 
-[ext_resource type="Texture2D" uid="uid://c2n5uu1efyxk0" path="res://icon.svg" id="1_yxgbb"]
+[ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_yxgbb"]
 
 [node name="UpgradeScreen" type="Control"]
 layout_mode = 3
