@@ -17,14 +17,16 @@ func _ready():
 	ui.connect("hire_mechanic", hire_mechanic)
 	ui.connect("expand_garage", toggle_garage_expansion)
 	ui.connect("open_menu", open_menu)
-	ui.connect("travel_to_location", travel_to_location_no_car)
+	ui.connect("travel_to_location", travel_to_location)
 	ui.connect("on_garage_submenu_item_pressed", begin_placing_item)
 	ui.connect("garage_submenu_closed", cancel_placing_item)
 	ui.connect("edit_mode_enabled", set_edit_mode)
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
 	ui.update_labels()
-#
+	# Function calls for testing, remove in final version
+	test_func_give_player_car()
+
 func complete_job(cash_reward : int, rep_reward : int, is_repaired_by_player : bool):
 	if is_repaired_by_player == false:
 		PlayerStats.free_mechanic()
@@ -90,23 +92,28 @@ func open_menu(menu_name : String):
 		toggle_garage_expansion()
 	ui.change_active_menu(menu_name)
 
-func travel_to_location_no_car(location_name : String):
+func travel_to_location(location_name : String):
 	var location = LocationsData.get_location(location_name)
 	if location_name != "garage":
-		garage_scene.hide()
-		var new_scene = load(location["path"]).instantiate()
-		scene_holder.add_child(new_scene)
-		if new_scene is WorldLocation:
-			new_scene.get_camera().current = true
-			## Connect specific signals from specific scenes
-			match location_name:
-				"car_dealership":
-					new_scene.connect("player_bought_car", buy_car)
-				_:
-					pass
-		ui.hide()
-		ui = new_scene.get_ui()
-		new_scene.connect("leave_location", travel_to_location_no_car.bind("garage"))
+		if location["requires_car"] == true && PlayerStats.get_active_car() == -1:
+			ui.show_message("Select a car from your garage to travel to this location with", 3)
+		else:
+			garage_scene.hide()
+			var new_scene = load(location["path"]).instantiate()
+			scene_holder.add_child(new_scene)
+			if new_scene is WorldLocation:
+				new_scene.get_camera().current = true
+				## Connect specific signals from specific scenes
+				match location_name:
+					"car_dealership":
+						new_scene.connect("player_bought_car", buy_car)
+					"drag_strip":
+						new_scene.set_player_car(PlayerStats.get_active_car())
+					_:
+						pass
+			ui.hide()
+			ui = new_scene.get_ui()
+			new_scene.connect("leave_location", travel_to_location.bind("garage"))
 	else:
 		if scene_holder.get_child_count() > 0:
 			scene_holder.get_child(0).queue_free()
@@ -195,7 +202,12 @@ func handle_object_clicked(object_node : Node3D, object_name : String, car_id : 
 		if car_id >= 0:
 			ui.car_interaction_menu_assign_car(car_id)
 			open_menu("car_interaction_menu")
-			
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)
+
+func test_func_give_player_car():
+	PlayerStats.add_cash(20000)
+	buy_car("chal", Color(1, .9, 0))
+	PlayerStats.set_active_car(1)
+	pass

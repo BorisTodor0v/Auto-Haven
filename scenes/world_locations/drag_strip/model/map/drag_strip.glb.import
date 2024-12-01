@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ddx8dpioc40ia"
-path="res://.godot/imported/drag_strip.glb-3177e2cdf939613f901abd7dc5f74159.scn"
+uid="uid://dk517miwhrfm6"
+path="res://.godot/imported/drag_strip.glb-347cd9df8786e9e479d57dd60620014c.scn"
 
 [deps]
 
-source_file="res://scenes/world_locations/drag_strip/model/drag_strip.glb"
-dest_files=["res://.godot/imported/drag_strip.glb-3177e2cdf939613f901abd7dc5f74159.scn"]
+source_file="res://scenes/world_locations/drag_strip/model/map/drag_strip.glb"
+dest_files=["res://.godot/imported/drag_strip.glb-347cd9df8786e9e479d57dd60620014c.scn"]
 
 [params]
 

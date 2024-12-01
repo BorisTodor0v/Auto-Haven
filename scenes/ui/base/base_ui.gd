@@ -40,4 +40,3 @@ func clear_message():
 
 func _on_travel_button_pressed():
 	travel_button_pressed.emit()
-	pass # Replace with function body.

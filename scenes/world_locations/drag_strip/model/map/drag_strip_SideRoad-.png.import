@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mp3s7fep6ta3"
-path.s3tc="res://.godot/imported/drag_strip_Color.png-68bad7637c6de6c8f256119e154e373b.s3tc.ctex"
+uid="uid://dfaq44yj4bu8x"
+path.s3tc="res://.godot/imported/drag_strip_SideRoad-.png-36c104d80fcc26733566d35bf14c1fa8.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "05ce3cd7bd577809740a64ceda3c3fb1"
+"md5": "ba0d4ff4d4b6b270829fc39a5a4ea424"
 }
 
 [deps]
 
-source_file="res://scenes/world_locations/drag_strip/model/drag_strip_Color.png"
-dest_files=["res://.godot/imported/drag_strip_Color.png-68bad7637c6de6c8f256119e154e373b.s3tc.ctex"]
+source_file="res://scenes/world_locations/drag_strip/model/map/drag_strip_SideRoad-.png"
+dest_files=["res://.godot/imported/drag_strip_SideRoad-.png-36c104d80fcc26733566d35bf14c1fa8.s3tc.ctex"]
 
 [params]
 

@@ -10,6 +10,19 @@ var total_mechanics : int = 0
 var available_mechanics : int = 0
 var mechanic_base_cost : int = 5000
 
+#car = {
+	#"model": car_key,
+	#"color": car_color,
+	#"wheels": car_data["default_wheels"],
+	#"upgrades": {
+		#"engine": 0,
+		#"weight": 0,
+		#"transmission": 0,
+		#"nitrous": 0
+	#},
+	#"is_stored": true
+#}
+
 var owned_cars : Dictionary = {}
 var active_car : int = -1
 

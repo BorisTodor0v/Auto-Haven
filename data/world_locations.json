@@ -13,7 +13,7 @@
 	},
 	"drag_strip":{
 		"name" : "Drag Strip",
-		"path" : "res://scenes/drag_strip/drag_strip.tscn",
+		"path" : "res://scenes/world_locations/drag_strip/drag_strip.tscn",
 		"requires_car" : true,
 		"description": "Take your cars to the track and test their speed and your reaction time in a drag race, as well as show off what your garage is capable of doing to cars. \nCan choose between practice mode or participate in a race against an opponent."
 	},

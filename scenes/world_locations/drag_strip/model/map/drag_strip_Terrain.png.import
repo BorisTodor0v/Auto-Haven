@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://d10la0tpcboic"
+path.s3tc="res://.godot/imported/drag_strip_Terrain.png-0763a9bd4b8150c0c634526b69ef7d12.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "a0736cdcf48e3289b7e695747358d073"
+}
+
+[deps]
+
+source_file="res://scenes/world_locations/drag_strip/model/map/drag_strip_Terrain.png"
+dest_files=["res://.godot/imported/drag_strip_Terrain.png-0763a9bd4b8150c0c634526b69ef7d12.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

@@ -295,7 +295,7 @@ offset_left = -1.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "CURRENT LOCATION"
+text = "Your garage"
 
 [node name="Timers" type="Node" parent="."]
 
@@ -304,3 +304,4 @@ one_shot = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/ManageGarageButton" to="." method="_on_manage_garage_button_pressed"]
+[connection signal="timeout" from="Timers/MessageTimer" to="." method="clear_message"]

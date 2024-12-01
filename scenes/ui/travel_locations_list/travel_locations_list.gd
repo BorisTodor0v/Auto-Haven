@@ -34,8 +34,8 @@ func on_cancel_button_pressed():
 
 func _on_travel_to_location_button_pressed():
 	var location = LocationsData.get_location(selected_location)
-	if location["requires_car"] == true:
-		print_debug("Can't go to that location yet, need to implement selecting with which car to go there")
-	else:
-		self.hide()
-		travel_to_location.emit(selected_location)
+	#if location["requires_car"] == true:
+		#print_debug("Can't go to that location yet, need to implement selecting with which car to go there")
+	#else:
+	self.hide()
+	travel_to_location.emit(selected_location)

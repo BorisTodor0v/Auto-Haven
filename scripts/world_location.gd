@@ -31,3 +31,6 @@ func set_ui(_ui : UI):
 
 func get_player_car():
 	pass
+
+func set_player_car(player_car_id : int):
+	pass

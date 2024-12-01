@@ -1,0 +1,745 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcbm2bli5ja4u"]
+
+[ext_resource type="Script" path="res://scenes/ui/drag_strip/ui.gd" id="1_2ktnf"]
+[ext_resource type="Texture2D" uid="uid://cdg7h775o3udm" path="res://resources/images/ui/rpm_gauge/rpm_gauge.png" id="2_jnjqu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wssx"]
+bg_color = Color(0.197937, 0.197937, 0.197937, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgfbl"]
+bg_color = Color(0, 0.745098, 0.901961, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.513726, 1, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ktnf")
+
+[node name="RaceTypeSelect" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RaceTypeSelect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RaceTypeSelect/MarginContainer"]
+layout_mode = 2
+
+[node name="Top" type="MarginContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelGauge" type="VBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Level" type="Panel" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Level"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL GAUGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rep" type="Panel" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Rep"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "REP: 999,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Cash" type="Panel" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2/Cash"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "CASH: $99,999,999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control2" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FuelGauge" type="Panel" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FUEL GAUGE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fuel" type="Panel" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "FUEL: 999,999/999,999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Middle" type="MarginContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "What would you like to do?"
+
+[node name="TestRunButton" type="Button" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Test run"
+
+[node name="VersusRunButton" type="Button" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Versus run"
+
+[node name="ReturnToGarageButton" type="Button" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Return to garage"
+
+[node name="Control2" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="Control3" type="Control" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bottom" type="MarginContainer" parent="RaceTypeSelect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="CurrentLocationLabel" type="Label" parent="RaceTypeSelect/MarginContainer/VBoxContainer/Bottom"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Drag strip"
+
+[node name="ConfirmRace" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TestRun" type="Control" parent="ConfirmRace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="ConfirmRace/TestRun"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ConfirmRace/TestRun/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ConfirmRace/TestRun/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "This is a test run. No money will be taken or paid out. 
+Set a time against the clock and practice your gear shifts."
+horizontal_alignment = 1
+
+[node name="StartRunButton" type="Button" parent="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start run"
+
+[node name="CancelRunButton" type="Button" parent="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cancel run"
+
+[node name="VersusRun" type="Control" parent="ConfirmRace"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Launch" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Launch"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Launch/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Launch/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "GET READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Launch/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "TIMER COUNTDOWN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LaunchButton" type="Button" parent="Launch/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "LAUNCH"
+
+[node name="Timer" type="Timer" parent="Launch"]
+
+[node name="Race" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Race"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="Race/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Race/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Left" type="Control" parent="Race/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Nitrous" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Bar" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_5wssx")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xgfbl")
+value = 60.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Label" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -17.5
+offset_right = 17.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "NOS"
+
+[node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RPM" type="TextureProgressBar" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+max_value = 10500.0
+value = 5500.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("2_jnjqu")
+texture_progress = ExtResource("2_jnjqu")
+tint_under = Color(0.190762, 0.190762, 0.190762, 1)
+tint_over = Color(1, 1, 1, 0)
+
+[node name="Redline" type="TextureProgressBar" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+max_value = 10500.0
+value = 3500.0
+fill_mode = 2
+nine_patch_stretch = true
+texture_progress = ExtResource("2_jnjqu")
+tint_under = Color(1, 1, 1, 0)
+tint_over = Color(1, 1, 1, 0)
+tint_progress = Color(1, 0, 0, 1)
+
+[node name="Middle" type="Control" parent="Race/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Middle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+text = "AT STAKE:
+/ | MONEY | CAR"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="NOSButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme_override_font_sizes/font_size = 40
+text = "NOS"
+
+[node name="ShiftGearButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "SHIFT"
+
+[node name="Right" type="Control" parent="Race/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Panel" type="Panel" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gear" type="HBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "GEAR:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Speed" type="HBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "SPEED:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "XXX KM/h"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RaceTime" type="HBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "RACE TIME:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "XX:XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control3" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PostRace" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PostRace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PostRace/MarginContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PostRace/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="PanelContainer" type="PanelContainer" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "POST-RACE REPORT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "RESULT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR REACTION TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR RUN TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR TOTAL TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label6" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPPONENT REACTION TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label7" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPPONENT RUN TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label8" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPPONENT TOTAL TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndRunButton" type="Button" parent="PostRace/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "End run"
+
+[connection signal="pressed" from="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer/TestRunButton" to="." method="_on_test_run_button_pressed"]
+[connection signal="pressed" from="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer/VersusRunButton" to="." method="_on_versus_run_button_pressed"]
+[connection signal="pressed" from="RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer/ReturnToGarageButton" to="." method="_on_return_to_garage_button_pressed"]
+[connection signal="pressed" from="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartRunButton" to="." method="_on_start_test_run_button_pressed"]
+[connection signal="pressed" from="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CancelRunButton" to="." method="_on_cancel_run_button_pressed"]
+[connection signal="pressed" from="Launch/CenterContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
+[connection signal="pressed" from="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/ShiftGearButton" to="." method="_on_shift_gear_button_pressed"]
+[connection signal="pressed" from="PostRace/MarginContainer/VBoxContainer/EndRunButton" to="." method="_on_end_run_button_pressed"]
