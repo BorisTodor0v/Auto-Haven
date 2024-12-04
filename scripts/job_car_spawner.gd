@@ -24,9 +24,10 @@ func spawn_job():
 	timer.wait_time = randi_range(2, 8)
 	for spot : Node3D in car_spots.get_children():
 		if spot.get_child_count() == 0:
-			var car : String = directory[randi_range(0, directory.size()-1)]
-			var scene = load(car_path+"/"+car+"/"+car+".tscn")
-			var instance = scene.instantiate()
+			var size = CarsData.get_all_cars().size()
+			var random_car_key = CarsData.get_all_cars().keys()[randi() % size]
+			var random_car = CarsData.get_car(random_car_key)
+			var instance = load(random_car["scene_path"]).instantiate()
 			var material : StandardMaterial3D = load("res://resources/shaders/car_base_color.tres").duplicate()
 			var mesh : MeshInstance3D = null
 			for child in instance.get_children():

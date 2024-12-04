@@ -358,7 +358,7 @@ text = "GET READY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Launch/CenterContainer/VBoxContainer"]
+[node name="CountdownLabel" type="Label" parent="Launch/CenterContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
 text = "TIMER COUNTDOWN"
@@ -370,7 +370,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "LAUNCH"
 
-[node name="Timer" type="Timer" parent="Launch"]
+[node name="CountdownTimer" type="Timer" parent="Launch"]
+wait_time = 2.0
+one_shot = true
 
 [node name="Race" type="Control" parent="."]
 visible = false
@@ -506,7 +508,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+[node name="WagerLabel" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 30
@@ -518,17 +520,43 @@ autowrap_mode = 2
 [node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 
-[node name="NOSButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+[node name="Control2" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer"]
+layout_mode = 2
+
+[node name="NOSButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control"]
+layout_mode = 2
+offset_right = 556.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 theme_override_font_sizes/font_size = 40
 text = "NOS"
 
-[node name="ShiftGearButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+[node name="Control2" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer"]
 layout_mode = 2
+
+[node name="ShiftGearButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2"]
+layout_mode = 2
+offset_top = 67.0
+offset_right = 556.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 50
 text = "SHIFT"
@@ -686,48 +714,55 @@ text = "POST-RACE REPORT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ResultLabel" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "RESULT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlayerReactionTimeLabel" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "YOUR REACTION TIME: XX.XXX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlayerRunTimeLabel" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "YOUR RUN TIME: XX.XXX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label5" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlayerTotalTimeLabel" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "YOUR TOTAL TIME: XX.XXX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label6" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="OppReactionTime" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "OPPONENT REACTION TIME: XX.XXX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label7" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="OppRunTime" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "OPPONENT RUN TIME: XX.XXX"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label8" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="OppTotalTime" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "OPPONENT TOTAL TIME: XX.XXX"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RewardLabel" type="Label" parent="PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "REWARD: _________________________"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="EndRunButton" type="Button" parent="PostRace/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -741,5 +776,5 @@ text = "End run"
 [connection signal="pressed" from="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartRunButton" to="." method="_on_start_test_run_button_pressed"]
 [connection signal="pressed" from="ConfirmRace/TestRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CancelRunButton" to="." method="_on_cancel_run_button_pressed"]
 [connection signal="pressed" from="Launch/CenterContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
-[connection signal="pressed" from="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/ShiftGearButton" to="." method="_on_shift_gear_button_pressed"]
+[connection signal="pressed" from="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton" to="." method="_on_shift_gear_button_pressed"]
 [connection signal="pressed" from="PostRace/MarginContainer/VBoxContainer/EndRunButton" to="." method="_on_end_run_button_pressed"]

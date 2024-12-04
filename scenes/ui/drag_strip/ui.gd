@@ -14,12 +14,31 @@ signal race_confirmed
 
 # Launch / Countdown
 @onready var launch_screen : Control = $Launch
+@onready var race_start_countdown_timer : Timer = $Launch/CountdownTimer
+@onready var race_start_countdown_label : Label = $Launch/CenterContainer/VBoxContainer/CountdownLabel
+signal launch
 
 # Race UI
 @onready var race_screen : Control = $Race
+@onready var rpm_gauge_redline : TextureProgressBar = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM/Redline
+@onready var rpm_gauge_rpm : TextureProgressBar = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM
+
+@onready var wager_reminder_label : Label = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/WagerLabel
+@onready var gear_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear/Value
+@onready var speed_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed/Value
+@onready var race_time_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime/Value
+
+@onready var gearshift_button : Button = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton
+@onready var nitrous_button : Button = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton
+
+signal shift_gear
 
 # Post Race Debrief
 @onready var post_race_screen : Control = $PostRace
+@onready var result_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ResultLabel
+@onready var player_reaction_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerReactionTimeLabel
+@onready var player_run_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerRunTimeLabel
+@onready var player_total_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerTotalTimeLabel
 signal run_finished
 
 signal leave_location
@@ -69,15 +88,54 @@ func _on_start_test_run_button_pressed():
 	launch_screen.show()
 	race_confirmed.emit()
 
+func set_countdown_label_text(time : String):
+	race_start_countdown_label.text = time
+
 func _on_launch_button_pressed():
+	launch.emit()
+
+func show_race_screen():
 	launch_screen.hide()
 	race_screen.show()
 
-func _on_shift_gear_button_pressed():
+func show_post_race_screen(finish_type : String, run_stats : Dictionary):
+	launch_screen.hide()
 	race_screen.hide()
+	
+	if finish_type == "dsq":
+		result_label.text = "Disqualified - Jump start"
+	elif finish_type == "win":
+		result_label.text = "Victory"
+	else:
+		result_label.text = "Loss"
+	
+	player_reaction_time_label.text = "Your reaction time: %.3f" % run_stats["reaction_time"]
+	player_run_time_label.text = "Your race time: %.3f" % run_stats["race_time"]
+	player_total_time_label.text = "Your total time: %.3f" % run_stats["total_time"]
+	
 	post_race_screen.show()
+
+func _on_shift_gear_button_pressed():
+	shift_gear.emit()
 
 func _on_end_run_button_pressed():
 	post_race_screen.hide()
 	race_select.show()
 	run_finished.emit()
+
+func set_redline(rpm):
+	rpm_gauge_redline.value = 10500 - rpm
+
+func set_rpm(rpm):
+	rpm_gauge_rpm.value = rpm
+
+func set_race_labels(gear : int, speed : float, race_time : float):
+	gear_label.text = str(gear)
+	speed_label.text = "%d KM/H" % (speed * 3.6)
+	race_time_label.text = "%.3f" % race_time
+
+func hide_upshift_button():
+	gearshift_button.hide()
+
+func show_upshift_button():
+	gearshift_button.show()
