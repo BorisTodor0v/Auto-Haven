@@ -19,7 +19,7 @@
 	},
 	"underground_race_meet":{
 		"name" : "Underground Race Meet",
-		"path" : "res://scenes/underground_race_meet/underground_race_meet.tscn",
+		"path" : "res://scenes/world_locations/underground_car_meet/underground_race_meet.tscn",
 		"requires_car" : true,
 		"description": "Think your car is good and your driving can match it? Put your money where your mouth and participate in unsanctioned street races with cash buy-ins. Who knows what kind of people you'll be up against, but the risk is worth the reward."
 	}

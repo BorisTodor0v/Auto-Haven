@@ -4,6 +4,7 @@ extends Node
 @onready var ui = $UI
 @onready var job_car_spawner : Node = $JobCarSpawner
 @onready var scene_holder : Node = $Scene
+@onready var car_interaction_menu : Node = $UI/CarInteractionMenu
 
 var is_expanding_garage : bool = false
 var is_redecorating : bool = false
@@ -23,6 +24,7 @@ func _ready():
 	ui.connect("edit_mode_enabled", set_edit_mode)
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
+	car_interaction_menu.connect("upgrade_car", upgrade_car)
 	ui.update_labels()
 	# Function calls for testing, remove in final version
 	test_func_give_player_car()
@@ -137,7 +139,17 @@ func buy_car(car_key : String, car_color : Color):
 				"transmission": 0,
 				"nitrous": 0
 			},
-			"is_stored": true
+			"is_stored": true,
+			"performance_data": {
+				"top_speed_for_gear": car_data["top_speed_for_gear"],
+				"top_speed_mps": car_data["top_speed_mps"],
+				"acceleration_rate_for_gear": car_data["acceleration_rate_for_gear"],
+				"redline": car_data["redline"],
+				"max_rpm": car_data["max_rpm"],
+				"gears": car_data["gears"]
+			},
+			"wins": 0,
+			"losses": 0
 		}
 		PlayerStats.add_car(new_car)
 		ui.show_message("Congratulations on your new car. Go to your garage to place it and show it off.", 5)
@@ -202,6 +214,9 @@ func handle_object_clicked(object_node : Node3D, object_name : String, car_id : 
 		if car_id >= 0:
 			ui.car_interaction_menu_assign_car(car_id)
 			open_menu("car_interaction_menu")
+
+func upgrade_car(car_id : int, upgrade_type : String):
+	PlayerStats.upgrade_car(car_id, upgrade_type)
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)

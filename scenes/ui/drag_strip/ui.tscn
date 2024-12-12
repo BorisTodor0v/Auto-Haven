@@ -441,7 +441,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_5wssx")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xgfbl")
-value = 60.0
+value = 100.0
 fill_mode = 3
 show_percentage = false
 
@@ -454,6 +454,7 @@ offset_left = -17.5
 offset_right = 17.5
 offset_bottom = 23.0
 grow_horizontal = 2
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 20
 text = "NOS"
 
@@ -508,15 +509,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WagerLabel" type="Label" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 30
-text = "AT STAKE:
-/ | MONEY | CAR"
-horizontal_alignment = 1
-autowrap_mode = 2
-
 [node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -535,13 +527,17 @@ grow_vertical = 2
 
 [node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="NOSButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control"]
-layout_mode = 2
-offset_right = 556.0
-offset_bottom = 63.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
 theme_override_font_sizes/font_size = 40
@@ -549,12 +545,13 @@ text = "NOS"
 
 [node name="Control2" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ShiftGearButton" type="Button" parent="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2"]
-layout_mode = 2
-offset_top = 67.0
-offset_right = 556.0
-offset_bottom = 207.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3

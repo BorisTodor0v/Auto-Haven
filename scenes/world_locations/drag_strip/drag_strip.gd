@@ -23,7 +23,7 @@ enum RaceStates {
 	RUN,
 	FINISHED
 }
-var race_state : RaceStates = RaceStates.LAUNCH
+var race_state : RaceStates = RaceStates.NONE
 @onready var race_countdown_timer : Timer = $Node/RaceStartCountdownTimer
 
 # Called when the node enters the scene tree for the first time.
@@ -63,7 +63,12 @@ func set_player_car(player_car_id : int):
 	player_car = instance
 	player_car_position.add_child(player_car)
 	
-	ui.set_redline(general_car_data["redline"])
+	if player_car_data["upgrades"]["nitrous"] == 0:
+		ui.hide_nitrous_components()
+	else:
+		ui.show_nitrous_components()
+	
+	ui.set_redline(player_car_data["performance_data"]["redline"])
 
 func set_active_camera(camera_type : int):
 	match camera_type:
@@ -90,9 +95,9 @@ func launch():
 		show_post_race_screen("dsq")
 
 func accelerate_player_car(delta):
-	if current_rpm < general_car_data["max_rpm"] && current_velocity < general_car_data["top_speed_mps"]:
-		current_rpm = current_velocity / general_car_data["top_speed_for_gear"][current_gear - 1] * general_car_data["max_rpm"]
-		current_velocity += general_car_data["acceleration_rate_for_gear"][current_gear - 1] * delta
+	if current_rpm < player_car_data["performance_data"]["max_rpm"] && current_velocity < player_car_data["performance_data"]["top_speed_mps"]:
+		current_rpm = current_velocity / player_car_data["performance_data"]["top_speed_for_gear"][current_gear - 1] * player_car_data["performance_data"]["max_rpm"]
+		current_velocity += player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * delta
 	ui.set_rpm(current_rpm)
 	move_player_car(delta)
 
@@ -109,14 +114,14 @@ func move_player_car(delta):
 	race_camera.global_position = lerp(race_camera.global_position, camera_tracker.global_position, randf_range(0.17, 0.2))
 
 func shift_gear():
-	if current_gear < general_car_data["gears"]:
+	if current_gear < player_car_data["performance_data"]["gears"]:
 			player_car.play_gearshift_animation()
 			current_gear += 1
-			if current_gear == general_car_data["gears"]:
+			if current_gear == player_car_data["performance_data"]["gears"]:
 				ui.hide_upshift_button()
 			
-			var previous_gear_top_speed = general_car_data["top_speed_for_gear"][current_gear - 2]
-			var new_gear_top_speed = general_car_data["top_speed_for_gear"][current_gear - 1]
+			var previous_gear_top_speed = player_car_data["performance_data"]["top_speed_for_gear"][current_gear - 2]
+			var new_gear_top_speed = player_car_data["performance_data"]["top_speed_for_gear"][current_gear - 1]
 			current_rpm *= previous_gear_top_speed / new_gear_top_speed
 
 func _on_finish_line_area_3d_area_entered(area):

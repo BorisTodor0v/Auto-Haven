@@ -600,3 +600,30 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 2, 6)
 
 [node name="UI" parent="." instance=ExtResource("27_snt7u")]
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(0.5, 0.762688, -0.410253, -7.45058e-09, 0.473719, 0.880676, 0.866025, -0.440338, 0.23686, 5.82828, 5, -4.98856)
+light_energy = 3.0
+spot_range = 6.997
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(0.5, 0.762688, -0.410253, -7.45058e-09, 0.473719, 0.880676, 0.866025, -0.440338, 0.23686, 5.82828, 5, -8.98856)
+light_energy = 3.0
+spot_range = 6.997
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(0.5, 0.762688, -0.410253, -7.45058e-09, 0.473719, 0.880676, 0.866025, -0.440338, 0.23686, 5.82828, 5, -12.9886)
+light_energy = 3.0
+spot_range = 6.997
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(0.5, 0.762688, -0.410253, -7.45058e-09, 0.473719, 0.880676, 0.866025, -0.440338, 0.23686, 5.82828, 5, -15.9886)
+light_energy = 3.0
+spot_range = 6.997
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 1.05885e-08, 1.96846e-08, -2.23517e-08, 0.473719, 0.880676, 0, -0.880676, 0.473719, 0.237558, 3, 2.01144)
+light_energy = 3.0
+spot_range = 6.997

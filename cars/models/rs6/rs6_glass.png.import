@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://tkseboqg648r"
+path.s3tc="res://.godot/imported/rs6_glass.png-5e8b57a9d05fc3587f151a5ee23d9e81.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "994cd426d9e521897b8a9e326eb91591"
+}
+
+[deps]
+
+source_file="res://cars/models/rs6/rs6_glass.png"
+dest_files=["res://.godot/imported/rs6_glass.png-5e8b57a9d05fc3587f151a5ee23d9e81.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

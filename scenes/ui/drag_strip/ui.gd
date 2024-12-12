@@ -29,7 +29,9 @@ signal launch
 @onready var race_time_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime/Value
 
 @onready var gearshift_button : Button = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton
+
 @onready var nitrous_button : Button = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton
+@onready var nitrous_bar : Control = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar
 
 signal shift_gear
 
@@ -139,3 +141,11 @@ func hide_upshift_button():
 
 func show_upshift_button():
 	gearshift_button.show()
+
+func hide_nitrous_components():
+	nitrous_bar.hide()
+	nitrous_button.hide()
+
+func show_nitrous_components():
+	nitrous_bar.show()
+	nitrous_button.show()

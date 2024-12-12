@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm4woahvtnyyt"]
+[gd_scene load_steps=5 format=3 uid="uid://dm4woahvtnyyt"]
 
 [ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_ccxak"]
 [ext_resource type="Script" path="res://scenes/ui/car_interaction_menu/car_interaction_menu.gd" id="1_lk5si"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_667rb"]
+viewport_path = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/SubViewport")
+
+[sub_resource type="World3D" id="World3D_sli5c"]
 
 [node name="CarInteractionMenu" type="Control"]
 layout_mode = 3
@@ -13,7 +18,6 @@ grow_vertical = 2
 script = ExtResource("1_lk5si")
 
 [node name="Submenu" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -127,12 +131,19 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.74
-texture = ExtResource("1_ccxak")
+texture = SubResource("ViewportTexture_667rb")
+expand_mode = 3
+stretch_mode = 6
 
 [node name="SetActiveCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "\"SET AS ACTIVE CAR\" BUTTON"
+
+[node name="SubViewport" type="SubViewport" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview"]
+own_world_3d = true
+world_3d = SubResource("World3D_sli5c")
+transparent_bg = true
 
 [node name="CustomizationPart" type="Control" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer"]
 layout_mode = 2
@@ -176,13 +187,23 @@ grow_vertical = 2
 [node name="OptionName" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "ENGINE"
+text = "ENGINE LVL. XX"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionPreviewTexture" type="TextureRect" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("1_ccxak")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "PARTS 9999/9999"
+horizontal_alignment = 1
 
 [node name="CustomizationOptionButton2" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid"]
 clip_contents = true
@@ -199,14 +220,25 @@ grow_vertical = 2
 
 [node name="OptionName" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton2/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
-text = "TRANSMISSION"
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 13
+text = "TRANSMISSION LVL. XX"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionPreviewTexture" type="TextureRect" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("1_ccxak")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "PARTS 9999/9999"
+horizontal_alignment = 1
 
 [node name="CustomizationOptionButton3" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid"]
 clip_contents = true
@@ -223,14 +255,23 @@ grow_vertical = 2
 
 [node name="OptionName" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
 text = "COLOR"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionPreviewTexture" type="TextureRect" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("1_ccxak")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_alignment = 1
 
 [node name="CustomizationOptionButton4" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid"]
 clip_contents = true
@@ -247,14 +288,24 @@ grow_vertical = 2
 
 [node name="OptionName" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
-text = "WEIGHT"
+size_flags_vertical = 3
+text = "WEIGHT LVL. XX"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionPreviewTexture" type="TextureRect" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("1_ccxak")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "PARTS 9999/9999"
+horizontal_alignment = 1
 
 [node name="CustomizationOptionButton5" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid"]
 clip_contents = true
@@ -271,14 +322,24 @@ grow_vertical = 2
 
 [node name="OptionName" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
-text = "NITROUS"
+size_flags_vertical = 3
+text = "NITROUS LVL. XX"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionPreviewTexture" type="TextureRect" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("1_ccxak")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "PARTS 9999/9999"
+horizontal_alignment = 1
 
 [node name="CustomizationOptionButton6" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid"]
 clip_contents = true
@@ -295,14 +356,23 @@ grow_vertical = 2
 
 [node name="OptionName" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
 text = "WHEELS"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="OptionPreviewTexture" type="TextureRect" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
 texture = ExtResource("1_ccxak")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 128)
@@ -340,16 +410,16 @@ size_flags_vertical = 6
 text = "ACCELERATION"
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+[node name="NitrousLabel" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-text = "Text"
+text = "NITROUS DURATION: XX.XXX SEC. |  POWER: xXX.XXX"
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
+[node name="WinRateLabel" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/MarginContainer2/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-text = "Text"
+text = "RACE STATS: WINS: XXXX | LOSSES: XXXX"
 vertical_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Top/Buttons/CloseButton" to="." method="_on_close_button_pressed"]
