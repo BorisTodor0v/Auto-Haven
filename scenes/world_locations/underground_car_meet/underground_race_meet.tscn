@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpwgfs3bmyiuv"]
+[gd_scene load_steps=10 format=3 uid="uid://cpwgfs3bmyiuv"]
 
 [ext_resource type="PackedScene" uid="uid://ddc7j7sbj5kww" path="res://scenes/world_locations/underground_car_meet/model/underground_car_meet.glb" id="1_82v3d"]
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/underground_race_meet.gd" id="1_ou5pt"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://c2s5y8gry4n4e" path="res://cars/models/rs6/rs6.glb" id="4_yr836"]
 [ext_resource type="PackedScene" uid="uid://d1y3shhtww1ky" path="res://cars/models/5s60/5s60.glb" id="5_eiw2v"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="6_h7rnh"]
+[ext_resource type="PackedScene" uid="uid://bctp5lksixvfl" path="res://cars/models/gtr34/gtr34.glb" id="6_s5ay7"]
+[ext_resource type="PackedScene" uid="uid://ccbd37a25d0xe" path="res://cars/models/ris/ris.glb" id="8_aim80"]
+[ext_resource type="PackedScene" uid="uid://c5xeaowbhm2yi" path="res://cars/models/camaro69/camaro69.glb" id="9_4y2gf"]
 
 [node name="UndergroundRaceMeet" type="Node3D"]
 script = ExtResource("1_ou5pt")
@@ -118,6 +121,9 @@ spot_range = 4.2
 
 [node name="PlaceholderCars" type="Node3D" parent="."]
 
+[node name="ris" parent="PlaceholderCars" instance=ExtResource("8_aim80")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 6, 0, 0)
+
 [node name="gt500shelby2" parent="PlaceholderCars" instance=ExtResource("3_mckiy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 6)
 
@@ -126,6 +132,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
 
 [node name="5s602" parent="PlaceholderCars" instance=ExtResource("5_eiw2v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+
+[node name="gtr342" parent="PlaceholderCars" instance=ExtResource("6_s5ay7")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3, 0, 0)
+
+[node name="camaro692" parent="PlaceholderCars" instance=ExtResource("9_4y2gf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -4, 12, 13)

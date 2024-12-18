@@ -10,11 +10,10 @@ extends UI
 @onready var confirm_race_screen : Control = $ConfirmRace
 @onready var test_run_confirm_screen : Control = $ConfirmRace/TestRun
 @onready var versus_run_confirm_screen : Control = $ConfirmRace/VersusRun
-signal race_confirmed
+signal race_confirmed(race_type : String)
 
 # Launch / Countdown
 @onready var launch_screen : Control = $Launch
-@onready var race_start_countdown_timer : Timer = $Launch/CountdownTimer
 @onready var race_start_countdown_label : Label = $Launch/CenterContainer/VBoxContainer/CountdownLabel
 signal launch
 
@@ -41,6 +40,9 @@ signal shift_gear
 @onready var player_reaction_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerReactionTimeLabel
 @onready var player_run_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerRunTimeLabel
 @onready var player_total_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerTotalTimeLabel
+@onready var rival_reaction_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppReactionTime
+@onready var rival_run_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppRunTime
+@onready var rival_total_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppTotalTime
 signal run_finished
 
 signal leave_location
@@ -64,15 +66,17 @@ func _on_test_run_button_pressed():
 	show_confirm_race_screen("test_run")
 
 func _on_versus_run_button_pressed():
-	print_debug("To be implemented: Opponent generation + Driving mechanics")
+	show_confirm_race_screen("versus_run")
 
 func show_confirm_race_screen(race_type : String):
 	match race_type:
 		"test_run":
 			confirm_race_screen.show()
+			versus_run_confirm_screen.hide()
 			test_run_confirm_screen.show()
 		"versus_run":
 			confirm_race_screen.show()
+			test_run_confirm_screen.hide()
 			versus_run_confirm_screen.show()
 		_:
 			print_debug("Invalid race type")
@@ -88,7 +92,15 @@ func _on_start_test_run_button_pressed():
 	test_run_confirm_screen.hide()
 	confirm_race_screen.hide()
 	launch_screen.show()
-	race_confirmed.emit()
+	race_confirmed.emit("test_run")
+
+func _on_start_versus_run_button_pressed():
+	race_select.hide()
+	test_run_confirm_screen.hide()
+	confirm_race_screen.hide()
+	launch_screen.show()
+	race_confirmed.emit("versus_run")
+	print_debug("Start versus run")
 
 func set_countdown_label_text(time : String):
 	race_start_countdown_label.text = time
@@ -101,21 +113,36 @@ func show_race_screen():
 	race_screen.show()
 
 func show_post_race_screen(finish_type : String, run_stats : Dictionary):
-	launch_screen.hide()
-	race_screen.hide()
-	
-	if finish_type == "dsq":
-		result_label.text = "Disqualified - Jump start"
-	elif finish_type == "win":
-		result_label.text = "Victory"
-	else:
-		result_label.text = "Loss"
-	
+	if post_race_screen.visible == false:
+		launch_screen.hide()
+		race_screen.hide()
+		
+		if finish_type == "dsq":
+			result_label.text = "Disqualified - Jump start"
+			rival_reaction_time_label.text = "Rival reaction time: %.3f" % 0
+			rival_run_time_label.text = "Rival run time: %.3f" % 0
+			rival_total_time_label.text = "Rival total time: %.3f" % 0
+		elif finish_type == "win":
+			result_label.text = "Victory"
+		else:
+			result_label.text = "Loss"
+		
 	player_reaction_time_label.text = "Your reaction time: %.3f" % run_stats["reaction_time"]
-	player_run_time_label.text = "Your race time: %.3f" % run_stats["race_time"]
+	player_run_time_label.text = "Your run time: %.3f" % run_stats["player_run_time"]
 	player_total_time_label.text = "Your total time: %.3f" % run_stats["total_time"]
+	if finish_type != "dsq":
+		rival_reaction_time_label.text = "Rival reaction time: %.3f" % run_stats["rival_reaction_time"]
+		rival_run_time_label.text = "Rival run time: %.3f" % run_stats["rival_run_time"]
+		rival_total_time_label.text = "Rival total time: %.3f" % run_stats["rival_total_time"]
 	
 	post_race_screen.show()
+	#
+	#"reaction_time" : player_reaction_time,
+		#"player_run_time": player_time - player_reaction_time,
+		#"total_time": player_time,
+		#"rival_reaction_time": rival_reaction_time,
+		#"rival_run_time": rival_time - rival_reaction_time,
+		#"rival_total_time": rival_time
 
 func _on_shift_gear_button_pressed():
 	shift_gear.emit()
@@ -149,3 +176,7 @@ func hide_nitrous_components():
 func show_nitrous_components():
 	nitrous_bar.show()
 	nitrous_button.show()
+
+func _on_countdown_timer_timeout():
+	print_debug("Timed out")
+	pass # Replace with function body.

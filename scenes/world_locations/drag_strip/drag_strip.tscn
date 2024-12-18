@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=4 uid="uid://ctil8ytir777c"]
+[gd_scene load_steps=22 format=4 uid="uid://ctil8ytir777c"]
 
 [ext_resource type="Script" path="res://scenes/world_locations/drag_strip/drag_strip.gd" id="1_4xsk2"]
 [ext_resource type="PackedScene" uid="uid://dcbm2bli5ja4u" path="res://scenes/ui/drag_strip/ui.tscn" id="2_llbg3"]
-[ext_resource type="PackedScene" uid="uid://d1y3shhtww1ky" path="res://cars/models/5s60/5s60.glb" id="2_xsqnt"]
 [ext_resource type="Texture2D" uid="uid://dfaq44yj4bu8x" path="res://scenes/world_locations/drag_strip/model/map/drag_strip_SideRoad-.png" id="3_3adck"]
 [ext_resource type="Texture2D" uid="uid://b67832m126png" path="res://scenes/world_locations/drag_strip/model/map/drag_strip_Road-.png" id="4_18cmr"]
 [ext_resource type="Texture2D" uid="uid://cnx82beximmg3" path="res://scenes/world_locations/drag_strip/model/map/drag_strip_Concrete_Barrier.png" id="5_203kg"]
@@ -200,8 +199,10 @@ shadow_mesh = SubResource("ArrayMesh_xjyen")
 [sub_resource type="BoxShape3D" id="BoxShape3D_j1u0a"]
 size = Vector3(16, 1, 10)
 
-[node name="DragStrip" type="Node3D"]
+[node name="DragStrip" type="Node3D" node_paths=PackedStringArray("rival_car_position", "reaction_timer")]
 script = ExtResource("1_4xsk2")
+rival_car_position = NodePath("Grid Positions/Slot2")
+reaction_timer = NodePath("Node/RivalDriverReactionTimeTimer")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -214,8 +215,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -2.7)
 
 [node name="Slot2" type="Node3D" parent="Grid Positions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -2.7)
-
-[node name="5s602" parent="Grid Positions/Slot2" instance=ExtResource("2_xsqnt")]
 
 [node name="CameraHolder" type="Node3D" parent="."]
 
@@ -256,7 +255,7 @@ mesh = SubResource("ArrayMesh_l27t3")
 skeleton = NodePath("")
 
 [node name="FinishLineArea3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 200)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FinishLineArea3D"]
 shape = SubResource("BoxShape3D_j1u0a")
@@ -267,4 +266,9 @@ shape = SubResource("BoxShape3D_j1u0a")
 wait_time = 2.0
 one_shot = true
 
+[node name="RivalDriverReactionTimeTimer" type="Timer" parent="Node"]
+one_shot = true
+
 [connection signal="area_entered" from="FinishLineArea3D" to="." method="_on_finish_line_area_3d_area_entered"]
+[connection signal="timeout" from="Node/RaceStartCountdownTimer" to="." method="_on_race_start_countdown_timer_timeout"]
+[connection signal="timeout" from="Node/RivalDriverReactionTimeTimer" to="." method="_on_rival_driver_reaction_time_timer_timeout"]

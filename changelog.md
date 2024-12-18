@@ -1,13 +1,7 @@
- - Improved Car Dealership scene - Added lighting over cars
- - Added model for new car "rs6"
- - Added model and initial scene for new world location - Underground car meet
- - Added model for new car "gt500shelby"
- - Changes to car interaction menu:
-	 - Shows level of each upgrade
-	 - Shows parts needed for each upgrade
-	 - Added temp label for nitrous duration and power
-	 - Added temp label for race wins and losses with current car
-- Additions to PlayerStats singleton to handle upgrading cars
-- Added performance data for each individual player owned car
-	- This is used to keep track of performance upgrades of individual cars and allows easier access to this data where needed
-- Changed Drag Strip UI to hide/show nitrous related components depending if the player's car has nitrous upgraded
+ - Added model for new car "gtr34"
+ - Added model for new car "ris"
+ - Added model for new car "camaro69"
+ - Changes to Drag Strip scene:
+	- Changed UI to show confirmation dialog when selecting "Versus run"
+	- Added generation of rival cars
+	- Implemented rival driving mechanics
