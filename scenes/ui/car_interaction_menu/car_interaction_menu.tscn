@@ -202,7 +202,7 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "PARTS 9999/9999"
+text = "MAXED OUT"
 horizontal_alignment = 1
 
 [node name="CustomizationOptionButton2" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid"]

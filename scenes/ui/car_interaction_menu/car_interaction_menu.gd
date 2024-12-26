@@ -71,10 +71,33 @@ func assign_car(car_id : int):
 	weight_level_label.text = "WEIGHT LVL. " + str(player_car_data["upgrades"]["weight"])
 	nitrous_level_label.text = "NITROUS LVL. " + str(player_car_data["upgrades"]["nitrous"])
 	# Upgrade buttons
-	engine_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("engine")) + "/" + str((player_car_data["upgrades"]["engine"]+1)*10)
-	transmission_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("transmission")) + "/" + str((player_car_data["upgrades"]["transmission"]+1)*10)
-	weight_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("weight")) + "/" + str((player_car_data["upgrades"]["weight"]+1)*10)
-	nitrous_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("nitrous")) + "/" + str((player_car_data["upgrades"]["nitrous"]+1)*10)
+	if (player_car_data["upgrades"]["engine"]) < 10:
+		engine_upgrade_button.disabled = false
+		engine_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("engine")) + "/" + str((player_car_data["upgrades"]["engine"]+1)*10)
+	else:
+		engine_upgrade_button.disabled = true
+		engine_parts_label.text = "Maxed out"
+	
+	if (player_car_data["upgrades"]["transmission"]) < 10:
+		transmission_upgrade_button.disabled = false
+		transmission_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("engine")) + "/" + str((player_car_data["upgrades"]["transmission"]+1)*10)
+	else:
+		transmission_upgrade_button.disabled = true
+		transmission_parts_label.text = "Maxed out"
+	
+	if (player_car_data["upgrades"]["weight"]) < 10:
+		weight_upgrade_button.disabled = false
+		weight_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("engine")) + "/" + str((player_car_data["upgrades"]["weight"]+1)*10)
+	else:
+		weight_upgrade_button.disabled = true
+		weight_parts_label.text = "Maxed out"
+	
+	if (player_car_data["upgrades"]["nitrous"]) < 10:
+		nitrous_upgrade_button.disabled = false
+		nitrous_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("nitrous")) + "/" + str((player_car_data["upgrades"]["nitrous"]+1)*10)
+	else:
+		nitrous_upgrade_button.disabled = true
+		nitrous_parts_label.text = "Maxed out"
 	# Preview
 	
 

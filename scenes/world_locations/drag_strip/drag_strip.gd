@@ -1,5 +1,9 @@
 extends WorldLocation
 
+## TODO: Refactor this script file so that the racing mechanics are in a separate class/script
+## res://scripts/drag_race_mechanics.gd
+var drag_race_mechanics : DragRaceDriving = DragRaceDriving.new()
+
 # Cameras
 @onready var menu_camera : Camera3D = $CameraHolder/CarShowcaseCamera
 @onready var race_camera : Camera3D = $CameraHolder/RaceCamera
@@ -8,7 +12,7 @@ extends WorldLocation
 
 var number_of_cars : int
 
-@onready var player_car_position : Node3D = $"Grid Positions/Slot1"
+@export var player_car_position : Node3D
 var player_car : Car
 var player_car_data 
 var player_general_car_data
@@ -59,6 +63,7 @@ func _ready():
 	ui.connect("run_finished", reset_cars)
 	ui.update_labels()
 	generate_rival()
+	
 
 func _process(delta):
 	if race_state == RaceStates.LAUNCH:
@@ -225,13 +230,16 @@ func end_race():
 	elif race_state == RaceStates.VERSUS_RUN:
 		if player_crossed_line && rival_crossed_line == false:
 			show_post_race_screen("win")
+			# TODO: Increment win counter for the player car
 			give_rewards()
 		elif player_crossed_line && rival_crossed_line:
 			if player_time < rival_time:
 				show_post_race_screen("win")
+				# TODO: Increment win counter for the player car
 				give_rewards()
 			else:
 				show_post_race_screen("loss")
+				# TODO: Increment loss counter for the player car
 
 func reset_cars():
 	race_state = RaceStates.NONE

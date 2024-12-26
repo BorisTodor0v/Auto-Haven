@@ -1,6 +1,6 @@
 extends Node
 
-var cash : int = 10000
+var cash : int = 100000
 var rep : int = 0
 
 var tiles_owned : int = 1
@@ -11,10 +11,10 @@ var available_mechanics : int = 0
 var mechanic_base_cost : int = 5000
 
 # TODO: Combine these into a dictionary
-var engine_parts : int = 10
-var weight_parts : int = 10 # Carbon fibre parts to reduce weight
-var transmission_parts : int = 10
-var nitrous_parts : int = 10
+var engine_parts : int = 1000
+var weight_parts : int = 1000 # Carbon fibre parts to reduce weight
+var transmission_parts : int = 1000
+var nitrous_parts : int = 1000
 
 var owned_cars : Dictionary = {}
 var active_car : int = -1
@@ -125,38 +125,41 @@ func upgrade_car(car_id : int, upgrade_type : String):
 	upgrade_type == "weight" || \
 	upgrade_type == "nitrous" || \
 	upgrade_type == "transmission":
-		var parts_needed : int = current_car["upgrades"][upgrade_type]+1 * 10
-		if get_upgrade_parts(upgrade_type) >= parts_needed:
-			current_car["upgrades"][upgrade_type] += 1
-			remove_upgrade_parts(upgrade_type, parts_needed)
-			# TODO: Change performance values here
-			if upgrade_type == "engine": # Top speed
-				for i in current_car["performance_data"]["top_speed_for_gear"].size():
-					current_car["performance_data"]["top_speed_for_gear"][i] += 2 # TODO: Test with different values
-					# TODO: Change increase in performance, current value is for testing only 
-				current_car["performance_data"]["top_speed_mps"] += 2
-			elif upgrade_type == "transmission": # Acceleration
-				for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
-					current_car["performance_data"]["acceleration_rate_for_gear"][i] += 1 # TODO: Test with different values (0.2)
-					# TODO: Change increase in performance, current value is for testing only 
-			elif upgrade_type == "weight": # Top speed and acceleration
-				# Top speed
-				for i in current_car["performance_data"]["top_speed_for_gear"].size():
-					current_car["performance_data"]["top_speed_for_gear"][i] += 1 # TODO: Test with different values
-					# TODO: Change increase in performance, current value is for testing only 
-				current_car["performance_data"]["top_speed_mps"] += 1
-				# Acceleration
-				for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
-					current_car["performance_data"]["acceleration_rate_for_gear"][i] += .5 # TODO: Test with different values (0.2)
-					# TODO: Change increase in performance, current value is for testing only
-			elif upgrade_type == "nitrous":
-				pass
-				# TODO: Figure out how to handle nitrous upgrades:
-				# IDEA
-				# The number of the nitro upgrade divided by 2 represents how long does the nitrous last when activated
-				# The number of the nitro upgrade divided by 10 represents how much bonus acceleration is added when activated
+		if current_car["upgrades"][upgrade_type] < 10:
+			var parts_needed : int = (current_car["upgrades"][upgrade_type]+1) * 10
+			if get_upgrade_parts(upgrade_type) >= parts_needed:
+				current_car["upgrades"][upgrade_type] += 1
+				remove_upgrade_parts(upgrade_type, parts_needed)
+				# TODO: Change performance values here
+				if upgrade_type == "engine": # Top speed
+					for i in current_car["performance_data"]["top_speed_for_gear"].size():
+						current_car["performance_data"]["top_speed_for_gear"][i] += 2 # TODO: Test with different values
+						# TODO: Change increase in performance, current value is for testing only 
+					current_car["performance_data"]["top_speed_mps"] += 2
+				elif upgrade_type == "transmission": # Acceleration
+					for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
+						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 1 # TODO: Test with different values (0.2)
+						# TODO: Change increase in performance, current value is for testing only 
+				elif upgrade_type == "weight": # Top speed and acceleration
+					# Top speed
+					for i in current_car["performance_data"]["top_speed_for_gear"].size():
+						current_car["performance_data"]["top_speed_for_gear"][i] += 1 # TODO: Test with different values
+						# TODO: Change increase in performance, current value is for testing only 
+					current_car["performance_data"]["top_speed_mps"] += 1
+					# Acceleration
+					for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
+						current_car["performance_data"]["acceleration_rate_for_gear"][i] += .5 # TODO: Test with different values (0.2)
+						# TODO: Change increase in performance, current value is for testing only
+				elif upgrade_type == "nitrous":
+					pass
+					# TODO: Figure out how to handle nitrous upgrades:
+					# IDEA
+					# The number of the nitro upgrade divided by 2 represents how long does the nitrous last when activated
+					# The number of the nitro upgrade divided by 10 represents how much bonus acceleration is added when activated
+			else:
+				print_debug("Not enough parts for this upgrade")
 		else:
-			print_debug("Not enough parts for this upgrade")
+			print_debug("Car has reached maximum level for this upgrade")
 	else:
 		print_debug("Invalid upgrade type - " + upgrade_type)
 

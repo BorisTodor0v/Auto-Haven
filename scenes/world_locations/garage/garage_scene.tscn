@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ho04pojmu6cd"]
+[gd_scene load_steps=8 format=3 uid="uid://ho04pojmu6cd"]
 
 [ext_resource type="PackedScene" uid="uid://cv08hk7c5qmm3" path="res://scenes/world_locations/garage/model/garage.glb" id="1_fibno"]
 [ext_resource type="Script" path="res://scenes/world_locations/garage/garage_scene.gd" id="1_hufk2"]
@@ -8,30 +8,10 @@
 [ext_resource type="Script" path="res://scripts/camera_raycast_states/default_state.gd" id="6_4fivs"]
 [ext_resource type="Script" path="res://scripts/camera_raycast_states/place_object_state.gd" id="6_iriuf"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sx2qc"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_v1rep"]
-sky_material = SubResource("ProceduralSkyMaterial_sx2qc")
-
-[sub_resource type="Environment" id="Environment_am3vk"]
-background_mode = 2
-sky = SubResource("Sky_v1rep")
-tonemap_mode = 2
-glow_enabled = true
-
 [node name="GarageScene" type="Node3D"]
 script = ExtResource("1_hufk2")
 
 [node name="garage" parent="." instance=ExtResource("1_fibno")]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_am3vk")
 
 [node name="Tiles" type="Node3D" parent="." groups=["Tile"]]
 
@@ -139,6 +119,8 @@ visible = false
 [node name="CameraPivot" type="Node3D" parent="."]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.41421, 0, -3.58579)
 script = ExtResource("4_4ivjp")
+rotation_enabled = true
+movement_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422619, 0, -0.422619, 0.906308, -7.15256e-07, 13.8432, 3.80357)

@@ -199,8 +199,9 @@ shadow_mesh = SubResource("ArrayMesh_xjyen")
 [sub_resource type="BoxShape3D" id="BoxShape3D_j1u0a"]
 size = Vector3(16, 1, 10)
 
-[node name="DragStrip" type="Node3D" node_paths=PackedStringArray("rival_car_position", "reaction_timer")]
+[node name="DragStrip" type="Node3D" node_paths=PackedStringArray("player_car_position", "rival_car_position", "reaction_timer")]
 script = ExtResource("1_4xsk2")
+player_car_position = NodePath("Grid Positions/Slot1")
 rival_car_position = NodePath("Grid Positions/Slot2")
 reaction_timer = NodePath("Node/RivalDriverReactionTimeTimer")
 
@@ -255,7 +256,7 @@ mesh = SubResource("ArrayMesh_l27t3")
 skeleton = NodePath("")
 
 [node name="FinishLineArea3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 200)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FinishLineArea3D"]
 shape = SubResource("BoxShape3D_j1u0a")

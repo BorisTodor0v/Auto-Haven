@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ddc7j7sbj5kww"
-path="res://.godot/imported/underground_car_meet.glb-77be47c40cf634dd167b2e070384c6dd.scn"
+path="res://.godot/imported/underground_car_meet.glb-664ea6d093010c0e1d83f064f942bb0e.scn"
 
 [deps]
 
-source_file="res://scenes/world_locations/underground_car_meet/model/underground_car_meet.glb"
-dest_files=["res://.godot/imported/underground_car_meet.glb-77be47c40cf634dd167b2e070384c6dd.scn"]
+source_file="res://scenes/world_locations/underground_car_meet/model/parking_lot/underground_car_meet.glb"
+dest_files=["res://.godot/imported/underground_car_meet.glb-664ea6d093010c0e1d83f064f942bb0e.scn"]
 
 [params]
 

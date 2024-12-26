@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2xhij6x0xaq4"
-path.s3tc="res://.godot/imported/underground_car_meet_pillar.png-7a9f8e98bf303ee71cc7ae9eb2aeb9ee.s3tc.ctex"
+path.s3tc="res://.godot/imported/underground_car_meet_pillar.png-f8c93c479cf8af308d4e7e19cfbb6813.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://scenes/world_locations/underground_car_meet/model/underground_car_meet_pillar.png"
-dest_files=["res://.godot/imported/underground_car_meet_pillar.png-7a9f8e98bf303ee71cc7ae9eb2aeb9ee.s3tc.ctex"]
+source_file="res://scenes/world_locations/underground_car_meet/model/parking_lot/underground_car_meet_pillar.png"
+dest_files=["res://.godot/imported/underground_car_meet_pillar.png-f8c93c479cf8af308d4e7e19cfbb6813.s3tc.ctex"]
 
 [params]
 

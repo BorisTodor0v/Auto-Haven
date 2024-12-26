@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgfgngovtrvgu"]
+[gd_scene load_steps=12 format=3 uid="uid://dgfgngovtrvgu"]
 
 [ext_resource type="Script" path="res://scenes/base_scene/base_scene.gd" id="1_3ysmu"]
 [ext_resource type="PackedScene" uid="uid://ho04pojmu6cd" path="res://scenes/world_locations/garage/garage_scene.tscn" id="2_25v71"]
@@ -9,8 +9,25 @@
 [ext_resource type="PackedScene" uid="uid://phrehkl71v7e" path="res://scenes/ui/travel_locations_list/travel_locations_list.tscn" id="5_hh60g"]
 [ext_resource type="PackedScene" uid="uid://dm4woahvtnyyt" path="res://scenes/ui/car_interaction_menu/car_interaction_menu.tscn" id="6_ruyxs"]
 
-[node name="BaseScene" type="Node"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u2bf5"]
+sky_horizon_color = Color(0.692328, 0.727225, 0.774755, 1)
+ground_bottom_color = Color(0.384314, 0.454902, 0.54902, 1)
+ground_horizon_color = Color(0.692328, 0.727225, 0.774755, 1)
+
+[sub_resource type="Sky" id="Sky_y3nnw"]
+sky_material = SubResource("ProceduralSkyMaterial_u2bf5")
+
+[sub_resource type="Environment" id="Environment_rbrc1"]
+background_mode = 1
+background_color = Color(0.384314, 0.454902, 0.54902, 1)
+sky = SubResource("Sky_y3nnw")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="BaseScene" type="Node" node_paths=PackedStringArray("world_environment", "environment_light")]
 script = ExtResource("1_3ysmu")
+world_environment = NodePath("Environment/WorldEnvironment")
+environment_light = NodePath("Environment/DirectionalLight3D")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -51,5 +68,14 @@ one_shot = true
 [node name="Scene" type="Node" parent="."]
 
 [node name="GarageScene" parent="." instance=ExtResource("2_25v71")]
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_rbrc1")
 
 [connection signal="timeout" from="Timers/MechanicJobCooldownTimer" to="." method="_on_mechanic_job_cooldown_timer_timeout"]

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsly31swg0txf"
-path.s3tc="res://.godot/imported/underground_car_meet_underground_parking_lot.png-0364b3ea64e70157a0ce1392c868588d.s3tc.ctex"
+uid="uid://c5jy5ru2a42j1"
+path.s3tc="res://.godot/imported/ugcm_race_location_background_mountain.png-8374b344ef6485eace898dfafe191016.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "54bd6c6e9f419c03e0d8484b03438292"
+"md5": "daf07b21b6487939df351879b6a7432e"
 }
 
 [deps]
 
-source_file="res://scenes/world_locations/underground_car_meet/model/underground_car_meet_underground_parking_lot.png"
-dest_files=["res://.godot/imported/underground_car_meet_underground_parking_lot.png-0364b3ea64e70157a0ce1392c868588d.s3tc.ctex"]
+source_file="res://scenes/world_locations/underground_car_meet/model/race_location/ugcm_race_location_background_mountain.png"
+dest_files=["res://.godot/imported/ugcm_race_location_background_mountain.png-8374b344ef6485eace898dfafe191016.s3tc.ctex"]
 
 [params]
 

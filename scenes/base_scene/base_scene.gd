@@ -6,8 +6,18 @@ extends Node
 @onready var scene_holder : Node = $Scene
 @onready var car_interaction_menu : Node = $UI/CarInteractionMenu
 
+@export var world_environment : WorldEnvironment
+@export var environment_light : DirectionalLight3D
+
 var is_expanding_garage : bool = false
 var is_redecorating : bool = false
+
+var daytime_environment_color : Color = Color("62748c")
+var daytime_light_energy : float = 1.0
+var daytime_light_orientation : Vector3 = Vector3(-60, 150, 0)
+var nighttime_environment_color : Color = Color("020208")
+var nighttime_light_energy : float = 0.1
+var nighttime_light_orientation : Vector3 = Vector3(-93.5, 37.3, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -109,8 +119,12 @@ func travel_to_location(location_name : String):
 				match location_name:
 					"car_dealership":
 						new_scene.connect("player_bought_car", buy_car)
+						switch_time_of_day_to("day")
 					"drag_strip":
 						new_scene.set_player_car(PlayerStats.get_active_car())
+						switch_time_of_day_to("day")
+					"underground_race_meet":
+						switch_time_of_day_to("night")
 					_:
 						pass
 			ui.hide()
@@ -120,6 +134,7 @@ func travel_to_location(location_name : String):
 		if scene_holder.get_child_count() > 0:
 			scene_holder.get_child(0).queue_free()
 		garage_scene.show()
+		switch_time_of_day_to("day")
 		ui = $UI
 		ui.show()
 		ui.update_labels()
@@ -205,15 +220,22 @@ func set_edit_mode(state : bool):
 	else:
 		ui.show_message("", 1)
 
-func handle_object_clicked(object_node : Node3D, object_name : String, car_id : int):
+# Removed static type of object_node (Node3D) to fix error:
+# Invalid call. Nonexistent function car_interaction_menu_assign_car in base Control
+# When switching from garage scene after using car interaction menu
+# To drag race when selecting a run type (Versus run)
+# In it's place, added a check to see if the object is a Car, and if so to then call the function
+# Will probably need to check the UI instead of the car, as the problem is thrown there
+func handle_object_clicked(object_node, object_name : String, car_id : int):
 	if is_redecorating:
 		print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
 		garage_scene.begin_edit_item(object_node, object_name, car_id)
 		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
 	else:
-		if car_id >= 0:
-			ui.car_interaction_menu_assign_car(car_id)
-			open_menu("car_interaction_menu")
+		if object_node is Car:
+			if car_id >= 0:
+				ui.car_interaction_menu_assign_car(car_id)
+				open_menu("car_interaction_menu")
 
 func upgrade_car(car_id : int, upgrade_type : String):
 	PlayerStats.upgrade_car(car_id, upgrade_type)
@@ -226,3 +248,16 @@ func test_func_give_player_car():
 	buy_car("chal", Color(1, .9, 0))
 	PlayerStats.set_active_car(1)
 	pass
+
+func switch_time_of_day_to(target_time : String):
+	match target_time:
+		"day":
+			world_environment.environment.background_color = daytime_environment_color
+			environment_light.light_energy = daytime_light_energy
+			environment_light.rotation = daytime_light_orientation
+		"night":
+			world_environment.environment.background_color = nighttime_environment_color
+			environment_light.light_energy = nighttime_light_energy
+			environment_light.rotation = nighttime_light_orientation
+		_:
+			pass

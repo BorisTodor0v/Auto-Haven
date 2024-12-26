@@ -1,7 +1,11 @@
- - Added model for new car "gtr34"
- - Added model for new car "ris"
- - Added model for new car "camaro69"
- - Changes to Drag Strip scene:
-	- Changed UI to show confirmation dialog when selecting "Versus run"
-	- Added generation of rival cars
-	- Implemented rival driving mechanics
+ - Drag Strip
+	- Moved finish line collision detection to proper position at the end of the track
+ - Added initial model for underground car meet race location
+ - Added level cap for performance upgrades
+	- Made it so one part can be upgraded a maximum of 10 times, afterwards the upgrade button is disabled
+ - Changed camera controller script (camera_movement.gd) to allow toggling between being allowed to move and rotate the camera
+ - Underground race meet:
+	- Added methods to generate background and racer cars
+	- Changed lighting to highlight interactable cars
+	- Added initial version of interaction menu for racer cars
+ - Made possible to change the environment between daytime and nighttime for certain locations
