@@ -1,3 +1,4 @@
+ - Added model for new car "belvedere"
  - Drag Strip
 	- Moved finish line collision detection to proper position at the end of the track
  - Added initial model for underground car meet race location
