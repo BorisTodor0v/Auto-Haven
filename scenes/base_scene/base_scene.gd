@@ -12,12 +12,12 @@ extends Node
 var is_expanding_garage : bool = false
 var is_redecorating : bool = false
 
-var daytime_environment_color : Color = Color("62748c")
 var daytime_light_energy : float = 1.0
-var daytime_light_orientation : Vector3 = Vector3(-60, 150, 0)
-var nighttime_environment_color : Color = Color("020208")
-var nighttime_light_energy : float = 0.1
-var nighttime_light_orientation : Vector3 = Vector3(-93.5, 37.3, 0)
+var daytime_light_orientation : Vector3 = Vector3(deg_to_rad(-60), deg_to_rad(-150), deg_to_rad(0))
+var daytime_world_environment_energy_multiplier : float = 1
+var nighttime_light_energy : float = 0.075
+var nighttime_light_orientation : Vector3 = Vector3(deg_to_rad(-42.3), deg_to_rad(-171.3), deg_to_rad(174.1))
+var nighttime_world_environment_energy_multiplier : float = 0.01
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -156,9 +156,9 @@ func buy_car(car_key : String, car_color : Color):
 			},
 			"is_stored": true,
 			"performance_data": {
-				"top_speed_for_gear": car_data["top_speed_for_gear"],
+				"top_speed_for_gear": car_data["top_speed_for_gear"].duplicate(),
 				"top_speed_mps": car_data["top_speed_mps"],
-				"acceleration_rate_for_gear": car_data["acceleration_rate_for_gear"],
+				"acceleration_rate_for_gear": car_data["acceleration_rate_for_gear"].duplicate(),
 				"redline": car_data["redline"],
 				"max_rpm": car_data["max_rpm"],
 				"gears": car_data["gears"]
@@ -234,8 +234,9 @@ func handle_object_clicked(object_node, object_name : String, car_id : int):
 	else:
 		if object_node is Car:
 			if car_id >= 0:
-				ui.car_interaction_menu_assign_car(car_id)
-				open_menu("car_interaction_menu")
+				if ui.has_method("car_interaction_menu_assign_car"):
+					ui.car_interaction_menu_assign_car(car_id)
+					open_menu("car_interaction_menu")
 
 func upgrade_car(car_id : int, upgrade_type : String):
 	PlayerStats.upgrade_car(car_id, upgrade_type)
@@ -252,11 +253,11 @@ func test_func_give_player_car():
 func switch_time_of_day_to(target_time : String):
 	match target_time:
 		"day":
-			world_environment.environment.background_color = daytime_environment_color
+			world_environment.environment.background_energy_multiplier = daytime_world_environment_energy_multiplier
 			environment_light.light_energy = daytime_light_energy
 			environment_light.rotation = daytime_light_orientation
 		"night":
-			world_environment.environment.background_color = nighttime_environment_color
+			world_environment.environment.background_energy_multiplier = nighttime_world_environment_energy_multiplier
 			environment_light.light_energy = nighttime_light_energy
 			environment_light.rotation = nighttime_light_orientation
 		_:

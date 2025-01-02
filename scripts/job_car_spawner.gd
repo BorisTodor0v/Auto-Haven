@@ -36,6 +36,12 @@ func spawn_job():
 			if mesh != null && material != null:
 				material.albedo_color = Color(randf(), randf(), randf(), 1)
 				mesh.set_surface_override_material(0, material)
+			var wheel_model = load("res://cars/wheels/"+random_car["default_wheels"]+"/"+random_car["default_wheels"]+".glb").instantiate()
+			for child in instance.get_children():
+				if child.name == "WheelPositions":
+					for wheel_position in child.get_children():
+						wheel_position.add_child(wheel_model.duplicate())
+					break
 			instance.add_to_group("Repair Car")
 			instance.set_script(load("res://scripts/interactables/job_car.gd"))
 			# Disables collision area around car to allow moving car lift while car is placed on it

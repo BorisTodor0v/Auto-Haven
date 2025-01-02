@@ -140,6 +140,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "\"SET AS ACTIVE CAR\" BUTTON"
 
+[node name="SellCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer"]
+layout_mode = 2
+text = "SELL CAR BUTTON"
+
 [node name="SubViewport" type="SubViewport" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview"]
 own_world_3d = true
 world_3d = SubResource("World3D_sli5c")

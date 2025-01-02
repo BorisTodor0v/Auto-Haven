@@ -1,20 +1,37 @@
 {
-	"cardboard_box":{
-		"name" : "Cardboard box",
-		"price" : 10,
-		"model_path" : "",
-		"scene_path" : ""
-	},
-	"wall":{
-		"name" : "Basic wall",
-		"price" : 10,
-		"model_path" : "",
-		"scene_path" : ""
-	},
 	"car_lift_001":{
 		"name" : "Car lift",
 		"price" : 1000,
 		"model_path" : "res://garage_decorations/car_lifts/car_lift_001/car_lift.glb",
-		"scene_path" : "res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn"
+		"scene_path" : "res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn",
+		"preview_scale": 0.7
 	},
+	"cardboard_box":{
+		"name" : "Cardboard box",
+		"price" : 10,
+		"model_path" : "res://garage_decorations/props/cardboard_box/cardboard_box.glb",
+		"scene_path" : "res://garage_decorations/props/cardboard_box/cardboard_box.tscn",
+		"preview_scale": 1.3
+	},
+	"trolley_toolbox":{
+		"name": "Trolley toolbox",
+		"price": 200,
+		"model_path": "res://garage_decorations/props/trolley_toolbox/trolley_toolbox.glb",
+		"scene_path": "res://garage_decorations/props/trolley_toolbox/trolley_toolbox.tscn",
+		"preview_scale": 1.5
+	},
+	"tire_rack":{
+		"name": "Tire rack",
+		"price": 500,
+		"model_path": "res://garage_decorations/props/tire_rack/tire_rack.glb",
+		"scene_path": "res://garage_decorations/props/tire_rack/tire_rack.tscn",
+		"preview_scale": 1.4
+	},
+	"arcade_cabinets_001":{
+		"name": "Arcade cabinets",
+		"price": 700,
+		"model_path": "res://garage_decorations/props/arcade_cabinets_001/arcade_cabinets_001.glb",
+		"scene_path": "res://garage_decorations/props/arcade_cabinets_001/arcade_cabinets_001.tscn",
+		"preview_scale": 1.4
+	}
 }

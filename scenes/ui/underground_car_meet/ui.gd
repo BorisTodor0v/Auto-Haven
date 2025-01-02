@@ -1,7 +1,7 @@
 extends UI
-
+## Base UI components
 @export var base_ui : Control
-
+## Racer interaction screen components
 @export var racer_interact_screen : Control
 @export var racer_data_label : Label
 @export var player_cash_label : Label
@@ -23,15 +23,20 @@ extends UI
 # 5 - Third and final Player counter-offer	|
 # 6 - Negotiations result
 @export var current_wager_label : Label
+## Race UI components
+@export var race_ui : Control
+signal run_finished
 
 var negotiation_phase : int = 0
 var current_wager : int = 0
 
 signal leave_location
 signal begin_race(wager : int)
+signal racer_interaction_menu_closed(can_enable_raycast : bool)
 
 func _ready():
 	update_labels()
+	race_ui.connect("run_finished", run_finished.emit)
 
 func update_labels():
 	counter_offer_input.max_value = PlayerStats.get_cash()
@@ -44,6 +49,7 @@ func _on_decline_wager_button_pressed():
 	racer_interact_screen.hide()
 	negotiation_phase = 0
 	base_ui.show()
+	racer_interaction_menu_closed.emit(true)
 
 func _on_accept_wager_button_pressed():
 	negotiation_buttons.hide()
@@ -53,6 +59,7 @@ func _on_accept_wager_button_pressed():
 func _on_start_race_button_pressed():
 	racer_interact_screen.hide()
 	begin_race.emit(current_wager)
+	racer_interaction_menu_closed.emit(false)
 
 func _on_propose_counter_offer_button_pressed():
 	match negotiation_phase:
@@ -71,6 +78,7 @@ func _on_propose_counter_offer_button_pressed():
 func show_racer_interact_screen(racer_data : Dictionary):
 	## Reset interaction screen to default state
 	racer_interact_screen.show()
+	update_labels()
 	
 	for label in wager_negotiation_labels:
 		label.text = ""
@@ -216,3 +224,12 @@ func generate_counter_offer(offer : int) -> int:
 	else:
 		smaller_offer = offer
 	return smaller_offer+((difference_between_offers / 2) + (difference_between_offers / 2)*randf_range(.25, .75))
+
+func show_race_ui():
+	base_ui.hide()
+	racer_interact_screen.hide()
+	race_ui.show()
+
+func hide_race_ui():
+	base_ui.show()
+	race_ui.hide()

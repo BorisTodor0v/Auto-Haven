@@ -162,7 +162,7 @@ func upgrade_car(car_id : int, upgrade_type : String):
 			print_debug("Car has reached maximum level for this upgrade")
 	else:
 		print_debug("Invalid upgrade type - " + upgrade_type)
-
+	print_debug(current_car)
 #car = {
 	#"model": car_key,
 	#"color": car_color,

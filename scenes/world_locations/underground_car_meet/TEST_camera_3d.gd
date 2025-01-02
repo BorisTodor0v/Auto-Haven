@@ -2,6 +2,8 @@ extends Camera3D
 
 signal pressed_on_racer(racer_position : Node3D)
 
+@export var raycast_enabled : bool = true
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
@@ -15,5 +17,6 @@ func _process(delta):
 	if Input.is_action_just_pressed("mouse1"):
 		if intersection:
 			collider = intersection["collider"]
-			if collider.get_groups().has("Racer"):
-				pressed_on_racer.emit(collider.get_parent())
+			if raycast_enabled:
+				if collider.get_groups().has("Racer"):
+					pressed_on_racer.emit(collider.get_parent())

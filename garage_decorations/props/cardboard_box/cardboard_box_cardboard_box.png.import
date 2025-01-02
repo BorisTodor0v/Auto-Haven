@@ -2,25 +2,25 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1814pyxngk43"
-path.s3tc="res://.godot/imported/car_lift_car_lift_color.png-722c32f309ea30bdd614a4cc2fe3a879.s3tc.ctex"
+uid="uid://bo78w8fpke1e8"
+path.bptc="res://.godot/imported/cardboard_box_cardboard_box.png-195e048fe731aec4aa27965e95934c23.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "4eae4686519e9c1cf423fee2dc73b850"
+"md5": "77911b28417b8fb6a0164f10b0116275"
 }
 
 [deps]
 
-source_file="res://garage_decorations/car_lifts/car_lift_001/car_lift_car_lift_color.png"
-dest_files=["res://.godot/imported/car_lift_car_lift_color.png-722c32f309ea30bdd614a4cc2fe3a879.s3tc.ctex"]
+source_file="res://garage_decorations/props/cardboard_box/cardboard_box_cardboard_box.png"
+dest_files=["res://.godot/imported/cardboard_box_cardboard_box.png-195e048fe731aec4aa27965e95934c23.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

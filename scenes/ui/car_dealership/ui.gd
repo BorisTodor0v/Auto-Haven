@@ -45,10 +45,11 @@ func clear_message():
 
 func list_cars():
 	for car in CarsData.get_all_cars():
-		var button_instance = car_button.instantiate()
-		button_instance.connect("ready", assign_car_to_button.bind(button_instance, car))
-		button_instance.connect("pressed", _on_car_list_item_pressed.bind(car))
-		dealership_cars_container.add_child(button_instance)
+		if CarsData.get_car(car)["can_buy_in_dealership"] == true:
+			var button_instance = car_button.instantiate()
+			button_instance.connect("ready", assign_car_to_button.bind(button_instance, car))
+			button_instance.connect("pressed", _on_car_list_item_pressed.bind(car))
+			dealership_cars_container.add_child(button_instance)
 
 func assign_car_to_button(button, car : String):
 	button.assign_car(car)

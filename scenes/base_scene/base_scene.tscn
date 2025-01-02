@@ -18,7 +18,7 @@ ground_horizon_color = Color(0.692328, 0.727225, 0.774755, 1)
 sky_material = SubResource("ProceduralSkyMaterial_u2bf5")
 
 [sub_resource type="Environment" id="Environment_rbrc1"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.384314, 0.454902, 0.54902, 1)
 sky = SubResource("Sky_y3nnw")
 tonemap_mode = 2

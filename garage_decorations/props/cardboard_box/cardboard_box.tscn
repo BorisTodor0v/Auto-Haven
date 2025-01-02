@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=4 uid="uid://dov18xyfhbusy"]
+
+[ext_resource type="Script" path="res://scripts/placeable_object.gd" id="1_i1lge"]
+[ext_resource type="Texture2D" uid="uid://bo78w8fpke1e8" path="res://garage_decorations/props/cardboard_box/cardboard_box_cardboard_box.png" id="2_86kts"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_231lp"]
+resource_name = "Cardboard Box"
+cull_mode = 2
+albedo_texture = ExtResource("2_86kts")
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_3omy1"]
+_surfaces = [{
+"aabb": AABB(-0.54, 0, -0.768, 1.08, 1, 1.536),
+"format": 34896613377,
+"index_count": 30,
+"index_data": PackedByteArray("AAADAAEAAAACAAMAAwAGAAcAAwACAAYABgAFAAcABgAEAAUABQAAAAEABQAEAAAABwABAAMABwAFAAEA"),
+"name": "Cardboard Box",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("AAAAAP//AAAAAP////8AAAAAAAAAAAAAAAD//wAAAAD//wAA//8AAP///////wAA//8AAAAAAAD/////AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_l8gny"]
+resource_name = "cardboard_box_Cube"
+_surfaces = [{
+"aabb": AABB(-0.54, 0, -0.768, 1.08, 1, 1.536),
+"attribute_data": PackedByteArray("AAD/SgAA/0r/Yf9K/2H/Sv9h/0oAAP//AAAAAP9h////9/9K/2EAAAAA/38AAP9//2H/f/9h/3//Yf9/AAD/ygAA/8r/Yf/K//f/f/9h/8o="),
+"format": 34896613399,
+"index_count": 30,
+"index_data": PackedByteArray("AQAJAAQAAQAGAAkABwAPABEABwAFAA8AEAAOABMAEAALAA4ADAAAAAIADAAKAAAAEgADAAgAEgANAAMA"),
+"material": SubResource("StandardMaterial3D_231lp"),
+"name": "Cardboard Box",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 20,
+"vertex_data": PackedByteArray("AAAAAP///78AAAAA//9U1QAA//////+/AAD/////VNUAAP////9U1QAAAAAAAP//AAAAAAAAVNUAAP//AAD//wAA//8AAFTVAAD//wAAVNX//wAA////v///AAD//1TV/////////7////////9U1f///////1TV//8AAAAA/////wAAAABU1f////8AAP///////wAAVNX/////AABU1f////9U1VTV/////1TVqipU1VTV/7//v1TVVNX/v/+/VNWqKlTVVNX/////qiqqKv////9U1aoqqiqqKv+//7+qKqoq/7//v1TVqiqqKqoq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_3omy1")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7vc5s"]
+size = Vector3(1.1, 1, 1.55)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x2nwe"]
+size = Vector3(1.1, 0.05, 1.55)
+
+[node name="CardboardBox" type="StaticBody3D"]
+script = ExtResource("1_i1lge")
+
+[node name="CardboardBox" type="MeshInstance3D" parent="."]
+mesh = SubResource("ArrayMesh_l8gny")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_7vc5s")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+shape = SubResource("BoxShape3D_x2nwe")
+
+[node name="EdgeDetectionRays" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.002, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="EdgeDetectionRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, 0.775)
+
+[node name="RayCast3D2" type="RayCast3D" parent="EdgeDetectionRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, 0.775)
+
+[node name="RayCast3D3" type="RayCast3D" parent="EdgeDetectionRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0, -0.775)
+
+[node name="RayCast3D4" type="RayCast3D" parent="EdgeDetectionRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0, -0.775)

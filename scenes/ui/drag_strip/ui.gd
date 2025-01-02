@@ -43,6 +43,7 @@ signal shift_gear
 @onready var rival_reaction_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppReactionTime
 @onready var rival_run_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppRunTime
 @onready var rival_total_time_label : Label = $PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppTotalTime
+@export var rewards_label : Label
 signal run_finished
 
 signal leave_location

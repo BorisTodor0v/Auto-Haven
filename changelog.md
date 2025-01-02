@@ -1,12 +1,8 @@
- - Added model for new car "belvedere"
- - Drag Strip
-	- Moved finish line collision detection to proper position at the end of the track
- - Added initial model for underground car meet race location
- - Added level cap for performance upgrades
-	- Made it so one part can be upgraded a maximum of 10 times, afterwards the upgrade button is disabled
- - Changed camera controller script (camera_movement.gd) to allow toggling between being allowed to move and rotate the camera
- - Underground race meet:
-	- Added methods to generate background and racer cars
-	- Changed lighting to highlight interactable cars
-	- Added initial version of interaction menu for racer cars
- - Made possible to change the environment between daytime and nighttime for certain locations
+ - Added racing mechanics to Underground Race Meet
+ - Added reward generation when winning a race from the Underground Race Meet and Drag Strip
+ - Lighting changes
+ - Added 4 new garage decorations
+ - Added 2 new wheel models
+ - Implemented basic tool to make car data input easier.
+ - Added new car to dealership "DAW Bahnmeister" (5s60)
+ - Fixed bug that applied player car upgrades to every instance of a car with the same model

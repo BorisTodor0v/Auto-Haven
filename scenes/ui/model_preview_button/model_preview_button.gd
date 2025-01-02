@@ -20,10 +20,10 @@ func assign_car(car_id : int):
 func assign_furniture(furniture_id : String):
 	var furniture_item_data = FurnitureData.get_values_from_key(furniture_id)
 	var preview_scene_instance = preview_scene.instantiate()
-	preview_scene_instance.set_model(furniture_item_data["model_path"])
+	preview_scene_instance.set_model(furniture_item_data["model_path"], furniture_item_data["preview_scale"])
 	sub_viewport.add_child(preview_scene_instance)
-	print_debug(furniture_item_data["name"] +" "+ str(furniture_item_data["price"]))
 	set_labels(furniture_item_data["name"], furniture_item_data["price"])
+	# TODO: Set model scales
 
 func set_labels(name : String, price : int) -> void:
 	name_label.text = name

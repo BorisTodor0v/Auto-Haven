@@ -1,47 +1,120 @@
 {
-	"swift":{
+	"swift": {
 		"name": "Hayai",
 		"manufacturer": "Jinsoku",
 		"price": 5000,
 		"gears": 5,
-		"top_speed_for_gear": [16.6667, 26.3889, 34.7222, 41.6667, 48.6111],
-		"acceleration_rate_for_gear": [3, 2.5, 2, 1.5, 1],
+		"top_speed_for_gear": [
+			16.6667,
+			26.3889,
+			34.7222,
+			41.6667,
+			48.6111
+		],
+		"acceleration_rate_for_gear": [
+			3,
+			2.5,
+			2,
+			1.5,
+			1
+		],
 		"top_speed_mps": 48.6111,
 		"redline": 6500,
 		"max_rpm": 6600,
 		"peak_hp_rpm": 5800,
 		"scene_path": "res://cars/models/swift/swift.tscn",
 		"model_path": "res://cars/models/swift/swift.glb",
-		"default_wheels": "wheel_001"
+		"default_wheels": "wheel_002",
+		"can_buy_in_dealership": true
 	},
-	"350":{
+	"350": {
 		"name": "Go-Ju",
 		"manufacturer": "Sanni",
 		"price": 10000,
 		"gears": 6,
-		"top_speed_for_gear": [19.5435, 28.43281, 37.3889, 46.7222, 53.5913, 60.4444],
-		"acceleration_rate_for_gear": [4, 4, 3.5, 3, 2.5, 2],
+		"top_speed_for_gear": [
+			19.5435,
+			28.43281,
+			37.3889,
+			46.7222,
+			53.5913,
+			60.4444
+		],
+		"acceleration_rate_for_gear": [
+			4,
+			4,
+			3.5,
+			3,
+			2.5,
+			2
+		],
 		"top_speed_mps": 60.4444,
 		"redline": 7000,
 		"max_rpm": 7200,
 		"peak_hp_rpm": 6800,
 		"scene_path": "res://cars/models/350/350.tscn",
 		"model_path": "res://cars/models/350/350.glb",
-		"default_wheels": "wheel_001"
+		"default_wheels": "wheel_001",
+		"can_buy_in_dealership": true
 	},
-	"chal":{
+	"chal": {
 		"name": "Phoenix",
 		"manufacturer": "Liberty Motors",
-		"price": 20000,
+		"price": 50000,
 		"gears": 6,
-		"top_speed_for_gear": [24.5435, 34.43281, 44.3889, 54.7222, 64.5913, 68.4444],
-		"acceleration_rate_for_gear": [6, 6, 5, 5, 4, 3],
+		"top_speed_for_gear": [
+			24.5435,
+			34.43281,
+			44.3889,
+			54.7222,
+			64.5913,
+			68.4444
+		],
+		"acceleration_rate_for_gear": [
+			6,
+			6,
+			5,
+			5,
+			4,
+			3
+		],
 		"top_speed_mps": 68.4444,
 		"redline": 7500,
 		"max_rpm": 7700,
 		"peak_hp_rpm": 7100,
 		"scene_path": "res://cars/models/chal/chal.tscn",
 		"model_path": "res://cars/models/chal/chal.glb",
-		"default_wheels": "wheel_001"
+		"default_wheels": "wheel_003",
+		"can_buy_in_dealership": true
+	},
+	"5s60": {
+		"name": "Bahmeister",
+		"manufacturer": "DAW",
+		"price": 20000,
+		"gears": 6,
+		"top_speed_for_gear": [
+			11.11,
+			22.22,
+			33.33,
+			44.44,
+			55.56,
+			69.44
+		],
+		"acceleration_rate_for_gear": [
+			4,
+			5,
+			6,
+			5,
+			3,
+			3
+		],
+		"top_speed_mps": 69.44,
+		"redline": 6600,
+		"max_rpm": 6600,
+		"peak_hp_rpm": 6600,
+		"scene_path": "res://cars/models/5s60/5s60.tscn",
+		"model_path": "res://cars/models/5s60/5s60.glb",
+		"default_wheels": "wheel_001",
+		"can_buy_in_dealership": true
 	}
 }

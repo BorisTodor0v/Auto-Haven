@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://7f7tqcy5lamm"]
+
+[ext_resource type="Script" path="res://tools/car_creator/car_creator.gd" id="1_axjfa"]
+
+[node name="CarCreator" type="Node3D"]
+script = ExtResource("1_axjfa")
+car_name = "Bahmeister"
+manufacturer = "DAW"
+price = 17000
+gears = 6
+top_speed_for_gear = Array[float]([11.11, 22.22, 33.33, 44.44, 55.56, 69.44])
+acceleration_rate_for_gear = Array[float]([3.5, 4.2, 6.0, 5.0, 3.0, 3.0])
+redline = 6600
+max_rpm = 6600
+peak_hp_rpm = 6600
+internal_name = "5s60"
+default_wheels = "wheel_01"
+can_buy_in_dealership = true

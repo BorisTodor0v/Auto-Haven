@@ -157,8 +157,10 @@ func launch():
 		ui.show_upshift_button()
 		ui.show_race_screen()
 	else: # False start, stop the race
-		race_state = RaceStates.NONE
 		show_post_race_screen("dsq")
+		var rewards_string : String = "Wait for the timer to reach 0 before starting"
+		ui.rewards_label.text = rewards_string
+		reset_cars()
 
 func accelerate_player_car(delta):
 	if current_rpm < player_car_data["performance_data"]["max_rpm"] && current_velocity < player_car_data["performance_data"]["top_speed_mps"]:
@@ -169,7 +171,7 @@ func accelerate_player_car(delta):
 
 func decelerate_player_car(delta):
 	if current_velocity > 2:
-		current_velocity -= 20 * delta
+		current_velocity -= 30 * delta
 	else:
 		current_velocity = 0
 	move_player_car(delta)
@@ -206,7 +208,7 @@ func accelerate_rival_car(delta):
 
 func decelerate_rival_car(delta):
 	if rival_velocity > 2:
-		rival_velocity -= 20 * delta
+		rival_velocity -= 30 * delta
 	else:
 		rival_velocity = 0
 	move_rival_car(delta)
@@ -239,6 +241,8 @@ func end_race():
 				give_rewards()
 			else:
 				show_post_race_screen("loss")
+				var rewards_string : String = "Better luck next time."
+				ui.rewards_label.text = rewards_string
 				# TODO: Increment loss counter for the player car
 
 func reset_cars():
@@ -318,8 +322,11 @@ func generate_rival():
 		reaction_timer.wait_time = rival_reaction_time
 
 func give_rewards():
-	PlayerStats.add_rep(500)
+	var rep_reward : int = 500
+	PlayerStats.add_rep(rep_reward)
+	var rewards_string : String = "Rewards: %d Rep" % [rep_reward]
 	ui.update_labels()
+	ui.rewards_label.text = rewards_string
 	# TODO: Give an increased reward if there is a large victory margin
 	# However, add a penalty to rep gained if there is also a large difference between the performance of two cars
 	# (Requires implementing a way to calculate a performance index for cars)

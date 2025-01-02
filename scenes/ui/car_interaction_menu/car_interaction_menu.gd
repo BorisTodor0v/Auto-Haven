@@ -61,7 +61,6 @@ func assign_car(car_id : int):
 	acceleration_label.text = "Acceleration: %.2f" % acceleration
 	# TODO: Nitrous duration and power label
 	nitrous_label.text = "Nitrous duration: XX.XXX sec. | Power: xXX.XXX"
-	# TODO: Race wins and losses label
 	win_rate_label.text = "Race stats - Wins: " + str(player_car_data["wins"]) + " | Losses: " + str(player_car_data["losses"])
 	# Set active car button
 	set_active_car_button_state(car_id)
@@ -80,14 +79,14 @@ func assign_car(car_id : int):
 	
 	if (player_car_data["upgrades"]["transmission"]) < 10:
 		transmission_upgrade_button.disabled = false
-		transmission_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("engine")) + "/" + str((player_car_data["upgrades"]["transmission"]+1)*10)
+		transmission_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("transmission")) + "/" + str((player_car_data["upgrades"]["transmission"]+1)*10)
 	else:
 		transmission_upgrade_button.disabled = true
 		transmission_parts_label.text = "Maxed out"
 	
 	if (player_car_data["upgrades"]["weight"]) < 10:
 		weight_upgrade_button.disabled = false
-		weight_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("engine")) + "/" + str((player_car_data["upgrades"]["weight"]+1)*10)
+		weight_parts_label.text = "Parts: " + str(PlayerStats.get_upgrade_parts("weight")) + "/" + str((player_car_data["upgrades"]["weight"]+1)*10)
 	else:
 		weight_upgrade_button.disabled = true
 		weight_parts_label.text = "Maxed out"

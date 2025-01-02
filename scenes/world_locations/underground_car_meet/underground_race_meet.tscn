@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://cpwgfs3bmyiuv"]
+[gd_scene load_steps=36 format=4 uid="uid://cpwgfs3bmyiuv"]
 
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/underground_race_meet.gd" id="1_ou5pt"]
 [ext_resource type="Material" uid="uid://baklpaoo7kkhc" path="res://scenes/world_locations/underground_car_meet/model/parking_lot/parking_lot.tres" id="2_d72pn"]
@@ -15,8 +15,11 @@
 [ext_resource type="Script" path="res://scenes/ui/underground_car_meet/ui.gd" id="13_l8jbp"]
 [ext_resource type="PackedScene" uid="uid://cklx4vreyfqar" path="res://scenes/world_locations/underground_car_meet/model/race_location/ugcm_race_location.glb" id="13_sb7yg"]
 [ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="14_rfaa7"]
+[ext_resource type="Texture2D" uid="uid://cdg7h775o3udm" path="res://resources/images/ui/rpm_gauge/rpm_gauge.png" id="15_454yf"]
+[ext_resource type="Script" path="res://scenes/ui/underground_car_meet/race_ui.gd" id="15_b6rci"]
 [ext_resource type="Script" path="res://scripts/camera_movement.gd" id="15_h1vn7"]
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/TEST_camera_3d.gd" id="15_ttvs5"]
+[ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/drag_race.gd" id="20_mbbnw"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pcaef"]
 _surfaces = [{
@@ -59,22 +62,126 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htty4"]
+bg_color = Color(0.197937, 0.197937, 0.197937, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ux25"]
+bg_color = Color(0, 0.745098, 0.901961, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.513726, 1, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p1l6l"]
+size = Vector3(16, 1, 10)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mqhdw"]
 sky_horizon_color = Color(0.692328, 0.727225, 0.774755, 1)
 ground_bottom_color = Color(0.384314, 0.454902, 0.54902, 1)
-ground_horizon_color = Color(0.692328, 0.727225, 0.774755, 1)
 
 [sub_resource type="Sky" id="Sky_vlhdv"]
 sky_material = SubResource("ProceduralSkyMaterial_mqhdw")
 
 [sub_resource type="Environment" id="Environment_tmbwt"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.00833666, 0.00952746, 0.0294555, 1)
+background_energy_multiplier = 0.01
 sky = SubResource("Sky_vlhdv")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="UndergroundRaceMeet" type="Node3D" node_paths=PackedStringArray("car_meet_camera", "race_location_camera", "car_meet", "race_location", "racer_car_positions", "decor_car_positions", "grid_positions")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emt6h"]
+transparency = 1
+albedo_color = Color(0, 1, 0, 0.129412)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_5mqqg"]
+_surfaces = [{
+"aabb": AABB(-0.42, 2.5, -0.42, 0.84, 3, 0.84),
+"format": 34896613377,
+"index_count": 18,
+"index_data": PackedByteArray("AAACAAEAAAAEAAIAAAADAAQAAAABAAMABAABAAIABAADAAEA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 5,
+"vertex_data": PackedByteArray("/38AAP9/AAAAAP////8AAAAA//8AAAAA////////AAD/////AAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gxw36"]
+resource_name = "marker_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.42, 2.5, -0.42, 0.84, 3, 0.84),
+"attribute_data": PackedByteArray("/1//P/9f/7//X/9//1/////f/z//nwAA/5/////f/3//n/+//5//v/+f/z//n/8//5//P/+f/3//n/9//5//fw=="),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray("AwAJAAYAAQAOAAgAAgAMAA8AAAAFAAsADQAEAAcADQAKAAQA"),
+"material": SubResource("StandardMaterial3D_emt6h"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/38AAP9/nLr/fwAA/39G/P9/AAD/fyXP/38AAP9/XNUAAP///////wAA/////5y6AAD/////XNUAAP//AAD//wAA//8AAEb8AAD//wAAXNX//////////////////5y6////////Jc//////AAD///////8AAEb8/////wAAJc/ABxf3jUYJPtgs5iyNz2bb/3//v8AHF/eNz2bb/3//v41GCT6Nz2bb/3//v8AHF/fYLOYs/3//v41GCT7YLOYs")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_5mqqg")
+
+[sub_resource type="Animation" id="Animation_i0hux"]
+resource_name = "hover"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Marker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.733333, 1.5),
+"transitions": PackedFloat32Array(0.68302, 0.933033, 0.68302),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_k6f8r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Marker:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6l5dt"]
+_data = {
+"RESET": SubResource("Animation_k6f8r"),
+"hover": SubResource("Animation_i0hux")
+}
+
+[node name="UndergroundRaceMeet" type="Node3D" node_paths=PackedStringArray("car_meet_camera", "race_location_camera", "car_meet", "race_location", "racer_car_positions", "decor_car_positions", "grid_positions", "player_car_marker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -40)
 script = ExtResource("1_ou5pt")
 car_meet_camera = NodePath("CameraPivot/Camera3D")
@@ -84,6 +191,7 @@ race_location = NodePath("ugcm_race_location")
 racer_car_positions = NodePath("underground_car_meet/CarPositions/RacerCars")
 decor_car_positions = NodePath("underground_car_meet/CarPositions/DecorCars")
 grid_positions = NodePath("ugcm_race_location/Grid Positions")
+player_car_marker = NodePath("marker")
 
 [node name="underground_car_meet" type="Node3D" parent="."]
 
@@ -597,7 +705,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 mesh = SubResource("ArrayMesh_dmvxp")
 skeleton = NodePath("")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("base_ui", "racer_interact_screen", "racer_data_label", "player_cash_label", "negotiation_buttons", "counter_offer_input", "negotiation_controls", "decline_negotiation_button", "start_race_container", "wager_negotiation_labels", "current_wager_label")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("base_ui", "racer_interact_screen", "racer_data_label", "player_cash_label", "negotiation_buttons", "counter_offer_input", "negotiation_controls", "decline_negotiation_button", "start_race_container", "wager_negotiation_labels", "current_wager_label", "race_ui")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -618,6 +726,7 @@ decline_negotiation_button = NodePath("RacerInteractScreen/MarginContainer/Margi
 start_race_container = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/StartRace")
 wager_negotiation_labels = [NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/RacerOffer1"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/PlayerOffer1"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/RacerOffer2"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/PlayerOffer2"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/RacerOffer3"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/PlayerCounterOffer3"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/MessagesContainer/MarginContainer/Messages/VBoxContainer/NegotiationResultLabel")]
 current_wager_label = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Conversation/Control/VBoxContainer/Control3/CurrentWagerLabel")
+race_ui = NodePath("RaceUI")
 
 [node name="BaseUI" type="Control" parent="UI"]
 layout_mode = 1
@@ -977,6 +1086,511 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "START RACE"
 
+[node name="RaceUI" type="Control" parent="UI" node_paths=PackedStringArray("confirm_race_screen", "launch_screen", "race_start_countdown_label", "race_screen", "rpm_gauge_redline", "rpm_gauge_rpm", "gear_label", "speed_label", "race_time_label", "gearshift_button", "nitrous_button", "nitrous_bar", "post_race_screen", "result_label", "player_reaction_time_label", "player_run_time_label", "player_total_time_label", "rival_reaction_time_label", "rival_run_time_label", "rival_total_time_label", "rewards_label")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_b6rci")
+confirm_race_screen = NodePath("ConfirmRace")
+launch_screen = NodePath("Launch")
+race_start_countdown_label = NodePath("Launch/CenterContainer/VBoxContainer/CountdownLabel")
+race_screen = NodePath("Race")
+rpm_gauge_redline = NodePath("Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM/Redline")
+rpm_gauge_rpm = NodePath("Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM")
+gear_label = NodePath("Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear/Value")
+speed_label = NodePath("Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed/Value")
+race_time_label = NodePath("Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime/Value")
+gearshift_button = NodePath("Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton")
+nitrous_button = NodePath("Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton")
+nitrous_bar = NodePath("Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar")
+post_race_screen = NodePath("PostRace")
+result_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ResultLabel")
+player_reaction_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerReactionTimeLabel")
+player_run_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerRunTimeLabel")
+player_total_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerTotalTimeLabel")
+rival_reaction_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppReactionTime")
+rival_run_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppRunTime")
+rival_total_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OppTotalTime")
+rewards_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/RewardLabel")
+
+[node name="ConfirmRace" type="Control" parent="UI/RaceUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/RaceUI/ConfirmRace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/RaceUI/ConfirmRace/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RaceUI/ConfirmRace/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/ConfirmRace/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/RaceUI/ConfirmRace/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "
+One on one quarter mile sprint.
+Winner takes all.
+
+"
+horizontal_alignment = 1
+
+[node name="StartRunButton" type="Button" parent="UI/RaceUI/ConfirmRace/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Begin"
+
+[node name="Launch" type="Control" parent="UI/RaceUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/RaceUI/Launch"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/Launch/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/RaceUI/Launch/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "GET READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CountdownLabel" type="Label" parent="UI/RaceUI/Launch/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "TIMER COUNTDOWN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LaunchButton" type="Button" parent="UI/RaceUI/Launch/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "LAUNCH"
+
+[node name="Race" type="Control" parent="UI/RaceUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RaceUI/Race"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Control" type="Control" parent="UI/RaceUI/Race/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Left" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Nitrous" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="Bar" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_htty4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1ux25")
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Label" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -17.5
+offset_right = 17.5
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 20
+text = "NOS"
+
+[node name="Control" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RPM" type="TextureProgressBar" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+max_value = 10500.0
+value = 5500.0
+fill_mode = 3
+nine_patch_stretch = true
+texture_under = ExtResource("15_454yf")
+texture_progress = ExtResource("15_454yf")
+tint_under = Color(0.190762, 0.190762, 0.190762, 1)
+tint_over = Color(1, 1, 1, 0)
+
+[node name="Redline" type="TextureProgressBar" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+max_value = 10500.0
+value = 3500.0
+fill_mode = 2
+nine_patch_stretch = true
+texture_progress = ExtResource("15_454yf")
+tint_under = Color(1, 1, 1, 0)
+tint_over = Color(1, 1, 1, 0)
+tint_progress = Color(1, 0, 0, 1)
+
+[node name="Middle" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NOSButton" type="Button" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -63.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+theme_override_font_sizes/font_size = 40
+text = "NOS"
+
+[node name="Control2" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ShiftGearButton" type="Button" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "SHIFT"
+
+[node name="Right" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Panel" type="Panel" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gear" type="HBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "GEAR:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Speed" type="HBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "SPEED:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "XXX KM/h"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RaceTime" type="HBoxContainer" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "RACE TIME:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "XX:XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control2" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control3" type="Control" parent="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PostRace" type="Control" parent="UI/RaceUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RaceUI/PostRace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/PostRace/MarginContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "POST-RACE REPORT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultLabel" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "RESULT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerReactionTimeLabel" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR REACTION TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerRunTimeLabel" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR RUN TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerTotalTimeLabel" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOUR TOTAL TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OppReactionTime" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPPONENT REACTION TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OppRunTime" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPPONENT RUN TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OppTotalTime" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPPONENT TOTAL TIME: XX.XXX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RewardLabel" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "REWARD: _________________________"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="EndRunButton" type="Button" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+text = "End run"
+
 [node name="Node" type="Node" parent="UI"]
 
 [node name="RacerOfferThinkTimer" type="Timer" parent="UI/Node"]
@@ -992,10 +1606,17 @@ size = 30.0
 near = 0.001
 script = ExtResource("15_ttvs5")
 
-[node name="ugcm_race_location" parent="." instance=ExtResource("13_sb7yg")]
+[node name="ugcm_race_location" parent="." node_paths=PackedStringArray("race_camera", "camera_tracker", "player_car_position", "rival_car_position", "reaction_timer", "race_ui", "race_countdown_timer") instance=ExtResource("13_sb7yg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
-
-[node name="gtr342" parent="ugcm_race_location/Grid Positions/Slot2" index="0" instance=ExtResource("6_s5ay7")]
+visible = false
+script = ExtResource("20_mbbnw")
+race_camera = NodePath("CameraHolder/RaceCamera")
+camera_tracker = NodePath("CameraTracker")
+player_car_position = NodePath("Grid Positions/Slot1")
+rival_car_position = NodePath("Grid Positions/Slot2")
+reaction_timer = NodePath("Node/RivalDriverReactionTimeTimer")
+race_ui = NodePath("../UI/RaceUI")
+race_countdown_timer = NodePath("Node/RaceStartCountdownTimer")
 
 [node name="CameraHolder" type="Node3D" parent="ugcm_race_location"]
 
@@ -1007,11 +1628,21 @@ far = 13000.0
 [node name="CameraTracker" type="Node3D" parent="ugcm_race_location"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -9)
 
-[node name="Headlight" type="SpotLight3D" parent="ugcm_race_location"]
-transform = Transform3D(-1, -6.76191e-16, -8.74228e-08, -2.91018e-08, 0.942967, 0.332885, 8.24368e-08, 0.332885, -0.942967, 2, 1, -0.5)
-light_energy = 2.0
-spot_range = 30.0
-spot_angle = 30.0
+[node name="FinishLineArea3D" type="Area3D" parent="ugcm_race_location"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 400.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ugcm_race_location/FinishLineArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.5)
+shape = SubResource("BoxShape3D_p1l6l")
+
+[node name="Node" type="Node" parent="ugcm_race_location"]
+
+[node name="RaceStartCountdownTimer" type="Timer" parent="ugcm_race_location/Node"]
+wait_time = 2.0
+one_shot = true
+
+[node name="RivalDriverReactionTimeTimer" type="Timer" parent="ugcm_race_location/Node"]
+one_shot = true
 
 [node name="Environment" type="Node" parent="."]
 
@@ -1019,14 +1650,32 @@ spot_angle = 30.0
 environment = SubResource("Environment_tmbwt")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.795473, -0.604858, -0.0369947, 0, -0.0610486, 0.998135, -0.605988, -0.79399, -0.0485625, 0, 0, 0)
-light_energy = 0.1
+transform = Transform3D(0.993664, -3.72529e-09, -0.112388, 0.0761449, -0.735506, 0.673226, -0.0826621, -0.677518, -0.730846, 0, 0, 0)
+light_energy = 0.075
 shadow_enabled = true
+
+[node name="marker" type="Node3D" parent="."]
+
+[node name="Marker" type="MeshInstance3D" parent="marker"]
+mesh = SubResource("ArrayMesh_gxw36")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="marker"]
+libraries = {
+"": SubResource("AnimationLibrary_6l5dt")
+}
 
 [connection signal="pressed" from="UI/BaseUI/LeaveLocationButton" to="UI" method="_on_leave_location_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/AcceptWagerButton" to="UI" method="_on_accept_wager_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/HBoxContainer/ProposeCounterOfferButton" to="UI" method="_on_propose_counter_offer_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/DeclineButton" to="UI" method="_on_decline_wager_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/StartRace/StartRaceButton" to="UI" method="_on_start_race_button_pressed"]
+[connection signal="pressed" from="UI/RaceUI/ConfirmRace/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartRunButton" to="UI/RaceUI" method="_on_start_run_button_pressed"]
+[connection signal="pressed" from="UI/RaceUI/Launch/CenterContainer/VBoxContainer/LaunchButton" to="UI/RaceUI" method="_on_launch_button_pressed"]
+[connection signal="pressed" from="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton" to="UI/RaceUI" method="_on_shift_gear_button_pressed"]
+[connection signal="pressed" from="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/EndRunButton" to="UI/RaceUI" method="_on_end_run_button_pressed"]
+[connection signal="area_entered" from="ugcm_race_location/FinishLineArea3D" to="ugcm_race_location" method="_on_finish_line_area_3d_area_entered"]
+[connection signal="timeout" from="ugcm_race_location/Node/RaceStartCountdownTimer" to="ugcm_race_location" method="_on_race_start_countdown_timer_timeout"]
+[connection signal="timeout" from="ugcm_race_location/Node/RivalDriverReactionTimeTimer" to="ugcm_race_location" method="_on_rival_driver_reaction_time_timer_timeout"]
 
 [editable path="ugcm_race_location"]

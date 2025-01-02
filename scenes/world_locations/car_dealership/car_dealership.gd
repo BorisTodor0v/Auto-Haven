@@ -29,7 +29,12 @@ func set_background_cars():
 	for spot : Node3D in background_cars.get_children():
 		if spot.get_child_count() == 0:
 			var size = CarsData.get_all_cars().size()
-			var random_car_key = CarsData.get_all_cars().keys()[randi() % size]
+			#var random_car_key = CarsData.get_all_cars().keys()[randi() % size]
+			var random_car_key
+			while random_car_key == null:
+				var key = CarsData.get_all_cars().keys()[randi() % size]
+				if CarsData.get_car(key)["can_buy_in_dealership"] == true:
+					random_car_key = key
 			var random_car = CarsData.get_car(random_car_key)
 			var instance = load(random_car["model_path"]).instantiate()
 			var material : StandardMaterial3D = load("res://resources/shaders/car_base_color.tres").duplicate()
@@ -51,8 +56,9 @@ func set_background_cars():
 
 func set_initial_car():
 	for car in CarsData.get_all_cars():
-		player_selected_car(car)
-		break
+		if CarsData.get_car(car)["can_buy_in_dealership"] == true:
+			player_selected_car(car)
+			break
 
 func player_selected_car(car_key : String):
 	ui.display_car_stats(car_key)
