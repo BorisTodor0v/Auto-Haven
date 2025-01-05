@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ho04pojmu6cd"]
+[gd_scene load_steps=9 format=3 uid="uid://ho04pojmu6cd"]
 
 [ext_resource type="PackedScene" uid="uid://cv08hk7c5qmm3" path="res://scenes/world_locations/garage/model/garage.glb" id="1_fibno"]
 [ext_resource type="Script" path="res://scenes/world_locations/garage/garage_scene.gd" id="1_hufk2"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c8v4kw1b3qk6k" path="res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn" id="4_iop7i"]
 [ext_resource type="Script" path="res://scripts/camera_raycast_states/default_state.gd" id="6_4fivs"]
 [ext_resource type="Script" path="res://scripts/camera_raycast_states/place_object_state.gd" id="6_iriuf"]
+[ext_resource type="Script" path="res://scripts/camera_raycast_states/edit_floor_tiles_state.gd" id="8_hispg"]
 
 [node name="GarageScene" type="Node3D"]
 script = ExtResource("1_hufk2")
@@ -177,3 +178,6 @@ script = ExtResource("6_4fivs")
 [node name="PlaceObjectState" type="Node3D" parent="CameraStates"]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.41421, 0, -3.58579)
 script = ExtResource("6_iriuf")
+
+[node name="EditFloorTilesState" type="Node3D" parent="CameraStates"]
+script = ExtResource("8_hispg")

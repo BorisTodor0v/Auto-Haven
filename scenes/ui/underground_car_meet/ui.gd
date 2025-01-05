@@ -39,8 +39,7 @@ func _ready():
 	race_ui.connect("run_finished", run_finished.emit)
 
 func update_labels():
-	counter_offer_input.max_value = PlayerStats.get_cash()
-	player_cash_label.text = "Cash: $%d" % PlayerStats.get_cash()
+	$BaseUI/VBoxContainer/BaseUI.update_labels()
 
 func _on_leave_location_button_pressed():
 	leave_location.emit()

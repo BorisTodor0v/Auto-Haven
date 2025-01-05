@@ -1,9 +1,9 @@
 extends UI
 
-@onready var cash_label : Label = $RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2/Cash/Label
-@onready var rep_label : Label = $RaceTypeSelect/MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Rep/Label
+
 
 # Race type selection
+@onready var base_ui : UI = $RaceTypeSelect/MarginContainer/VBoxContainer/Top/BaseUI
 @onready var race_select : Control = $RaceTypeSelect
 
 # Confirm race selection
@@ -57,8 +57,7 @@ func _process(delta):
 	pass
 
 func update_labels():
-	cash_label.text = "Cash: $%d" % PlayerStats.get_cash()
-	rep_label.text = "Rep: %d" % PlayerStats.get_rep()
+	base_ui.update_labels()
 
 func _on_return_to_garage_button_pressed():
 	leave_location.emit()

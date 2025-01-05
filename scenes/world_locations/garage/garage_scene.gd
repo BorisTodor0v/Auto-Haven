@@ -10,17 +10,20 @@ extends WorldLocation
 var raycast_default_state_enabled : bool = false
 @onready var raycast_default_state : State = $CameraStates/DefaultState
 @onready var raycast_place_object_state : State = $CameraStates/PlaceObjectState
+@onready var raycast_edit_floor_tiles_state : State = $CameraStates/EditFloorTilesState
 
 signal repair_completed(cash_reward : int, rep_reward : int)
 signal pressed_on_tile(tile : Tile)
 signal pressed_on_object(object_node : Node3D, object_name : String, car_id : int)
 signal end_placing_item
+signal update_labels
 
 func _ready():
 	set_camera($CameraPivot/Camera3D)
 	raycast_default_state.connect("pressed_on_tile", pressed_on_tile.emit)
 	raycast_default_state.connect("pressed_on_object", pressed_on_object.emit)
 	raycast_place_object_state.connect("item_placed", finish_placing_item)
+	raycast_edit_floor_tiles_state.connect("floor_tile_changed", update_labels.emit)
 	set_camera_raycast_states("default")
 
 func get_job_car_spots() -> Node3D:
@@ -67,10 +70,19 @@ func set_camera_raycast_states(state : String):
 			print_debug("ENABLING DEFAULT STATE")
 			raycast_default_state.enable_state()
 			raycast_place_object_state.disable_state()
+			raycast_edit_floor_tiles_state.disable_state()
+			raycast_edit_floor_tiles_state.selected_tile_index = -1
 		"place_object":
-			print_debug("ENABLING PLACE STATE")
+			print_debug("ENABLING PLACE OBJECT STATE")
 			raycast_default_state.disable_state()
 			raycast_place_object_state.enable_state()
+			raycast_edit_floor_tiles_state.disable_state()
+			raycast_edit_floor_tiles_state.selected_tile_index = -1
+		"edit_floor_tiles":
+			print_debug("ENABLING EDIT FLOOR TILE STATE")
+			raycast_default_state.disable_state()
+			raycast_place_object_state.disable_state()
+			raycast_edit_floor_tiles_state.enable_state()
 
 func begin_placing_item(item_type : String, item):
 	raycast_place_object_state.set_item(item_type, item)
@@ -100,3 +112,6 @@ func finish_placing_item(placed_successfully : bool, placed_item_type : String, 
 		end_placing_item.emit("", null)
 	set_camera_raycast_states("default")
 	
+func begin_floor_tile_edit(selected_tile_index : int):
+	raycast_edit_floor_tiles_state.selected_tile_index = selected_tile_index
+	set_camera_raycast_states("edit_floor_tiles")

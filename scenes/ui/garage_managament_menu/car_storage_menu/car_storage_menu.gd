@@ -53,7 +53,7 @@ func fill_list():
 			for car in PlayerStats.get_owned_cars():
 				if PlayerStats.get_car(car)["is_stored"] == true:
 					var button_instance = preview_button.instantiate()
-					button_instance.connect("ready", button_instance.assign_car.bind(car))
+					button_instance.connect("ready", button_instance.assign_player_car.bind(car))
 					button_instance.connect("pressed", _button_pressed.bind(car))
 					menu_list.add_child(button_instance)
 		"furniture":
@@ -70,10 +70,18 @@ func fill_list():
 			submenu_label.text = "Edit floor tiles"
 			for floor_tile in floor_tiles_mesh_library.get_item_list():
 				var button_instance = preview_button.instantiate()
+				button_instance.connect("ready", button_instance.assign_floor_tile.bind(floor_tile))
 				button_instance.connect("pressed", _button_pressed.bind(floor_tile))
 				menu_list.add_child(button_instance)
 		"walls":
 			submenu_label.text = "Buy walls"
+			for wall in FurnitureData.get_walls():
+				var wall_item_data = FurnitureData.walls[wall]
+				if wall_item_data["model_path"] != "":
+					var button_instance = preview_button.instantiate()
+					button_instance.connect("ready", button_instance.assign_wall.bind(wall))
+					button_instance.connect("pressed", _button_pressed.bind(wall))
+					menu_list.add_child(button_instance)
 		_:
 			submenu_label.text = "Sub Menu"
 

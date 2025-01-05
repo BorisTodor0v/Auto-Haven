@@ -111,7 +111,6 @@ size_flags_vertical = 0
 text = "Price: $9,999,999"
 
 [node name="CarColor" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
@@ -122,6 +121,7 @@ text = "Color: "
 [node name="CarColorPickerButton" type="ColorPickerButton" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/CarColor"]
 layout_mode = 2
 size_flags_horizontal = 3
+edit_alpha = false
 
 [node name="Gap" type="Control" parent="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -200,5 +200,6 @@ size_flags_vertical = 3
 theme_override_constants/separation = 10
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Top/LeaveLocationButton" to="." method="_on_leave_location_button_pressed"]
+[connection signal="color_changed" from="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/CarColor/CarColorPickerButton" to="." method="_on_car_color_picker_button_color_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/PurchaseCarButton" to="." method="_on_purchase_car_button_pressed"]
 [connection signal="timeout" from="MarginContainer/VBoxContainer/CarStats/HBoxContainer/Center/MessageLabel/Timer" to="." method="clear_message"]

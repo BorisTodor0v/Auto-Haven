@@ -10,6 +10,7 @@ extends UI
 @onready var top_speed_label : Label = $MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/TopSpeedLabel
 @onready var acceleration_label : Label = $MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/AccelerationLabel
 @onready var price_label : Label = $MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/PriceLabel
+@onready var color_picker : ColorPickerButton = $MarginContainer/VBoxContainer/CarStats/HBoxContainer/Left/MarginContainer/VBoxContainer/CarColor/CarColorPickerButton
 
 var car_button = preload("res://scenes/ui/car_dealership/dealership_car_button/dealership_car_button.tscn")
 var current_car_key : String
@@ -17,6 +18,7 @@ var current_car_key : String
 signal selected_car(car_key : String)
 signal leave_location
 signal player_bought_car(car_key : String)
+signal color_changed(color : Color)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -76,3 +78,9 @@ func display_car_stats(car_key : String):
 
 func _on_purchase_car_button_pressed():
 	player_bought_car.emit(current_car_key)
+
+func _on_car_color_picker_button_color_changed(color):
+	color_changed.emit(color)
+
+func set_car_color_picker_button_color(color : Color):
+	color_picker.color = color

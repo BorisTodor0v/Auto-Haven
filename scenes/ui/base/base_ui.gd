@@ -1,5 +1,7 @@
 extends UI
 
+@export var is_in_other_scene : bool = false
+
 @onready var cash_label : Label = $MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2/Cash/Label
 @onready var rep_label : Label = $MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Rep/Label
 @onready var mechanics_label : Label = $MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/VBoxContainer2/Mechanics/Label
@@ -13,6 +15,17 @@ signal travel_button_pressed
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if is_in_other_scene:
+		$MarginContainer/VBoxContainer/Middle.hide()
+		$MarginContainer/VBoxContainer/Bottom.hide()
+		var margin : MarginContainer = $MarginContainer
+		var margin_value : int = 0
+		margin.add_theme_constant_override("margin_top", margin_value)
+		margin.add_theme_constant_override("margin_left", margin_value)
+		margin.add_theme_constant_override("margin_bottom", margin_value)
+		margin.add_theme_constant_override("margin_right", margin_value)
+		$MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Button.hide()
+		$MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Button2.hide()
 	message.hide()
 	pass # Replace with function body.
 

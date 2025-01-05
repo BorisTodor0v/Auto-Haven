@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://cpwgfs3bmyiuv"]
+[gd_scene load_steps=37 format=4 uid="uid://cpwgfs3bmyiuv"]
 
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/underground_race_meet.gd" id="1_ou5pt"]
 [ext_resource type="Material" uid="uid://baklpaoo7kkhc" path="res://scenes/world_locations/underground_car_meet/model/parking_lot/parking_lot.tres" id="2_d72pn"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dpwwo1dfwaw4c" path="res://cars/models/swift/swift.glb" id="11_aeyhs"]
 [ext_resource type="Script" path="res://scenes/ui/underground_car_meet/ui.gd" id="13_l8jbp"]
 [ext_resource type="PackedScene" uid="uid://cklx4vreyfqar" path="res://scenes/world_locations/underground_car_meet/model/race_location/ugcm_race_location.glb" id="13_sb7yg"]
+[ext_resource type="PackedScene" uid="uid://5fvbbtak1465" path="res://scenes/ui/base/base_ui.tscn" id="14_kaen1"]
 [ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="14_rfaa7"]
 [ext_resource type="Texture2D" uid="uid://cdg7h775o3udm" path="res://resources/images/ui/rpm_gauge/rpm_gauge.png" id="15_454yf"]
 [ext_resource type="Script" path="res://scenes/ui/underground_car_meet/race_ui.gd" id="15_b6rci"]
@@ -143,6 +144,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_5mqqg")
 
+[sub_resource type="Animation" id="Animation_k6f8r"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_i0hux"]
 resource_name = "hover"
 length = 1.5
@@ -158,21 +162,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.68302, 0.933033, 0.68302),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, -1, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_k6f8r"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Marker:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6l5dt"]
@@ -736,10 +725,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LeaveLocationButton" type="Button" parent="UI/BaseUI"]
-layout_mode = 0
-offset_right = 147.0
-offset_bottom = 31.0
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/BaseUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BaseUI" parent="UI/BaseUI/VBoxContainer" instance=ExtResource("14_kaen1")]
+layout_mode = 2
+size_flags_vertical = 3
+is_in_other_scene = true
+
+[node name="Control" type="Control" parent="UI/BaseUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="UI/BaseUI/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/BaseUI/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI/BaseUI/VBoxContainer/Control2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control2" type="Control" parent="UI/BaseUI/VBoxContainer/Control2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/BaseUI/VBoxContainer/Control2/HBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="LeaveLocationButton" type="Button" parent="UI/BaseUI/VBoxContainer/Control2/HBoxContainer/Control2/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Go back to garage"
 
 [node name="RacerInteractScreen" type="Control" parent="UI"]
@@ -1665,7 +1704,7 @@ libraries = {
 "": SubResource("AnimationLibrary_6l5dt")
 }
 
-[connection signal="pressed" from="UI/BaseUI/LeaveLocationButton" to="UI" method="_on_leave_location_button_pressed"]
+[connection signal="pressed" from="UI/BaseUI/VBoxContainer/Control2/HBoxContainer/Control2/MarginContainer/LeaveLocationButton" to="UI" method="_on_leave_location_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/AcceptWagerButton" to="UI" method="_on_accept_wager_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/HBoxContainer/ProposeCounterOfferButton" to="UI" method="_on_propose_counter_offer_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/DeclineButton" to="UI" method="_on_decline_wager_button_pressed"]

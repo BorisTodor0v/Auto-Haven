@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dm4woahvtnyyt"]
+[gd_scene load_steps=6 format=3 uid="uid://dm4woahvtnyyt"]
 
 [ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_ccxak"]
 [ext_resource type="Script" path="res://scenes/ui/car_interaction_menu/car_interaction_menu.gd" id="1_lk5si"]
@@ -6,7 +6,17 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_667rb"]
 viewport_path = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/SubViewport")
 
-[sub_resource type="World3D" id="World3D_sli5c"]
+[sub_resource type="Environment" id="Environment_phjcx"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ssao_enabled = true
+ssao_intensity = 4.0
+ssao_power = 2.04906
+ssao_detail = 5.0
+ssao_sharpness = 1.0
+
+[sub_resource type="World3D" id="World3D_7brjk"]
+environment = SubResource("Environment_phjcx")
 
 [node name="CarInteractionMenu" type="Control"]
 layout_mode = 3
@@ -140,13 +150,23 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "\"SET AS ACTIVE CAR\" BUTTON"
 
-[node name="SellCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SellCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "SELL CAR BUTTON"
+
+[node name="StoreCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SEND TO STORAGE BUTTON"
 
 [node name="SubViewport" type="SubViewport" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview"]
 own_world_3d = true
-world_3d = SubResource("World3D_sli5c")
+world_3d = SubResource("World3D_7brjk")
 transparent_bg = true
 
 [node name="CustomizationPart" type="Control" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer"]

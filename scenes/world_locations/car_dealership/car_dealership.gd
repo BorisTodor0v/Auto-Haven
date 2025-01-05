@@ -2,7 +2,9 @@ extends WorldLocation
 
 @onready var background_cars : Node3D = $dealership/BackgroundCars
 @onready var car_position : Node3D = $dealership/Podium/CarPosition
+
 var selected_car_color : Color
+var current_car_material : StandardMaterial3D
 
 ## Time in seconds for the podium to complete one full rotation
 @export var podium_rotation_time : float = 10 # Seconds
@@ -19,6 +21,7 @@ func _ready():
 	ui.connect("leave_location", leave_location.emit)
 	ui.connect("selected_car", player_selected_car)
 	ui.connect("player_bought_car", buy_car)
+	ui.connect("color_changed", car_color_changed)
 	set_background_cars()
 	set_initial_car()
 
@@ -81,6 +84,12 @@ func player_selected_car(car_key : String):
 			mesh = child
 	if mesh != null:
 		selected_car_color = mesh.get_active_material(0).albedo_color
+		ui.set_car_color_picker_button_color(selected_car_color)
+		current_car_material = mesh.get_active_material(0)
 
 func buy_car(car_key : String):
 	player_bought_car.emit(car_key, selected_car_color)
+
+func car_color_changed(color : Color):
+	selected_car_color = color
+	current_car_material.albedo_color = color

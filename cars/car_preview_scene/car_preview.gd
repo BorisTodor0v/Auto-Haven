@@ -17,6 +17,25 @@ func set_car(car_data : Dictionary):
 			break
 	$CarPosition.add_child(car_model)
 
+func set_player_car(car_data : Dictionary):
+	var general_car_data = CarsData.get_car(car_data["model"])
+	var car_model = load(general_car_data["model_path"]).instantiate()
+	var wheel_model = load("res://cars/wheels/"+car_data["wheels"]+"/"+car_data["wheels"]+".glb").instantiate()
+	## Add wheels to the car model
+	for child in car_model.get_children():
+		if child.name == "WheelPositions":
+			for wheel_position in child.get_children():
+				wheel_position.add_child(wheel_model.duplicate())
+			break
+	$CarPosition.add_child(car_model)
+	var mesh : MeshInstance3D = null
+	for child in car_model.get_children():
+		if child is MeshInstance3D:
+			mesh = child
+			break
+	if mesh != null:
+		mesh.get_active_material(0).albedo_color = car_data["color"]
+
 func set_model(model_path : String, model_scale : float):
 	var model : Node3D = load(model_path).instantiate()
 	var model_mesh : MeshInstance3D = model.get_child(0)

@@ -24,6 +24,9 @@ extends UI
 @onready var weight_parts_label : Label = $MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton4/VBoxContainer/Label
 @onready var nitrous_parts_label : Label = $MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton5/VBoxContainer/Label
 
+var preview_scene = preload("res://cars/car_preview_scene/car_preview.tscn")
+@onready var sub_viewport : SubViewport = $MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/SubViewport
+
 var current_car_id : int
 var general_car_data
 var player_car_data
@@ -98,10 +101,14 @@ func assign_car(car_id : int):
 		nitrous_upgrade_button.disabled = true
 		nitrous_parts_label.text = "Maxed out"
 	# Preview
-	
+	var preview_scene_instance = preview_scene.instantiate()
+	preview_scene_instance.set_player_car(player_car_data)
+	sub_viewport.remove_child(sub_viewport.get_child(0))
+	sub_viewport.add_child(preview_scene_instance)
 
 func _on_close_button_pressed():
 	open_menu.emit("base_ui")
+	sub_viewport.remove_child(sub_viewport.get_child(0))
 
 func set_active_car_button_state(car_id : int):
 	if car_id != PlayerStats.get_active_car(): # Current car is not selected as active

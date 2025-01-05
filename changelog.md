@@ -1,8 +1,7 @@
- - Added racing mechanics to Underground Race Meet
- - Added reward generation when winning a race from the Underground Race Meet and Drag Strip
- - Lighting changes
- - Added 4 new garage decorations
- - Added 2 new wheel models
- - Implemented basic tool to make car data input easier.
- - Added new car to dealership "DAW Bahnmeister" (5s60)
- - Fixed bug that applied player car upgrades to every instance of a car with the same model
+ - Changed UI in Drag Strip and Underground Race Meet
+ - Made car wheels rotate while racing
+ - Added wheels to player owned cars placed in the garage
+ - Added option to change car color when buying a car in the dealership
+ - Added car preview to car interaction menu
+ - Implemented buying walls for the garage
+ - Implemented editing floor tiles in the garage

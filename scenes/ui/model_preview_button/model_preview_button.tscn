@@ -5,7 +5,7 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_utxas"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="Environment" id="Environment_phjcx"]
+[sub_resource type="Environment" id="Environment_k2cbt"]
 background_mode = 1
 background_color = Color(1, 1, 1, 1)
 ssao_enabled = true
@@ -15,7 +15,7 @@ ssao_detail = 5.0
 ssao_sharpness = 1.0
 
 [sub_resource type="World3D" id="World3D_3tmv4"]
-environment = SubResource("Environment_phjcx")
+environment = SubResource("Environment_k2cbt")
 
 [node name="ModelPreviewButton" type="Button"]
 custom_minimum_size = Vector2(128, 128)

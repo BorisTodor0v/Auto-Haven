@@ -37,7 +37,13 @@ func set_item(item_type : String, item):
 			var wheels_path : String = "res://cars/wheels/"+car_wheels+"/"+car_wheels+".glb"
 
 			var car_instance = load(car_scene_path).instantiate()
-			# TODO: Instantiate wheels and add them to the car
+			## Add wheels to the car model
+			var wheel_model = load("res://cars/wheels/"+player_car_data["wheels"]+"/"+player_car_data["wheels"]+".glb").instantiate()
+			for child in car_instance.get_children():
+				if child.name == "WheelPositions":
+					for wheel_position in child.get_children():
+						wheel_position.add_child(wheel_model.duplicate())
+					break
 
 			current_item = car_instance
 			current_item.set_internal_name(car_model)
@@ -59,13 +65,36 @@ func set_item(item_type : String, item):
 			var furniture_item_scene = furniture_item_data["scene_path"]
 			
 			var furniture_item_instance = load(furniture_item_scene).instantiate()
-
 			
 			current_item = furniture_item_instance
 			current_item.set_internal_name(str(item))
 			if current_item.get_internal_name().begins_with("car_lift"):
 				if current_item.has_car():
 					current_item.disable_car_collision()
+			current_item_id = item
+			current_item_mesh = current_item.get_child(0)
+			if current_item_mesh != null:
+				current_item_default_material = current_item_mesh.get_active_material(0)
+			else:
+				print_debug("PROBLEM, MESH IS NULL")
+
+			self.add_child(current_item)
+			current_item.global_rotation.y = 0
+		"walls":
+			var wall_data = FurnitureData.walls[item]
+			var wall_scene = load("res://garage_decorations/props/walls/wall_scene.tscn").instantiate()
+			var wall_model = load(wall_data["model_path"]).instantiate()
+			var wall_mesh : MeshInstance3D = wall_model.get_child(0)
+			wall_mesh.reparent(wall_scene, true)
+			wall_scene.move_child(wall_mesh, 0)
+			var wall_material : StandardMaterial3D = wall_mesh.get_active_material(0)
+			# Cull mode changed to render wall on both sides
+			wall_material.cull_mode = BaseMaterial3D.CULL_DISABLED
+			# Offset mesh in wall scene to match collision
+			wall_mesh.global_position.z = -1
+			
+			current_item = wall_scene
+			current_item.set_internal_name(str(item))
 			current_item_id = item
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
@@ -177,7 +206,7 @@ func _process(_delta):
 			current_item_mesh.set_surface_override_material(0, allow_placement_material)
 		else:
 			current_item_mesh.set_surface_override_material(0, deny_placement_material)
-					
+	
 	
 	if(Input.is_action_just_pressed("mouse1")):
 		place_item(true)

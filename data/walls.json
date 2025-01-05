@@ -1,0 +1,14 @@
+{
+	"wall_001":{
+		"name" : "Gray wall",
+		"price" : 100,
+		"model_path" : "res://garage_decorations/props/walls/models/wall_001/wall_001.glb",
+		"preview_scale": 1
+	},
+	"wall_002":{
+		"name" : "White wall",
+		"price" : 100,
+		"model_path" : "res://garage_decorations/props/walls/models/wall_002/wall_002.glb",
+		"preview_scale": 1
+	},
+}

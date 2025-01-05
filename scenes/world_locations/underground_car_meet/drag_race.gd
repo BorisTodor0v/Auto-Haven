@@ -8,11 +8,13 @@ extends Node3D
 @export var player_car_position : Node3D
 var player_car : Car
 var player_car_data
+var player_car_wheels : Node3D
 var player_general_car_data
 
 @export var rival_car_position : Node3D
 var rival_car : Car
 var rival_car_data
+var rival_car_wheels : Node3D
 var rival_general_car_data
 
 var race_time : float = 0
@@ -94,6 +96,8 @@ func set_player_car(player_car_id : int):
 				wheel_position.add_child(wheel_model.duplicate())
 			break
 	
+	player_car_wheels = player_car.get_wheels()
+	
 	## Add headlights to car
 	for child in instance.get_children():
 		if child is MeshInstance3D:
@@ -154,6 +158,8 @@ func set_rival_car(rival_data : Dictionary):
 			for wheel_position in child.get_children():
 				wheel_position.add_child(wheel_model.duplicate())
 			break
+	
+	rival_car_wheels = rival_car.get_wheels()
 
 	rival_shift_point = randf_range(rival_general_car_data["peak_hp_rpm"], rival_general_car_data["max_rpm"]-100)
 	rival_reaction_time = randf_range(0.25, 0.4) # Time that will pass before the rival will start moving
@@ -203,6 +209,13 @@ func move_player_car(delta):
 	player_car.translate(Vector3(0,0,1)*current_velocity*delta)
 	camera_tracker.translate(Vector3(0,0,1)*current_velocity*delta)
 	race_camera.global_position = lerp(race_camera.global_position, camera_tracker.global_position, randf_range(0.17, 0.2))
+	
+	var wheel_rotation_angle = current_velocity * delta / (2 * PI * 0.29) * 2 * PI
+	if player_car_wheels != null:
+		player_car_wheels.get_child(0).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
+		player_car_wheels.get_child(1).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
+		player_car_wheels.get_child(2).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
+		player_car_wheels.get_child(3).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
 
 func shift_gear():
 	if current_gear < player_car_data["performance_data"]["gears"]:
@@ -238,6 +251,12 @@ func decelerate_rival_car(delta):
 
 func move_rival_car(delta):
 	rival_car.translate(Vector3(0,0,1)*rival_velocity*delta)
+	var wheel_rotation_angle = current_velocity * delta / (2 * PI * 0.29) * 2 * PI
+	if rival_car_wheels != null:
+		rival_car_wheels.get_child(0).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
+		rival_car_wheels.get_child(1).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
+		rival_car_wheels.get_child(2).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
+		rival_car_wheels.get_child(3).rotate_object_local(Vector3(1, 0, 0), wheel_rotation_angle)
 
 func _on_finish_line_area_3d_area_entered(area):
 	if area.get_parent() == player_car:

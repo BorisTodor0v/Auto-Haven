@@ -25,6 +25,7 @@ func _ready():
 	garage_scene.connect("pressed_on_tile", pressed_on_tile)
 	garage_scene.connect("end_placing_item", end_placing_item)
 	garage_scene.connect("pressed_on_object", handle_object_clicked)
+	garage_scene.connect("update_labels", ui.update_labels)
 	ui.connect("hire_mechanic", hire_mechanic)
 	ui.connect("expand_garage", toggle_garage_expansion)
 	ui.connect("open_menu", open_menu)
@@ -173,7 +174,6 @@ func buy_car(car_key : String, car_color : Color):
 	ui.update_labels()
 
 func begin_placing_item(item_type : String, item):
-	print_debug(item)
 	match item_type:
 		"car": # Car price is not important as player already owns car / is in storage, begin placing
 			ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
@@ -185,6 +185,16 @@ func begin_placing_item(item_type : String, item):
 				garage_scene.begin_placing_item(item_type, item)
 			else:
 				ui.show_message("Not enough money to buy this furniture item", 5)
+		"walls":
+			var wall_data = FurnitureData.walls[item]
+			if PlayerStats.get_cash() >= wall_data["price"]:
+				ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
+				garage_scene.begin_placing_item(item_type, item)
+			else:
+				ui.show_message("Not enough money to buy this furniture item", 5)
+		"floor_tiles":
+			garage_scene.begin_floor_tile_edit(item)
+			print_debug("Place floor tiles")
 		_:
 			print_debug("Placing something else")
 

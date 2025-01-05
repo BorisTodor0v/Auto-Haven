@@ -3,9 +3,12 @@
 	- Refilled as time passes, or can be bought
 - [ ] Level progression
 - [ ] Reset camera rotation and position when switching location to the garage scene
-- [ ] Floor tile editing
-- [ ] Buy walls
-- [ ] More furniture items
+- [X] Floor tile editing
+- [X] Buy walls
+- [ ] More garage decorations:
+	- [ ] Furniture items
+	- [ ] Walls
+	- [ ] Floor tiles
 While redecorating garage:
 	- [ ] Delete props and refund money to player
 	- [ ] Return placed cars into storage
@@ -26,14 +29,15 @@ While redecorating garage:
 	- [ ] Use said Performance Index for wager negotiations
 - [ ] When generating racers in the underground race meet, have different wealth categories and give them appropriate car (i.e. rich racers have fast cars, poorer slow cars)
 - [ ] When generating racers in the underground race meet, randomize performance upgrades and wheels
-- [ ] Have wheels rotate while driving
-- [ ] Add wheels to player owned cars placed in their garage
-- [ ] Add option to car dealership to change color of car before buying
+- [X] Have wheels rotate while driving
+- [X] Add wheels to player owned cars placed in their garage
+- [X] Add option to car dealership to change color of car before buying
 - [ ] Tweak performance upgrade benefits
 - [ ] In the car interaction menu:
 	- [ ] Sell owned car functionality
 		- [ ] Calculate value from car price and level of upgrades
-	- [ ] Add a preview of the car on the left side
+	- [ ] Return car to storage functionality
+	- [X] Add a preview of the car on the left side
 - [ ] UI Icons:
 	- [ ] Garage management menu:
 		- [ ] Hire mechanics
@@ -62,3 +66,4 @@ While redecorating garage:
 	- [ ] gtr34
 	- [ ] ris
 	- [ ] rs6
+- [ ] Saving and loading data

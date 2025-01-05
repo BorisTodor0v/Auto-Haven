@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://drc5yolv6o5qy"]
+
+[ext_resource type="Script" path="res://scripts/placeable_object.gd" id="1_o703h"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y1hvn"]
+size = Vector3(1.95, 2, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_06rto"]
+size = Vector3(1.95, 0.05, 0)
+
+[node name="WallScene" type="StaticBody3D"]
+script = ExtResource("1_o703h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+shape = SubResource("BoxShape3D_y1hvn")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+shape = SubResource("BoxShape3D_06rto")
+
+[node name="EdgeDetectionRays" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.002, -0.99)
+
+[node name="RayCast3D" type="RayCast3D" parent="EdgeDetectionRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99, 0, 0.01)
+
+[node name="RayCast3D2" type="RayCast3D" parent="EdgeDetectionRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99, 0, 0.01)
