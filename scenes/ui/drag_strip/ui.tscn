@@ -347,7 +347,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_5wssx")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xgfbl")
-value = 100.0
+max_value = 0.5
+step = 0.001
+value = 0.5
 fill_mode = 3
 show_percentage = false
 
@@ -363,6 +365,11 @@ grow_horizontal = 2
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 20
 text = "NOS"
+
+[node name="Node" type="Node" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar"]
+
+[node name="Timer" type="Timer" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar/Node"]
+one_shot = true
 
 [node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer"]
 layout_mode = 2
@@ -681,5 +688,6 @@ text = "End run"
 [connection signal="pressed" from="ConfirmRace/VersusRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartRunButton" to="." method="_on_start_versus_run_button_pressed"]
 [connection signal="pressed" from="ConfirmRace/VersusRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/CancelRunButton" to="." method="_on_cancel_run_button_pressed"]
 [connection signal="pressed" from="Launch/CenterContainer/VBoxContainer/LaunchButton" to="." method="_on_launch_button_pressed"]
+[connection signal="pressed" from="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton" to="." method="_on_nos_button_pressed"]
 [connection signal="pressed" from="Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton" to="." method="_on_shift_gear_button_pressed"]
 [connection signal="pressed" from="PostRace/MarginContainer/VBoxContainer/EndRunButton" to="." method="_on_end_run_button_pressed"]

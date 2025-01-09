@@ -782,7 +782,6 @@ theme_override_font_sizes/font_size = 25
 text = "Go back to garage"
 
 [node name="RacerInteractScreen" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1125,7 +1124,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "START RACE"
 
-[node name="RaceUI" type="Control" parent="UI" node_paths=PackedStringArray("confirm_race_screen", "launch_screen", "race_start_countdown_label", "race_screen", "rpm_gauge_redline", "rpm_gauge_rpm", "gear_label", "speed_label", "race_time_label", "gearshift_button", "nitrous_button", "nitrous_bar", "post_race_screen", "result_label", "player_reaction_time_label", "player_run_time_label", "player_total_time_label", "rival_reaction_time_label", "rival_run_time_label", "rival_total_time_label", "rewards_label")]
+[node name="RaceUI" type="Control" parent="UI" node_paths=PackedStringArray("confirm_race_screen", "launch_screen", "race_start_countdown_label", "race_screen", "rpm_gauge_redline", "rpm_gauge_rpm", "gear_label", "speed_label", "race_time_label", "gearshift_button", "nitrous_button", "nitrous_bar_holder", "nitrous_bar", "post_race_screen", "result_label", "player_reaction_time_label", "player_run_time_label", "player_total_time_label", "rival_reaction_time_label", "rival_run_time_label", "rival_total_time_label", "rewards_label")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1145,7 +1144,8 @@ speed_label = NodePath("Race/MarginContainer/Control/HBoxContainer/Right/VBoxCon
 race_time_label = NodePath("Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime/Value")
 gearshift_button = NodePath("Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton")
 nitrous_button = NodePath("Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton")
-nitrous_bar = NodePath("Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar")
+nitrous_bar_holder = NodePath("Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar")
+nitrous_bar = NodePath("Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar/ProgressBar")
 post_race_screen = NodePath("PostRace")
 result_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ResultLabel")
 player_reaction_time_label = NodePath("PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/PlayerReactionTimeLabel")
@@ -1304,6 +1304,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_htty4")
 theme_override_styles/fill = SubResource("StyleBoxFlat_1ux25")
+step = 0.001
 value = 100.0
 fill_mode = 3
 show_percentage = false
@@ -1704,13 +1705,16 @@ libraries = {
 "": SubResource("AnimationLibrary_6l5dt")
 }
 
+[connection signal="visibility_changed" from="underground_car_meet" to="." method="_on_underground_car_meet_visibility_changed"]
 [connection signal="pressed" from="UI/BaseUI/VBoxContainer/Control2/HBoxContainer/Control2/MarginContainer/LeaveLocationButton" to="UI" method="_on_leave_location_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/AcceptWagerButton" to="UI" method="_on_accept_wager_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/HBoxContainer/ProposeCounterOfferButton" to="UI" method="_on_propose_counter_offer_button_pressed"]
+[connection signal="value_changed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/HBoxContainer/WagerInput" to="UI" method="_on_wager_input_value_changed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/DeclineButton" to="UI" method="_on_decline_wager_button_pressed"]
 [connection signal="pressed" from="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/StartRace/StartRaceButton" to="UI" method="_on_start_race_button_pressed"]
 [connection signal="pressed" from="UI/RaceUI/ConfirmRace/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/StartRunButton" to="UI/RaceUI" method="_on_start_run_button_pressed"]
 [connection signal="pressed" from="UI/RaceUI/Launch/CenterContainer/VBoxContainer/LaunchButton" to="UI/RaceUI" method="_on_launch_button_pressed"]
+[connection signal="pressed" from="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton" to="UI/RaceUI" method="_on_nos_button_pressed"]
 [connection signal="pressed" from="UI/RaceUI/Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton" to="UI/RaceUI" method="_on_shift_gear_button_pressed"]
 [connection signal="pressed" from="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/EndRunButton" to="UI/RaceUI" method="_on_end_run_button_pressed"]
 [connection signal="area_entered" from="ugcm_race_location/FinishLineArea3D" to="ugcm_race_location" method="_on_finish_line_area_3d_area_entered"]

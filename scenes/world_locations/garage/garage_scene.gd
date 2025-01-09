@@ -6,6 +6,7 @@ extends WorldLocation
 @onready var garage_tiles : Node3D = $Tiles
 @onready var player_cars : Node3D = $PlayerCars
 @onready var furniture : Node3D = $Furniture
+@onready var walls : Node3D = $Walls
 
 var raycast_default_state_enabled : bool = false
 @onready var raycast_default_state : State = $CameraStates/DefaultState
@@ -18,6 +19,9 @@ signal pressed_on_object(object_node : Node3D, object_name : String, car_id : in
 signal end_placing_item
 signal update_labels
 
+var camera_initial_position : Vector3
+var camera_initial_rotation : Vector3
+
 func _ready():
 	set_camera($CameraPivot/Camera3D)
 	raycast_default_state.connect("pressed_on_tile", pressed_on_tile.emit)
@@ -25,6 +29,8 @@ func _ready():
 	raycast_place_object_state.connect("item_placed", finish_placing_item)
 	raycast_edit_floor_tiles_state.connect("floor_tile_changed", update_labels.emit)
 	set_camera_raycast_states("default")
+	camera_initial_position = camera.global_position
+	camera_initial_rotation = camera.global_rotation
 
 func get_job_car_spots() -> Node3D:
 	return job_car_spots
@@ -104,6 +110,8 @@ func finish_placing_item(placed_successfully : bool, placed_item_type : String, 
 					placed_item.reparent(car_lifts, true)
 				else:
 					placed_item.reparent(furniture, true)
+			"walls":
+				placed_item.reparent(walls, true)
 			_:
 				print_debug("Invalid item type, can't reparent. Won't be saved")
 	else:
@@ -115,3 +123,7 @@ func finish_placing_item(placed_successfully : bool, placed_item_type : String, 
 func begin_floor_tile_edit(selected_tile_index : int):
 	raycast_edit_floor_tiles_state.selected_tile_index = selected_tile_index
 	set_camera_raycast_states("edit_floor_tiles")
+
+func _on_visibility_changed():
+	camera.global_position = camera_initial_position
+	camera.global_rotation = camera_initial_rotation

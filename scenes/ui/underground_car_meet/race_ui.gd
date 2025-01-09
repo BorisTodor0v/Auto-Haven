@@ -18,8 +18,11 @@ signal launch
 @export var race_time_label : Label
 @export var gearshift_button : Button
 @export var nitrous_button : Button
-@export var nitrous_bar : Control
+@export var nitrous_bar_holder : Control
+@export var nitrous_bar : ProgressBar
+
 signal shift_gear
+signal fire_nitrous
 
 # Post race debrief / results
 @export var post_race_screen : Control
@@ -110,13 +113,28 @@ func show_upshift_button():
 	gearshift_button.show()
 
 func hide_nitrous_components():
-	nitrous_bar.hide()
+	nitrous_bar_holder.hide()
 	nitrous_button.hide()
 
 func show_nitrous_components():
-	nitrous_bar.show()
+	nitrous_bar_holder.show()
 	nitrous_button.show()
 
 func _on_countdown_timer_timeout():
 	print_debug("Timed out")
 	pass # Replace with function body.
+
+func _on_nos_button_pressed():
+	fire_nitrous.emit()
+
+func hide_nitrous_button():
+	nitrous_button.hide()
+
+func show_nitrous_button():
+	nitrous_button.show()
+
+func set_nitrous_bar_max_value(max_value : float):
+	nitrous_bar.max_value = max_value
+
+func set_nitrous_bar_value(value : float):
+	nitrous_bar.value = value

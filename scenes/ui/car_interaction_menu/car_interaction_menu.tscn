@@ -27,14 +27,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lk5si")
 
-[node name="Submenu" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -157,12 +149,12 @@ size_flags_vertical = 3
 [node name="SellCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "SELL CAR BUTTON"
+text = "Sell car"
 
 [node name="StoreCarButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "SEND TO STORAGE BUTTON"
+text = "Send car to storage"
 
 [node name="SubViewport" type="SubViewport" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview"]
 own_world_3d = true
@@ -446,5 +438,16 @@ size_flags_vertical = 6
 text = "RACE STATS: WINS: XXXX | LOSSES: XXXX"
 vertical_alignment = 1
 
+[node name="Submenu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Top/Buttons/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/SetActiveCarButton" to="." method="_on_set_active_car_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer/SellCarButton" to="." method="_on_sell_car_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer/StoreCarButton" to="." method="_on_store_car_button_pressed"]

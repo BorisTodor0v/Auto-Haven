@@ -28,13 +28,18 @@ func set_player_car(car_data : Dictionary):
 				wheel_position.add_child(wheel_model.duplicate())
 			break
 	$CarPosition.add_child(car_model)
+	
 	var mesh : MeshInstance3D = null
 	for child in car_model.get_children():
 		if child is MeshInstance3D:
 			mesh = child
 			break
 	if mesh != null:
-		mesh.get_active_material(0).albedo_color = car_data["color"]
+		var material = mesh.get_active_material(0)
+		if material != null:
+			var unique_material = material.duplicate()
+			unique_material.albedo_color = car_data["color"]
+			mesh.set_surface_override_material(0, unique_material)
 
 func set_model(model_path : String, model_scale : float):
 	var model : Node3D = load(model_path).instantiate()

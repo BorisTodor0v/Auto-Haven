@@ -1,7 +1,5 @@
 extends UI
 
-
-
 # Race type selection
 @onready var base_ui : UI = $RaceTypeSelect/MarginContainer/VBoxContainer/Top/BaseUI
 @onready var race_select : Control = $RaceTypeSelect
@@ -30,8 +28,10 @@ signal launch
 @onready var gearshift_button : Button = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control2/ShiftGearButton
 
 @onready var nitrous_button : Button = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/Control2/VBoxContainer/Control/NOSButton
-@onready var nitrous_bar : Control = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar
+@onready var nitrous_bar_holder : Control = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar
+@onready var nitrous_bar : ProgressBar = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar/ProgressBar
 
+signal fire_nitrous
 signal shift_gear
 
 # Post Race Debrief
@@ -170,13 +170,28 @@ func show_upshift_button():
 	gearshift_button.show()
 
 func hide_nitrous_components():
-	nitrous_bar.hide()
+	nitrous_bar_holder.hide()
 	nitrous_button.hide()
 
 func show_nitrous_components():
-	nitrous_bar.show()
+	nitrous_bar_holder.show()
 	nitrous_button.show()
 
 func _on_countdown_timer_timeout():
 	print_debug("Timed out")
 	pass # Replace with function body.
+
+func _on_nos_button_pressed():
+	fire_nitrous.emit()
+
+func hide_nitrous_button():
+	nitrous_button.hide()
+
+func show_nitrous_button():
+	nitrous_button.show()
+
+func set_nitrous_bar_max_value(max_value : float):
+	nitrous_bar.max_value = max_value
+
+func set_nitrous_bar_value(value : float):
+	nitrous_bar.value = value

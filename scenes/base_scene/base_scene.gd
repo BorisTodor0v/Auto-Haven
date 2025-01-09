@@ -5,6 +5,7 @@ extends Node
 @onready var job_car_spawner : Node = $JobCarSpawner
 @onready var scene_holder : Node = $Scene
 @onready var car_interaction_menu : Node = $UI/CarInteractionMenu
+var car_interaction_menu_active_car_node : Node3D
 
 @export var world_environment : WorldEnvironment
 @export var environment_light : DirectionalLight3D
@@ -36,6 +37,8 @@ func _ready():
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
 	car_interaction_menu.connect("upgrade_car", upgrade_car)
+	car_interaction_menu.connect("store_car", store_car)
+	car_interaction_menu.connect("sell_car", sell_car)
 	ui.update_labels()
 	# Function calls for testing, remove in final version
 	test_func_give_player_car()
@@ -193,6 +196,7 @@ func begin_placing_item(item_type : String, item):
 			else:
 				ui.show_message("Not enough money to buy this furniture item", 5)
 		"floor_tiles":
+			ui.show_message("Select a tile color and press anywhere on the garage to apply it.", 9999)
 			garage_scene.begin_floor_tile_edit(item)
 			print_debug("Place floor tiles")
 		_:
@@ -211,6 +215,9 @@ func end_placing_item(placed_item_type : String, placed_item_id):
 				var furniture_item_data = FurnitureData.get_values_from_key(placed_item_id)
 				if is_redecorating == false:
 					PlayerStats.remove_cash(furniture_item_data["price"])
+			"walls":
+				if is_redecorating == false:
+					PlayerStats.remove_cash(FurnitureData.walls.get(placed_item_id)["price"])
 			_:
 				pass
 	ui.update_labels()
@@ -240,25 +247,46 @@ func handle_object_clicked(object_node, object_name : String, car_id : int):
 	if is_redecorating:
 		print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
 		garage_scene.begin_edit_item(object_node, object_name, car_id)
-		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel.", 9999)
+		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel. X to delete, or if it's a car to send back to storage.", 9999)
 	else:
 		if object_node is Car:
 			if car_id >= 0:
 				if ui.has_method("car_interaction_menu_assign_car"):
 					ui.car_interaction_menu_assign_car(car_id)
+					car_interaction_menu_active_car_node = object_node
 					open_menu("car_interaction_menu")
 
 func upgrade_car(car_id : int, upgrade_type : String):
 	PlayerStats.upgrade_car(car_id, upgrade_type)
 
+func store_car(car_id : int):
+	PlayerStats.get_car(car_id)["is_stored"] = true
+	car_interaction_menu_active_car_node.queue_free()
+
+func sell_car(car_id : int):
+	if PlayerStats.get_active_car() == car_id:
+		PlayerStats.set_active_car(-1)
+	var player_car_data : Dictionary = PlayerStats.get_car(car_id)
+	var car_name : String = player_car_data["model"]
+	var general_car_data : Dictionary = CarsData.get_car(car_name)
+	
+	var sale_price : int = general_car_data["price"] / 2
+	
+	# For every upgraded part, multiply the level by 5% of the base price of the car and add it to the sale price
+	for upgrade in player_car_data["upgrades"]:
+		sale_price += player_car_data["upgrades"][upgrade] * (general_car_data["price"] * 0.05)
+	
+	car_interaction_menu_active_car_node.queue_free()
+	PlayerStats.add_cash(sale_price)
+	ui.update_labels()
+
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)
 
 func test_func_give_player_car():
-	PlayerStats.add_cash(20000)
+	PlayerStats.add_cash(50000)
 	buy_car("chal", Color(1, .9, 0))
 	PlayerStats.set_active_car(1)
-	pass
 
 func switch_time_of_day_to(target_time : String):
 	match target_time:

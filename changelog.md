@@ -1,7 +1,9 @@
- - Changed UI in Drag Strip and Underground Race Meet
- - Made car wheels rotate while racing
- - Added wheels to player owned cars placed in the garage
- - Added option to change car color when buying a car in the dealership
- - Added car preview to car interaction menu
- - Implemented buying walls for the garage
- - Implemented editing floor tiles in the garage
+ - Nitrous boost is now usable during races
+	- Players can use nitrous in races from the Drag Strip and Underground Race Meet
+	- NPCs can only use nitrous in Underground Race Meet races
+ - Added icons for buttons in garage managament menu
+ - Added ability to return cars to storage and refund bought walls/props while redecorating the garage
+ - Added ability to return cars to storage and sell cars from the car interaction menu
+ - Camera in the garage scene is reset upon switching back from another scene
+ - Started tracking wins and losses for each player owned car
+ - Cars are now properly displayed in the car storage menu with their appropriate colors

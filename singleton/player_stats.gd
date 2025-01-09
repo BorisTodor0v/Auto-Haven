@@ -86,6 +86,9 @@ func get_active_car():
 func set_active_car(id : int):
 	active_car = id
 
+func remove_car(id : int):
+	owned_cars.erase(id)
+
 func add_upgrade_parts(type : String, amount : int):
 	match type:
 		"engine":
@@ -135,7 +138,7 @@ func upgrade_car(car_id : int, upgrade_type : String):
 					for i in current_car["performance_data"]["top_speed_for_gear"].size():
 						current_car["performance_data"]["top_speed_for_gear"][i] += 2 # TODO: Test with different values
 						# TODO: Change increase in performance, current value is for testing only 
-					current_car["performance_data"]["top_speed_mps"] += 2
+						current_car["performance_data"]["top_speed_mps"] += 2
 				elif upgrade_type == "transmission": # Acceleration
 					for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
 						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 1 # TODO: Test with different values (0.2)

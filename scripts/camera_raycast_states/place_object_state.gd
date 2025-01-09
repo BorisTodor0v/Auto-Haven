@@ -51,7 +51,7 @@ func set_item(item_type : String, item):
 			current_item_id = item
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
-				current_item_default_material = current_item_mesh.get_active_material(0)
+				current_item_default_material = current_item_mesh.get_active_material(0).duplicate()
 				current_item_default_material.albedo_color = player_car_data["color"]
 			else:
 				print_debug("PROBLEM, MESH IS NULL")
@@ -112,9 +112,11 @@ func set_edit_item(item_node : Node3D, item_name : String, car_id : int):
 	edit_object_original_position = item_node.global_position # Memorize the previous position of the object
 	edit_object_original_rotation = item_node.global_rotation # Memorize the previous rotation of the object
 	if car_id == -1: # Item is a furniture object
-		print_debug("Furniture item")		
+		if item_name.begins_with("wall_"):
+			current_item_type = "walls"
+		else:
+			current_item_type = "furniture"
 		current_item = item_node
-		current_item_type = "furniture"
 		current_item_id = item_name
 		current_item_mesh = current_item.get_child(0)
 		if current_item_mesh != null:
@@ -178,6 +180,29 @@ func place_item(placed_sucessfully : bool):
 			current_item_id = null
 			current_item_type = ""
 
+func delete_item():
+	match current_item_type:
+			"car":
+				if edit_mode_enabled:
+					# Send the car to storage
+					PlayerStats.get_car(current_item_id)["is_stored"] = true
+					clear_item()
+					item_placed.emit(false, "", null, null)
+			"walls":
+				if edit_mode_enabled:
+					# Refund the player the price of the wall
+					PlayerStats.add_cash(FurnitureData.walls[current_item_id]["price"])
+					clear_item()
+					item_placed.emit(false, "", null, null)
+			"furniture":
+				if edit_mode_enabled:
+					# Refund the player the price of the wall
+					PlayerStats.add_cash(FurnitureData.get_values_from_key(current_item_id)["price"])
+					clear_item()
+					item_placed.emit(false, "", null, null)
+			_:
+				print_debug("Unknown item type")
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
@@ -207,7 +232,6 @@ func _process(_delta):
 		else:
 			current_item_mesh.set_surface_override_material(0, deny_placement_material)
 	
-	
 	if(Input.is_action_just_pressed("mouse1")):
 		place_item(true)
 	
@@ -216,3 +240,6 @@ func _process(_delta):
 
 	if(Input.is_action_just_pressed("ObjectRotate")):
 		current_item.rotate_y(deg_to_rad(90))
+
+	if(Input.is_action_just_pressed("ObjectPlaceDelete")):
+		delete_item()

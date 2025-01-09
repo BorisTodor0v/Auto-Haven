@@ -17,6 +17,10 @@ var player_car : Car
 var player_car_data 
 var player_car_wheels : Node3D
 var player_general_car_data
+var player_nitrous_power : float
+var player_nitrous_duration : float
+var player_nitrous_duration_remaining : float
+var is_nitrous_active : bool = false
 
 @export var rival_car_position : Node3D
 var rival_car : Car
@@ -62,6 +66,7 @@ func _ready():
 	ui.connect("race_confirmed", confirm_race)
 	ui.connect("launch", launch)
 	ui.connect("shift_gear", shift_gear)
+	ui.connect("fire_nitrous", fire_nitrous_player)
 	ui.connect("run_finished", reset_cars)
 	ui.update_labels()
 	generate_rival()
@@ -95,6 +100,12 @@ func _process(delta):
 			decelerate_rival_car(delta)
 		ui.set_race_labels(current_gear, current_velocity, race_time)
 	# When state is none, player is in the race select menu
+	
+	if is_nitrous_active:
+		player_nitrous_duration_remaining -= delta
+		ui.set_nitrous_bar_value(player_nitrous_duration_remaining)
+		if player_nitrous_duration_remaining <= 0:
+			is_nitrous_active = false
 
 func set_player_car(player_car_id : int):
 	player_car_data = PlayerStats.get_car(player_car_id)
@@ -119,6 +130,11 @@ func set_player_car(player_car_id : int):
 		ui.hide_nitrous_components()
 	else:
 		ui.show_nitrous_components()
+		player_nitrous_duration = float(player_car_data["upgrades"]["nitrous"]) / 2
+		ui.set_nitrous_bar_max_value(player_nitrous_duration)
+		ui.set_nitrous_bar_value(player_nitrous_duration)
+		player_nitrous_duration_remaining = player_nitrous_duration
+		player_nitrous_power = 1 + (float(player_car_data["upgrades"]["nitrous"]) / 13.3)
 	
 	ui.set_redline(player_car_data["performance_data"]["redline"])
 
@@ -162,6 +178,7 @@ func launch():
 		ui.show_race_screen()
 	else: # False start, stop the race
 		show_post_race_screen("dsq")
+		PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
 		var rewards_string : String = "Wait for the timer to reach 0 before starting"
 		ui.rewards_label.text = rewards_string
 		reset_cars()
@@ -169,7 +186,10 @@ func launch():
 func accelerate_player_car(delta):
 	if current_rpm < player_car_data["performance_data"]["max_rpm"] && current_velocity < player_car_data["performance_data"]["top_speed_mps"]:
 		current_rpm = current_velocity / player_car_data["performance_data"]["top_speed_for_gear"][current_gear - 1] * player_car_data["performance_data"]["max_rpm"]
-		current_velocity += player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * delta
+		if is_nitrous_active:
+			current_velocity += (player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * player_nitrous_power)* delta
+		else:
+			current_velocity += player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * delta
 	ui.set_rpm(current_rpm)
 	move_player_car(delta)
 
@@ -249,18 +269,16 @@ func end_race():
 	elif race_state == RaceStates.VERSUS_RUN:
 		if player_crossed_line && rival_crossed_line == false:
 			show_post_race_screen("win")
-			# TODO: Increment win counter for the player car
 			give_rewards()
 		elif player_crossed_line && rival_crossed_line:
 			if player_time < rival_time:
 				show_post_race_screen("win")
-				# TODO: Increment win counter for the player car
-				give_rewards()
+				#give_rewards()
 			else:
 				show_post_race_screen("loss")
 				var rewards_string : String = "Better luck next time."
 				ui.rewards_label.text = rewards_string
-				# TODO: Increment loss counter for the player car
+				PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
 
 func reset_cars():
 	race_state = RaceStates.NONE
@@ -276,6 +294,10 @@ func reset_cars():
 	current_rpm = 0
 	current_gear = 1
 	current_velocity = 0
+	player_nitrous_duration_remaining = player_nitrous_duration
+	ui.show_nitrous_button()
+	ui.set_nitrous_bar_value(player_nitrous_duration)
+	is_nitrous_active = false
 	
 	rival_reaction_time = 0
 	rival_time = 0
@@ -341,14 +363,17 @@ func generate_rival():
 		reaction_timer.wait_time = rival_reaction_time
 
 func give_rewards():
+	PlayerStats.get_car(PlayerStats.get_active_car())["wins"] += 1
 	var rep_reward : int = 500
 	PlayerStats.add_rep(rep_reward)
 	var rewards_string : String = "Rewards: %d Rep" % [rep_reward]
 	ui.update_labels()
 	ui.rewards_label.text = rewards_string
-	# TODO: Give an increased reward if there is a large victory margin
-	# However, add a penalty to rep gained if there is also a large difference between the performance of two cars
-	# (Requires implementing a way to calculate a performance index for cars)
+
+func fire_nitrous_player():
+	ui.hide_nitrous_button()
+	is_nitrous_active = true
+	print_debug("Nitro duration: " + str(player_nitrous_duration) + " - Power" + str(player_nitrous_power) )
 
 #car = {
 	#"model": car_key,

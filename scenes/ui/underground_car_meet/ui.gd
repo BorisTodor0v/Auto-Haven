@@ -40,6 +40,7 @@ func _ready():
 
 func update_labels():
 	$BaseUI/VBoxContainer/BaseUI.update_labels()
+	player_cash_label.text = "Cash: $%d" % PlayerStats.get_cash()
 
 func _on_leave_location_button_pressed():
 	leave_location.emit()
@@ -104,7 +105,7 @@ func show_racer_interact_screen(racer_data : Dictionary):
 		Top speed: %d
 		Max RPM: %d
 		Acceleration: %.2f
-		Has nitrous: Yes/No
+		Has nitrous: %s
 		Rep: %d
 		Wins: %d
 		Losses: %d
@@ -114,13 +115,12 @@ func show_racer_interact_screen(racer_data : Dictionary):
 			(racer_data["car_data"]["top_speed_mps"]*3.6),
 			(racer_data["car_data"]["max_rpm"]),
 			acceleration,
-			#Has nitrous: yes or no
+			"Yes" if racer_data["upgrades"]["nitrous"] > 0 else "No",
 			racer_data["rep"],
 			racer_data["wins"],
 			racer_data["losses"]
 			]
 	racer_data_label.text = display_data
-	#print_debug(racer_data)
 	negotiation_phase = 1
 	negotiate_wager(negotiation_phase, 0, false)
 
@@ -232,3 +232,7 @@ func show_race_ui():
 func hide_race_ui():
 	base_ui.show()
 	race_ui.hide()
+
+func _on_wager_input_value_changed(value):
+	if value > PlayerStats.get_cash():
+		counter_offer_input.value = PlayerStats.get_cash()

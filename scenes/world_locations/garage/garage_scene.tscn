@@ -169,6 +169,8 @@ internal_name = "car_lift_001"
 
 [node name="Furniture" type="Node3D" parent="."]
 
+[node name="Walls" type="Node3D" parent="."]
+
 [node name="CameraStates" type="Node" parent="."]
 
 [node name="DefaultState" type="Node3D" parent="CameraStates"]
@@ -181,3 +183,5 @@ script = ExtResource("6_iriuf")
 
 [node name="EditFloorTilesState" type="Node3D" parent="CameraStates"]
 script = ExtResource("8_hispg")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

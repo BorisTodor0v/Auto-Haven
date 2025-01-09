@@ -34,6 +34,8 @@ var acceleration : float = 0
 
 signal open_menu(menu_name : String)
 signal upgrade_car(car_id : int, upgrade_type : String)
+signal store_car(car_id : int)
+signal sell_car(car_id : int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -62,8 +64,10 @@ func assign_car(car_id : int):
 		acceleration += i
 	acceleration /= player_car_data["performance_data"]["acceleration_rate_for_gear"].size()
 	acceleration_label.text = "Acceleration: %.2f" % acceleration
-	# TODO: Nitrous duration and power label
-	nitrous_label.text = "Nitrous duration: XX.XXX sec. | Power: xXX.XXX"
+	# Nitrous duration and power label
+	var nitrous_duration : float = float(player_car_data["upgrades"]["nitrous"]) / 2
+	var nitrous_power : float = 1 + (float(player_car_data["upgrades"]["nitrous"]) / 13.3)
+	nitrous_label.text = "Nitrous duration: %.2f sec. | Power: x%.2f" % [nitrous_duration, nitrous_power]
 	win_rate_label.text = "Race stats - Wins: " + str(player_car_data["wins"]) + " | Losses: " + str(player_car_data["losses"])
 	# Set active car button
 	set_active_car_button_state(car_id)
@@ -106,9 +110,12 @@ func assign_car(car_id : int):
 	sub_viewport.remove_child(sub_viewport.get_child(0))
 	sub_viewport.add_child(preview_scene_instance)
 
-func _on_close_button_pressed():
+func close_menu():
 	open_menu.emit("base_ui")
 	sub_viewport.remove_child(sub_viewport.get_child(0))
+
+func _on_close_button_pressed():
+	close_menu()
 
 func set_active_car_button_state(car_id : int):
 	if car_id != PlayerStats.get_active_car(): # Current car is not selected as active
@@ -125,3 +132,14 @@ func _on_set_active_car_button_pressed():
 func _on_upgrade_button_pressed(upgrade_type : String):
 	upgrade_car.emit(current_car_id, upgrade_type)
 	assign_car(current_car_id)
+
+# TODO: Change the below functions to show a confirmation dialog before actually selling/storing the car
+##########################################
+func _on_store_car_button_pressed():
+	store_car.emit(current_car_id)
+	close_menu()
+
+func _on_sell_car_button_pressed():
+	sell_car.emit(current_car_id)
+	close_menu()
+##########################################

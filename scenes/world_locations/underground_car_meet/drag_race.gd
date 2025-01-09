@@ -25,6 +25,10 @@ var current_gear : int = 1
 var player_crossed_line : bool = true
 var player_time : float = 0
 var player_reaction_time : float = 0
+var player_nitrous_power : float
+var player_nitrous_duration : float
+var player_nitrous_duration_remaining : float
+var is_player_nitrous_active : bool = false
 
 var rival_rpm : float = 0
 var rival_velocity : float = 0
@@ -33,6 +37,12 @@ var rival_shift_point : float = 0
 var rival_crossed_line : bool = true
 var rival_time : float = 0
 var rival_reaction_time : float = 0
+var rival_nitrous_gear : int = -1
+var rival_nitrous_power : float
+var rival_nitrous_duration : float
+var rival_nitrous_duration_remaining : float
+var is_rival_nitrous_active : bool = false
+
 @export var reaction_timer : Timer
 @export var race_ui : Control
 
@@ -53,6 +63,7 @@ func _ready():
 	race_ui.connect("race_confirmed", confirm_race)
 	race_ui.connect("launch", launch)
 	race_ui.connect("shift_gear", shift_gear)
+	race_ui.connect("fire_nitrous", fire_nitrous_player)
 	race_ui.connect("run_finished", reset_cars)
 	race_ui.update_labels()
 
@@ -78,6 +89,18 @@ func _process(delta):
 		else:
 			decelerate_rival_car(delta)
 		race_ui.set_race_labels(current_gear, current_velocity, race_time)
+		
+	if is_player_nitrous_active:
+		player_nitrous_duration_remaining -= delta
+		race_ui.set_nitrous_bar_value(player_nitrous_duration_remaining)
+		if player_nitrous_duration_remaining <= 0:
+			is_player_nitrous_active = false
+	
+	if is_rival_nitrous_active:
+		rival_nitrous_duration_remaining -= delta
+		if rival_nitrous_duration_remaining <= 0:
+			is_rival_nitrous_active = false
+			print_debug("Rival nitrous is no longer active")
 
 func set_player_car(player_car_id : int):
 	player_car_data = PlayerStats.get_car(player_car_id)
@@ -115,6 +138,11 @@ func set_player_car(player_car_id : int):
 		race_ui.hide_nitrous_components()
 	else:
 		race_ui.show_nitrous_components()
+		player_nitrous_duration = float(player_car_data["upgrades"]["nitrous"]) / 2
+		race_ui.set_nitrous_bar_max_value(player_nitrous_duration)
+		race_ui.set_nitrous_bar_value(player_nitrous_duration)
+		player_nitrous_duration_remaining = player_nitrous_duration
+		player_nitrous_power = 1 + (float(player_car_data["upgrades"]["nitrous"]) / 13.3)
 	
 	race_ui.set_redline(player_car_data["performance_data"]["redline"])
 
@@ -164,6 +192,15 @@ func set_rival_car(rival_data : Dictionary):
 	rival_shift_point = randf_range(rival_general_car_data["peak_hp_rpm"], rival_general_car_data["max_rpm"]-100)
 	rival_reaction_time = randf_range(0.25, 0.4) # Time that will pass before the rival will start moving
 	reaction_timer.wait_time = rival_reaction_time
+	
+	if rival_data["upgrades"]["nitrous"] > 0:
+		print_debug("Rival car has nitrous level %d" % rival_data["upgrades"]["nitrous"])
+		rival_nitrous_gear = randi_range(2, rival_data["car_data"]["gears"])
+		print_debug("Nitrous will be used in gear: %d" % rival_nitrous_gear)
+		rival_nitrous_duration = float(rival_data["upgrades"]["nitrous"]) / 2
+		rival_nitrous_duration_remaining = rival_nitrous_duration
+		rival_nitrous_power = 1 + (float(rival_data["upgrades"]["nitrous"]) / 13.3)
+
 
 func confirm_race():
 	start_race_countdown()
@@ -194,7 +231,11 @@ func launch():
 func accelerate_player_car(delta):
 	if current_rpm < player_car_data["performance_data"]["max_rpm"] && current_velocity < player_car_data["performance_data"]["top_speed_mps"]:
 		current_rpm = current_velocity / player_car_data["performance_data"]["top_speed_for_gear"][current_gear - 1] * player_car_data["performance_data"]["max_rpm"]
-		current_velocity += player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * delta
+		if is_player_nitrous_active:
+			current_velocity += (player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * player_nitrous_power) * delta
+		else:
+			current_velocity += player_car_data["performance_data"]["acceleration_rate_for_gear"][current_gear - 1] * delta
+
 	race_ui.set_rpm(current_rpm)
 	move_player_car(delta)
 
@@ -231,16 +272,26 @@ func shift_gear():
 func accelerate_rival_car(delta):
 	if rival_rpm < rival_general_car_data["max_rpm"] && rival_general_car_data["top_speed_mps"]:
 		rival_rpm = rival_velocity / rival_general_car_data["top_speed_for_gear"][rival_gear - 1] * rival_general_car_data["max_rpm"]
-		rival_velocity += rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1] * delta
+		if is_rival_nitrous_active:
+			rival_velocity += (rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1] * rival_nitrous_power ) * delta
+		else:
+			rival_velocity += rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1] * delta
 	move_rival_car(delta)
 	
 	# Gear shifting logic
 	if rival_rpm >= rival_shift_point && rival_gear < rival_general_car_data["gears"]:
 		rival_car.play_gearshift_animation()
 		rival_gear += 1
+		#print_debug
+		print("Rival shifted to gear %d at %d RPM" % [rival_gear, rival_rpm]) 
+		if rival_gear == rival_nitrous_gear:
+			is_rival_nitrous_active = true
+			print("Rival will use nitrous in this gear")
 		var previous_gear_top_speed = rival_general_car_data["top_speed_for_gear"][rival_gear - 2]
 		var new_gear_top_speed = rival_general_car_data["top_speed_for_gear"][rival_gear - 1]
 		rival_rpm *= previous_gear_top_speed / new_gear_top_speed
+		print_debug("New RPM: %d with acceleration rate of: %f" % [rival_rpm, rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1]])
+		
 
 func decelerate_rival_car(delta):
 	if rival_velocity > 2:
@@ -300,12 +351,21 @@ func reset_cars():
 	current_rpm = 0
 	current_gear = 1
 	current_velocity = 0
+	player_nitrous_duration_remaining = player_nitrous_duration
+	race_ui.show_nitrous_button()
+	race_ui.set_nitrous_bar_value(player_nitrous_duration)
+	is_player_nitrous_active = false
 	
 	rival_reaction_time = 0
 	rival_time = 0
 	rival_rpm = 0
 	rival_gear = 1
 	rival_velocity = 0
+	rival_nitrous_gear = -1
+	rival_nitrous_power = 1
+	rival_nitrous_duration = 0
+	rival_nitrous_duration_remaining = 0
+	is_rival_nitrous_active = false
 	
 	race_ui.show_upshift_button()
 
@@ -360,3 +420,7 @@ func give_rewards():
 		pass
 	race_ui.rewards_label.text = rewards_string
 	race_ui.update_labels()
+
+func fire_nitrous_player():
+	race_ui.hide_nitrous_button()
+	is_player_nitrous_active = true

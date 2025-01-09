@@ -79,7 +79,7 @@ func generate_racer_cars():
 		if randi_range(1, 10) > 6:
 			if car_position.get_child_count() == 0:
 				var random_car_key = CarsData.get_all_cars().keys()[randi() % CarsData.get_all_cars().size()]
-				var general_car_data = CarsData.get_car(random_car_key)
+				var general_car_data = CarsData.get_car(random_car_key).duplicate()
 				
 				## Load the model for the racer's car
 				var model = load(general_car_data["model_path"])
@@ -141,12 +141,12 @@ func generate_racer_cars():
 					"car_data": general_car_data,
 					# TODO: Handle racers having customized cars
 					"color": car_color,
-					#"upgrades": {
-						#"engine": randi_range(0, 10),
-						#"acceleration": randi_range(0, 10),
-						#"nitrous": randi_range(0, 10),
-						#"weight": randi_range(0, 10)
-					#},
+					"upgrades": {
+						"engine": randi_range(0, 10),
+						"weight": randi_range(0, 10),
+						"transmission": randi_range(0, 10),
+						"nitrous": randi_range(0, 10)
+					},
 					#"wheels":,
 					#"money":
 					"rep": rep,
@@ -227,3 +227,6 @@ func end_race():
 
 func set_camera_raycast_enabled(state : bool):
 	camera.raycast_enabled = state
+
+func _on_underground_car_meet_visibility_changed():
+	ui.update_labels()
