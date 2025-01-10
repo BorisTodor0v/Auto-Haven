@@ -5,7 +5,7 @@ extends Node
 @onready var job_car_spawner : Node = $JobCarSpawner
 @onready var scene_holder : Node = $Scene
 @onready var car_interaction_menu : Node = $UI/CarInteractionMenu
-var car_interaction_menu_active_car_node : Node3D
+var car_interaction_menu_active_car_node : Car
 
 @export var world_environment : WorldEnvironment
 @export var environment_light : DirectionalLight3D
@@ -39,6 +39,8 @@ func _ready():
 	car_interaction_menu.connect("upgrade_car", upgrade_car)
 	car_interaction_menu.connect("store_car", store_car)
 	car_interaction_menu.connect("sell_car", sell_car)
+	car_interaction_menu.connect("wheels_changed", update_car_wheels)
+	car_interaction_menu.connect("color_changed", update_car_color)
 	ui.update_labels()
 	# Function calls for testing, remove in final version
 	test_func_give_player_car()
@@ -300,3 +302,11 @@ func switch_time_of_day_to(target_time : String):
 			environment_light.rotation = nighttime_light_orientation
 		_:
 			pass
+
+func update_car_wheels(wheel_name : String):
+	car_interaction_menu_active_car_node.set_wheels(wheel_name)
+	ui.update_labels()
+
+func update_car_color(color : Color):
+	car_interaction_menu_active_car_node.set_color(color)
+	ui.update_labels()

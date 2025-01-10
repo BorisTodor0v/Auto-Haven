@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi3ipgnwel3u7"]
+
+[ext_resource type="Script" path="res://scenes/ui/car_interaction_menu/wheel_button.gd" id="1_j0o07"]
+[ext_resource type="Texture2D" uid="uid://dysloqtyeo0cq" path="res://cars/wheels/wheel_001/wheel_001.png" id="2_o7g32"]
+
+[node name="WheelButton" type="Control" node_paths=PackedStringArray("wheel_preview", "buy_button")]
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_j0o07")
+wheel_preview = NodePath("MarginContainer/VBoxContainer/TextureRect")
+buy_button = NodePath("MarginContainer/VBoxContainer/BuyButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+texture = ExtResource("2_o7g32")
+stretch_mode = 2
+
+[node name="BuyButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PRICE - $XXXXX"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/BuyButton" to="." method="_on_buy_button_pressed"]

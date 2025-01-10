@@ -1,7 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm4woahvtnyyt"]
+[gd_scene load_steps=11 format=3 uid="uid://dm4woahvtnyyt"]
 
-[ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_ccxak"]
 [ext_resource type="Script" path="res://scenes/ui/car_interaction_menu/car_interaction_menu.gd" id="1_lk5si"]
+[ext_resource type="Texture2D" uid="uid://oldk26rx80hk" path="res://resources/images/ui/icons/car_interaction_menu/Engine.png" id="2_4ce4i"]
+[ext_resource type="Texture2D" uid="uid://rrbcgt1jpunr" path="res://resources/images/ui/icons/car_interaction_menu/Transmission.png" id="3_2pmab"]
+[ext_resource type="Texture2D" uid="uid://sdfkfj74rk0" path="res://resources/images/ui/icons/car_interaction_menu/Color.png" id="4_8ak2i"]
+[ext_resource type="Texture2D" uid="uid://c5v8bg2efdgun" path="res://resources/images/ui/icons/car_interaction_menu/Weight.png" id="5_p1w2l"]
+[ext_resource type="Texture2D" uid="uid://b228qcn6x2epn" path="res://resources/images/ui/icons/car_interaction_menu/Nitrous.png" id="6_vwssx"]
+[ext_resource type="Texture2D" uid="uid://dipya3gejjggs" path="res://resources/images/ui/icons/car_interaction_menu/Wheels.png" id="7_j50d5"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_667rb"]
 viewport_path = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/SubViewport")
@@ -18,7 +23,7 @@ ssao_sharpness = 1.0
 [sub_resource type="World3D" id="World3D_7brjk"]
 environment = SubResource("Environment_phjcx")
 
-[node name="CarInteractionMenu" type="Control"]
+[node name="CarInteractionMenu" type="Control" node_paths=PackedStringArray("options_grid", "color_menu", "wheels_menu", "wheels_grid_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +31,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lk5si")
+options_grid = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid")
+color_menu = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker")
+wheels_menu = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/WheelsPicker")
+wheels_grid_container = NodePath("MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/WheelsPicker/MarginContainer/ScrollContainer/WheelsGridContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -95,6 +104,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 
 [node name="BackButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Top/Buttons"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 text = "<"
@@ -180,9 +190,11 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="OptionsGrid" type="GridContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 30
 columns = 3
@@ -211,7 +223,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture = ExtResource("1_ccxak")
+texture = ExtResource("2_4ce4i")
 expand_mode = 1
 stretch_mode = 5
 
@@ -246,7 +258,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture = ExtResource("1_ccxak")
+texture = ExtResource("3_2pmab")
 expand_mode = 1
 stretch_mode = 5
 
@@ -280,7 +292,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture = ExtResource("1_ccxak")
+texture = ExtResource("4_8ak2i")
 expand_mode = 1
 stretch_mode = 5
 
@@ -313,7 +325,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture = ExtResource("1_ccxak")
+texture = ExtResource("5_p1w2l")
 expand_mode = 1
 stretch_mode = 5
 
@@ -347,7 +359,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture = ExtResource("1_ccxak")
+texture = ExtResource("6_vwssx")
 expand_mode = 1
 stretch_mode = 5
 
@@ -381,7 +393,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
-texture = ExtResource("1_ccxak")
+texture = ExtResource("7_j50d5")
 expand_mode = 1
 stretch_mode = 5
 
@@ -389,6 +401,105 @@ stretch_mode = 5
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_alignment = 1
+
+[node name="WheelsPicker" type="Control" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/WheelsPicker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Panel" type="Panel" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/WheelsPicker/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/WheelsPicker/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="WheelsGridContainer" type="GridContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/WheelsPicker/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[node name="ColorPicker" type="Control" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="Panel" type="Panel" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="ColorPick" type="Control" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer/ColorPick"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.6)
+use_top_left = true
+
+[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer/ColorPick/CenterContainer"]
+layout_mode = 2
+edit_alpha = false
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="ResprayCostLabel" type="Label" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "RESPRAY COST LABEL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConfirmResprayButton" type="Button" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Confirm color selection"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 128)
@@ -447,7 +558,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Top/Buttons/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Top/Buttons/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/SetActiveCarButton" to="." method="_on_set_active_car_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer/SellCarButton" to="." method="_on_sell_car_button_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CarPreview/VBoxContainer/HBoxContainer/StoreCarButton" to="." method="_on_store_car_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton3" to="." method="_on_color_customization_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/OptionsGrid/CustomizationOptionButton6" to="." method="_on_wheels_customization_pressed"]
+[connection signal="color_changed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer/ColorPick/CenterContainer/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="pressed" from="MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer/ConfirmResprayButton" to="." method="_on_confirm_respray_button_pressed"]

@@ -166,6 +166,36 @@ func upgrade_car(car_id : int, upgrade_type : String):
 	else:
 		print_debug("Invalid upgrade type - " + upgrade_type)
 	print_debug(current_car)
+
+func change_player_car_property(car_id : int, property_name : String, value):
+	if get_car(car_id) != null:
+		if owned_cars.has(car_id):
+			match property_name:
+				"wheels":
+					if value is String:
+						if value.begins_with("wheel_"):
+							if CarsData.wheels.has(value):
+								var car : Dictionary = PlayerStats.get_car(car_id)
+								car["wheels"] = value
+								owned_cars[car_id] = car
+							else:
+								print_debug("Wheels %s not found" % value)
+						else:
+							print_debug("Invalid wheels name")
+					else:
+						print_debug("Invalid value type for wheels")
+				"color":
+					if value is Color:
+						var car : Dictionary = PlayerStats.get_car(car_id)
+						car["color"] = value
+						owned_cars[car_id] = car
+					else:
+						print_debug("Invalid value type for color")
+				_:
+					print_debug("Invalid property name")
+		else:
+			print_debug("Player doesn't own a car with ID: %d" % car_id)
+	pass
 #car = {
 	#"model": car_key,
 	#"color": car_color,

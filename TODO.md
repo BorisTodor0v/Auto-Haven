@@ -1,5 +1,5 @@
-25/61 Completed
-[XXXXXXXX--40%----------]
+27/61 Completed
+[XXXXXXXXx-44%----------]
 
 ## Pending
 - [ ] Fuel for racing
@@ -10,8 +10,6 @@
 	- [ ] Furniture items
 	- [ ] Walls
 	- [ ] Floor tiles
-- [ ] Change color in car interaction menu
-- [ ] Change wheels in car interaction menu
 - [ ] Expand race offer negotiation logic
 - [ ] Add pink slip races:
 	- Racer with a red colored marker above their car. 
@@ -74,3 +72,5 @@ While redecorating garage:
 		- [X] Buy furniture / props
 		- [X] Car storage
 		- [X] Redecorate
+- [X] Change color in car interaction menu
+- [X] Change wheels in car interaction menu

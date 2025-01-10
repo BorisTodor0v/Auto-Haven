@@ -69,3 +69,14 @@ func set_internal_id(id : int):
 
 func get_internal_id() -> int:
 	return internal_id
+
+func set_wheels(wheel_name : String):
+	var wheel_model = load("res://cars/wheels/"+wheel_name+"/"+wheel_name+".glb").instantiate()
+	for wheel_position in wheel_positions.get_children():
+		if wheel_position.get_child_count() > 0:
+			wheel_position.get_child(0).queue_free()
+		wheel_position.add_child(wheel_model.duplicate())
+
+func set_color(color : Color):
+	var material : StandardMaterial3D = mesh.get_active_material(0)
+	material.albedo_color = color

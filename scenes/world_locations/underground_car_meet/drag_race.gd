@@ -118,8 +118,17 @@ func set_player_car(player_car_id : int):
 			for wheel_position in child.get_children():
 				wheel_position.add_child(wheel_model.duplicate())
 			break
-	
 	player_car_wheels = player_car.get_wheels()
+	
+	## Change color
+	var material : StandardMaterial3D = load("res://resources/shaders/car_base_color.tres").duplicate()
+	var mesh : MeshInstance3D = null
+	for child in instance.get_children():
+		if child is MeshInstance3D:
+			mesh = child
+	if mesh != null && material != null:
+		material.albedo_color = player_car_data["color"]
+		mesh.set_surface_override_material(0, material)
 	
 	## Add headlights to car
 	for child in instance.get_children():

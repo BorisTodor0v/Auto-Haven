@@ -782,6 +782,7 @@ theme_override_font_sizes/font_size = 25
 text = "Go back to garage"
 
 [node name="RacerInteractScreen" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

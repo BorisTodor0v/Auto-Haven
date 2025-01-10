@@ -50,3 +50,15 @@ func set_model(model_path : String, model_scale : float):
 			material.albedo_texture = load("res://resources/images/Gradient Pallete.png")
 	model.scale = Vector3(model_scale, model_scale, model_scale)
 	$CarPosition.add_child(model)
+
+func change_car_color(color : Color):
+	if $CarPosition.get_child_count() > 0:
+		var car_model : Node3D = $CarPosition.get_child(0)
+		var model_mesh : MeshInstance3D
+		for child in car_model.get_children():
+			if child is MeshInstance3D:
+				model_mesh = child
+				break
+		if model_mesh != null:
+			var material : StandardMaterial3D = model_mesh.get_active_material(0)
+			material.albedo_color = color
