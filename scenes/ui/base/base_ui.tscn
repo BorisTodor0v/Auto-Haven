@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://5fvbbtak1465"]
+[gd_scene load_steps=3 format=3 uid="uid://5fvbbtak1465"]
 
 [ext_resource type="Script" path="res://scenes/ui/base/base_ui.gd" id="1_5p2l4"]
 
-[node name="BaseUI" type="Control"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8opi"]
+bg_color = Color(0.835233, 0.513073, 0.196063, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="BaseUI" type="Control" node_paths=PackedStringArray("fuel_label", "fuel_progress_bar", "refuel_progress_bar", "refuel_time_label", "buy_fuel_refill_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +17,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_5p2l4")
+fuel_label = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel/MarginContainer/VBoxContainer/Label")
+fuel_progress_bar = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel/MarginContainer/VBoxContainer/ProgressBar")
+refuel_progress_bar = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer/RefuelProgressBar")
+refuel_time_label = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer/RefuelTimeLabel")
+buy_fuel_refill_button = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control2/BuyFuelRefillButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -151,17 +163,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer"]
+[node name="Control" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "QUIT GAME"
 autowrap_mode = 2
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer"]
+[node name="Control2" type="Control" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "OPTIONS"
-autowrap_mode = 2
+
+[node name="BuyFuelRefillButton" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+text = "Fuel is
+at max"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -172,14 +197,39 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "FUEL GAUGE"
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer"]
+layout_mode = 2
+
+[node name="RefuelProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer/RefuelProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RefuelTimeLabel" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "REFUEL IN XXXX s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -188,14 +238,35 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "FUEL: 999,999/999,999"
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel/MarginContainer"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_styles/fill = SubResource("StyleBoxFlat_c8opi")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "FUEL: 99,999/99,999"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -302,6 +373,7 @@ text = "Your garage"
 [node name="MessageTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control2/BuyFuelRefillButton" to="." method="_on_buy_fuel_refill_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/ManageGarageButton" to="." method="_on_manage_garage_button_pressed"]
 [connection signal="timeout" from="Timers/MessageTimer" to="." method="clear_message"]

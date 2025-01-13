@@ -1,25 +1,25 @@
-31/57 Completed
-[XXXXXXXXXX 54% x---------]
+32/57 Completed
+[XXXXXXXXXX 56% Xx--------]
 
 ## Pending
-- [ ] Fuel for racing
-	- Spent when participating in a Versus run in the Drag strip or in a race from the Underground Race Meet.
-	- Refilled as time passes, or can be bought
 - [ ] More garage decorations:
 	- [ ] Furniture items
 	- [ ] Walls
 	- [ ] Floor tiles
+
 - [ ] Add pink slip races:
 	- Racer with a red colored marker above their car. 
 	- Cannot negotiate wager, only pink slips
 	- Guaranteed to have level 5 upgrades and beyond on all parts
 	- Rare spawn.
+
 - [ ] UI Icons:
 	- [ ] Travel locations list:
 		- [ ] Garage
 		- [ ] Car dealership
 		- [ ] Drag Strip
 		- [ ] Underground Race Meet
+
 - [ ] UI Elements:
 	- [ ] Fuel gauge (bar)
 	- [ ] Search bar for:
@@ -27,12 +27,14 @@
 		- [ ] Buy Walls menu
 		- [ ] Car Storage
 		- [ ] Edit Floor tiles
+
 - [ ] Create scenes for any existing car models without one:
 	- [ ] belvedere (NOTE: Not sold in dealership)
 	- [ ] camaro69
 	- [ ] gtr34
 	- [ ] ris
 	- [ ] rs6
+
 - [ ] Saving and loading data
 
 ## Completed
@@ -70,3 +72,6 @@ While redecorating garage:
 - [X] Tweak performance upgrade benefits
 - [X] When generating racers in the underground race meet, have different wealth categories and give them appropriate car (i.e. rich racers have fast cars, poorer slow cars)
 - [X] Expand race offer negotiation logic
+- [X] Fuel for racing
+	- Spent when participating in a Versus run in the Drag strip or in a race from the Underground Race Meet.
+	- Refilled as time passes, or can be bought

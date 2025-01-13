@@ -3,6 +3,7 @@ extends UI
 # Race type selection
 @onready var base_ui : UI = $RaceTypeSelect/MarginContainer/VBoxContainer/Top/BaseUI
 @onready var race_select : Control = $RaceTypeSelect
+@onready var versus_run_button : Button = $RaceTypeSelect/MarginContainer/VBoxContainer/Middle/HBoxContainer/Control/VBoxContainer/VersusRunButton
 
 # Confirm race selection
 @onready var confirm_race_screen : Control = $ConfirmRace
@@ -48,13 +49,21 @@ signal run_finished
 
 signal leave_location
 
+var can_do_versus_run_text : String = "Versus run"
+var cannot_do_versus_run_text : String = "Not enough fuel for Versus run"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if PlayerStats.fuel < PlayerStats.race_fuel_cost:
+		versus_run_button.text = cannot_do_versus_run_text
+		versus_run_button.disabled = true
+	else:
+		versus_run_button.text = can_do_versus_run_text
+		versus_run_button.disabled = false
 
 func update_labels():
 	base_ui.update_labels()

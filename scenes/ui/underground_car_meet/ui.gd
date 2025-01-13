@@ -151,18 +151,20 @@ func negotiate_wager(phase : int, offer : int, check_offer : bool):
 					cancel_negotiations()
 					wager_negotiation_labels[6].text = ""
 					current_wager_label.text = "Not enough money to wager for a race ($1000 minimum)"
-				# TODO:
-				#elif PlayerStats.get_fuel() > 0:
-				#	cancel_negotiatons()
-				#	wager_negotiation_labels[6].text = ""
-				#	current_wager_label.text = "Not enough fuel to participate in a race (1 minimum)"
+				elif PlayerStats.fuel < PlayerStats.race_fuel_cost :
+					cancel_negotiations()
+					wager_negotiation_labels[6].text = ""
+					current_wager_label.text = "Not enough fuel to participate in a race (%d minimum)" % PlayerStats.race_fuel_cost
 				else:
 					initial_wager = randi_range(int(racer_data["money"] * 0.2), racer_data["money"])
-					
 					wager_negotiation_labels[0].text = "Initial wager: $%d" % initial_wager
-					wager_negotiation_labels[6].text = "Negotiations in progress"
-					current_wager = initial_wager
 					current_wager_label.text = "Current wager: $%d" % initial_wager
+					if PlayerStats.get_cash() < initial_wager:
+						cancel_negotiations()
+						wager_negotiation_labels[6].text = "Not enough money to wager with this racer"
+					else:
+						wager_negotiation_labels[6].text = "Negotiations in progress"
+						current_wager = initial_wager
 			else: # Consider first player counter-offer
 				if racer_consider_offer(current_wager, offer) == true:
 					current_wager = offer

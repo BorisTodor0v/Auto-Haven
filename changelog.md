@@ -1,5 +1,4 @@
-- Racers in the underground race meet now have varying levels of performance upgrades to their cars
-- Tweaked performance upgrade benefits
-- Added classes to cars and racers
-	- When a racer is generated, a "class" value is generated. This class determines how much money and what car they have. Higher class racers have more money for betting and more expensive/faster cars.
-- In the racer interaction menu, added a preview of the racer car
+- Added fuel requirement for participating in races
+	- Fuel is spent when participating in a Versus run in the Drag Strip, or in a race from the Underground race meet.
+	- Refilled periodically, or the player can spend money to instantly refill fuel
+	- Every 2000 rep earned the maximum fuel capacity is increased by 1

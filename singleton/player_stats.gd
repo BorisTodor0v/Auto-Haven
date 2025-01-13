@@ -1,7 +1,15 @@
 extends Node
 
-var cash : int = 100000
+var cash : int = 10000
 var rep : int = 0
+
+var max_fuel : int = 50
+var fuel : int = max_fuel
+const refill_one_fuel_unit_time : float = 5 # seconds
+const buy_one_fuel_unit_cost : int = 100
+var fuel_refill_time = 0
+const race_fuel_cost : int = 5
+const fuel_increase_rep_threshold : int = 2000
 
 var tiles_owned : int = 1
 var tile_base_price : int = 5000
@@ -18,6 +26,15 @@ var nitrous_parts : int = 1000
 var owned_cars : Dictionary = {}
 var active_car : int = -1
 
+
+func _process(delta):
+	# Refill fuel when it's below max capacity
+	if fuel < max_fuel:
+		fuel_refill_time += delta
+		if fuel_refill_time >= refill_one_fuel_unit_time:
+			fuel += 1
+			fuel_refill_time = 0
+
 func add_cash(_cash : int):
 	cash += _cash
 
@@ -26,6 +43,8 @@ func remove_cash(_cash : int):
 
 func add_rep(_rep : int):
 	rep += _rep
+	if rep % fuel_increase_rep_threshold == 0:
+		max_fuel += 1
 
 func get_cash():
 	return cash
@@ -65,7 +84,6 @@ func get_garage_expansion_cost() -> int:
 	return tile_base_price * tiles_owned
 
 func add_car(new_car : Dictionary):
-	print("Adding " + new_car["model"] + " to player's car collection")
 	var id : int = owned_cars.size()+1
 	owned_cars.get_or_add(id, new_car)
 	print("Current collection:")
@@ -150,10 +168,6 @@ func upgrade_car(car_id : int, upgrade_type : String):
 						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 0.25
 				elif upgrade_type == "nitrous":
 					pass
-					# TODO: Figure out how to handle nitrous upgrades:
-					# IDEA
-					# The number of the nitro upgrade divided by 2 represents how long does the nitrous last when activated
-					# The number of the nitro upgrade divided by 10 represents how much bonus acceleration is added when activated
 			else:
 				print_debug("Not enough parts for this upgrade")
 		else:

@@ -105,8 +105,6 @@ func generate_racer_cars():
 				var money = base_money + (racer_class * money_multiplier)
 				money += randi() % variation
 				
-				#print_debug("Racer class: %d - Money: $%d" % [racer_class, money])
-				
 				var random_car_key = cars_in_racer_class.keys()[randi() % cars_in_racer_class.size()]
 				var general_car_data = CarsData.get_car(random_car_key).duplicate()
 				
@@ -207,7 +205,6 @@ func generate_racer_cars():
 				racers_data.get_or_add(car_position, racer_data)
 		else:
 			pass
-	print_debug(racers_data.size())
 
 func generate_background_cars():
 	for car_position in decor_car_positions.get_children():
@@ -245,7 +242,6 @@ func generate_background_cars():
 func open_racer_interaction_menu(racer_position : Node3D):
 	set_camera_raycast_enabled(false)
 	active_racer = racers_data.get(racer_position)
-	print_debug(active_racer)
 	active_racer_node = racer_position
 	ui.show_racer_interact_screen(active_racer)
 
@@ -254,6 +250,8 @@ func close_racer_interaction_menu(can_enable_raycast : bool):
 	set_camera_raycast_enabled(can_enable_raycast)
 
 func begin_race(wager : int):
+	PlayerStats.fuel -= PlayerStats.race_fuel_cost
+	ui.update_labels()
 	car_meet_camera.current = false
 	race_location_camera.current = true
 	car_meet.hide()
