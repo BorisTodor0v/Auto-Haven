@@ -62,3 +62,25 @@ func change_car_color(color : Color):
 		if model_mesh != null:
 			var material : StandardMaterial3D = model_mesh.get_active_material(0)
 			material.albedo_color = color
+
+func set_racer_car(car_data : Dictionary, wheels : String, color : Color):
+	if $CarPosition.get_child_count() > 0:
+		$CarPosition.get_child(0).queue_free()
+	var car_model = load(car_data["model_path"]).instantiate()
+	var wheel_model = load("res://cars/wheels/"+wheels+"/"+wheels+".glb").instantiate()
+	## Add wheels to the car model
+	for child in car_model.get_children():
+		if child.name == "WheelPositions":
+			for wheel_position in child.get_children():
+				wheel_position.add_child(wheel_model.duplicate())
+			break
+	## Change car color
+	var model_mesh : MeshInstance3D
+	for child in car_model.get_children():
+		if child is MeshInstance3D:
+			model_mesh = child
+			break
+	if model_mesh != null:
+		var material : StandardMaterial3D = model_mesh.get_active_material(0)
+		material.albedo_color = color
+	$CarPosition.add_child(car_model)

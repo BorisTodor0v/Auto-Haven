@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://cpwgfs3bmyiuv"]
+[gd_scene load_steps=39 format=4 uid="uid://cpwgfs3bmyiuv"]
 
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/underground_race_meet.gd" id="1_ou5pt"]
 [ext_resource type="Material" uid="uid://baklpaoo7kkhc" path="res://scenes/world_locations/underground_car_meet/model/parking_lot/parking_lot.tres" id="2_d72pn"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://scenes/ui/underground_car_meet/ui.gd" id="13_l8jbp"]
 [ext_resource type="PackedScene" uid="uid://cklx4vreyfqar" path="res://scenes/world_locations/underground_car_meet/model/race_location/ugcm_race_location.glb" id="13_sb7yg"]
 [ext_resource type="PackedScene" uid="uid://5fvbbtak1465" path="res://scenes/ui/base/base_ui.tscn" id="14_kaen1"]
-[ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="14_rfaa7"]
 [ext_resource type="Texture2D" uid="uid://cdg7h775o3udm" path="res://resources/images/ui/rpm_gauge/rpm_gauge.png" id="15_454yf"]
 [ext_resource type="Script" path="res://scenes/ui/underground_car_meet/race_ui.gd" id="15_b6rci"]
 [ext_resource type="Script" path="res://scripts/camera_movement.gd" id="15_h1vn7"]
@@ -62,6 +61,14 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2radl"]
+viewport_path = NodePath("UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerCarPreviewContainer/SubViewport")
+
+[sub_resource type="Environment" id="Environment_3ygka"]
+
+[sub_resource type="World3D" id="World3D_10ib2"]
+environment = SubResource("Environment_3ygka")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htty4"]
 bg_color = Color(0.197937, 0.197937, 0.197937, 1)
@@ -694,7 +701,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 mesh = SubResource("ArrayMesh_dmvxp")
 skeleton = NodePath("")
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("base_ui", "racer_interact_screen", "racer_data_label", "player_cash_label", "negotiation_buttons", "counter_offer_input", "negotiation_controls", "decline_negotiation_button", "start_race_container", "wager_negotiation_labels", "current_wager_label", "race_ui")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("base_ui", "racer_interact_screen", "racer_data_label", "player_cash_label", "negotiation_buttons", "counter_offer_input", "car_preview_sub_viewport", "negotiation_controls", "decline_negotiation_button", "start_race_container", "wager_negotiation_labels", "current_wager_label", "race_ui")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -710,6 +717,7 @@ racer_data_label = NodePath("RacerInteractScreen/MarginContainer/MarginContainer
 player_cash_label = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/PlayerCashLabel")
 negotiation_buttons = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons")
 counter_offer_input = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/HBoxContainer/WagerInput")
+car_preview_sub_viewport = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerCarPreviewContainer/SubViewport")
 negotiation_controls = [NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/AcceptWagerButton"), NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/CounterOffer/HBoxContainer/ProposeCounterOfferButton")]
 decline_negotiation_button = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/NegotiationButtons/VBoxContainer/DeclineButton")
 start_race_container = NodePath("RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/WagerNegotiations/Buttons/VBoxContainer/StartRace")
@@ -782,7 +790,6 @@ theme_override_font_sizes/font_size = 25
 text = "Go back to garage"
 
 [node name="RacerInteractScreen" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -828,11 +835,11 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RacerSilhouetteContainer" type="Control" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer"]
+[node name="RacerCarPreviewContainer" type="Control" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerSilhouetteContainer"]
+[node name="Panel" type="Panel" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerCarPreviewContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -840,7 +847,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerSilhouetteContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerCarPreviewContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -851,10 +858,16 @@ theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 
-[node name="RacerSilhouette" type="TextureRect" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerSilhouetteContainer/MarginContainer"]
+[node name="RacerCarPreview" type="TextureRect" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerCarPreviewContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("14_rfaa7")
+texture = SubResource("ViewportTexture_2radl")
+expand_mode = 1
 stretch_mode = 5
+
+[node name="SubViewport" type="SubViewport" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerCarPreviewContainer"]
+own_world_3d = true
+world_3d = SubResource("World3D_10ib2")
+transparent_bg = true
 
 [node name="RacerDataContainer" type="Control" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -876,13 +889,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
 
 [node name="RacerDataLabel" type="Label" parent="UI/RacerInteractScreen/MarginContainer/MarginContainer/Control/HBoxContainer/VBoxContainer/RacerDataContainer/MarginContainer"]
 layout_mode = 2
 text = "RACER DATA (RANDOMLY GENERATED):
+CASH
 CAR
 TOP SPEED
 MAX RPM

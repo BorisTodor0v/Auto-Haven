@@ -1,6 +1,7 @@
 extends Node
 
 var cars = {}
+var number_of_car_classes : int = 4
 var wheels = {}
 
 # Called when the node enters the scene tree for the first time.
@@ -45,3 +46,20 @@ func get_all_wheels():
 
 func get_wheel(wheel_name : String):
 	wheels[wheel_name]
+
+# Car classes:
+# 0 - Poor
+# 1 - Mid
+# 2 - High End
+# 3 - Rich
+# -- More might be added
+func get_all_cars_by_class(class_value : int) -> Dictionary:
+	if class_value > number_of_car_classes - 1 || class_value < 0:
+		print_debug("Invalid car class value: %d | Must be above 0 and below %d" % [class_value, number_of_car_classes])
+		return {}
+	else:
+		var result_cars : Dictionary = {}
+		for car in cars:
+			if cars[car]["class"] == class_value:
+				result_cars.get_or_add(car, cars[car])
+		return result_cars

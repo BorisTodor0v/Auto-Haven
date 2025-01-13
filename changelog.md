@@ -1,2 +1,5 @@
- - Added icons to upgrade options in the car interaction menu
- - Implemented color and wheel customization from the car interaction menu
+- Racers in the underground race meet now have varying levels of performance upgrades to their cars
+- Tweaked performance upgrade benefits
+- Added classes to cars and racers
+	- When a racer is generated, a "class" value is generated. This class determines how much money and what car they have. Higher class racers have more money for betting and more expensive/faster cars.
+- In the racer interaction menu, added a preview of the racer car

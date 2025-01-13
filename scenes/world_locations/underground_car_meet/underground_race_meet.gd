@@ -86,9 +86,28 @@ func place_player_car():
 
 func generate_racer_cars():
 	for car_position in racer_car_positions.get_children():
-		if randi_range(1, 10) > 6:
+		if randi_range(1, 10) > 5: # 40% chance to spawn a racer
 			if car_position.get_child_count() == 0:
-				var random_car_key = CarsData.get_all_cars().keys()[randi() % CarsData.get_all_cars().size()]
+				
+				# Roll for racer class
+				var racer_class : int = 0
+				var cars_in_racer_class : Dictionary = {}
+				# If the selected racer class has no cars in the same class, reroll
+				while cars_in_racer_class == {}:
+					racer_class = randi_range(0, CarsData.number_of_car_classes-1)
+					cars_in_racer_class = CarsData.get_all_cars_by_class(racer_class)
+				
+				# Generate betting money
+				const base_money : int = 5000
+				const money_multiplier : int = 15000
+				const variation : int = 5000
+				
+				var money = base_money + (racer_class * money_multiplier)
+				money += randi() % variation
+				
+				#print_debug("Racer class: %d - Money: $%d" % [racer_class, money])
+				
+				var random_car_key = cars_in_racer_class.keys()[randi() % cars_in_racer_class.size()]
 				var general_car_data = CarsData.get_car(random_car_key).duplicate()
 				
 				## Load the model for the racer's car
@@ -125,40 +144,62 @@ func generate_racer_cars():
 				car_position.add_child(static_body_parent)
 				
 				# Add wheels to the car model
-				var wheel_model = load("res://cars/wheels/"+general_car_data["default_wheels"]+"/"+general_car_data["default_wheels"]+".glb").instantiate()
+				var wheels : String = CarsData.get_all_wheels().keys()[randi() % CarsData.get_all_wheels().keys().size()]
+				var wheel_model = load("res://cars/wheels/"+wheels+"/"+wheels+".glb").instantiate()
 				for child in instance.get_children():
 					if child.name == "WheelPositions":
 						for wheel_position in child.get_children():
 							wheel_position.add_child(wheel_model.duplicate())
 						break
 				
+				# Calculate performance based on upgrades
+				var engine_upgrade_level : int = randi_range(0, 10)
+				var weight_upgrade_level : int = randi_range(0, 10)
+				var transmission_upgrade_level : int = randi_range(0, 10)
+				var nitrous_upgrade_level : int = randi_range(0, 10)
+				
+				var performance_data : Dictionary = {
+					"top_speed_for_gear": general_car_data["top_speed_for_gear"].duplicate(),
+					"top_speed_mps": general_car_data["top_speed_mps"],
+					"acceleration_rate_for_gear": general_car_data["acceleration_rate_for_gear"].duplicate(),
+					"redline": general_car_data["redline"],
+					"max_rpm": general_car_data["max_rpm"],
+					"gears": general_car_data["gears"]
+				}
+				
+				for upgrade in engine_upgrade_level:
+					for i in performance_data["top_speed_for_gear"].size():
+						performance_data["top_speed_for_gear"][i] += 1
+					performance_data["top_speed_mps"] = performance_data["top_speed_for_gear"][performance_data["top_speed_for_gear"].size()-1]
+				for upgrade in weight_upgrade_level:
+					for i in performance_data["top_speed_for_gear"].size():
+						performance_data["top_speed_for_gear"][i] += 0.5
+					performance_data["top_speed_mps"] = performance_data["top_speed_for_gear"][performance_data["top_speed_for_gear"].size()-1]
+					for i in performance_data["acceleration_rate_for_gear"].size():
+						performance_data["acceleration_rate_for_gear"][i] += 0.25
+				for upgrade in transmission_upgrade_level:
+					for i in performance_data["acceleration_rate_for_gear"].size():
+						performance_data["acceleration_rate_for_gear"][i] += 0.5
+				
 				## Generate racer data
-				# TODO: Generate racers with different wealth
-				# Poor racers with up to 5k in betting cash
-				# Medium racers with up to 20k in cash
-				# Rich racers with up to 50k in cash
-				# High rollers with up to 100k
-				# Naturally, give them appropriate cars. Don't end up with someone willing to put
-				# down a 100k bet with the slowest car in the game
 				var wins : int = randi_range(0, 400)
 				var losses : int = randi_range(0, 400)
-				# TODO: Figure out how to generate rep from the winrate (Example, 50% WR should have some rep)
-				var rep : int = (wins * 100) - (losses * 100)
+				var rep : int = (wins * 100) - (losses * 50)
 				if rep < 0:
 					rep = 0
 				var racer_data : Dictionary = {
 					"car": random_car_key,
-					"car_data": general_car_data,
-					# TODO: Handle racers having customized cars
+					"general_car_data" : general_car_data,
+					"performance_data": performance_data,
 					"color": car_color,
 					"upgrades": {
-						"engine": randi_range(0, 10),
-						"weight": randi_range(0, 10),
-						"transmission": randi_range(0, 10),
-						"nitrous": randi_range(0, 10)
+						"engine": engine_upgrade_level,
+						"weight": weight_upgrade_level,
+						"transmission": transmission_upgrade_level,
+						"nitrous": nitrous_upgrade_level
 					},
-					#"wheels":,
-					#"money":
+					"wheels": wheels,
+					"money": money,
 					"rep": rep,
 					"wins": wins,
 					"losses": losses
@@ -166,6 +207,7 @@ func generate_racer_cars():
 				racers_data.get_or_add(car_position, racer_data)
 		else:
 			pass
+	print_debug(racers_data.size())
 
 func generate_background_cars():
 	for car_position in decor_car_positions.get_children():
@@ -203,6 +245,7 @@ func generate_background_cars():
 func open_racer_interaction_menu(racer_position : Node3D):
 	set_camera_raycast_enabled(false)
 	active_racer = racers_data.get(racer_position)
+	print_debug(active_racer)
 	active_racer_node = racer_position
 	ui.show_racer_interact_screen(active_racer)
 

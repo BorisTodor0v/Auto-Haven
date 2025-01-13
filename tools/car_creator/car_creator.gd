@@ -22,14 +22,19 @@ extends Node3D
 @export var internal_name : String
 @export var default_wheels : String
 @export var can_buy_in_dealership : bool
+## Minimum value is 0, cannot be negative.
+## Higher number means higher value car, which means can only be owned by richer racers
+@export var car_class : int
+
+# Separate file used for testing
+#var cars_data_file_path : String = "res://data/cars_data_TEST.json"
+var cars_data_file_path : String = "res://data/cars_data.json"
 
 var can_write : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Separate file used for testing
-	#var cars_file = FileAccess.open("res://data/cars_data_TEST.json", FileAccess.READ)
-	var cars_file = FileAccess.open("res://data/cars_data.json", FileAccess.READ)
+	var cars_file = FileAccess.open(cars_data_file_path, FileAccess.READ)
 	var existing_data : Dictionary = JSON.parse_string(cars_file.get_as_text())
 	cars_file.close()
 	
@@ -95,6 +100,9 @@ func _ready():
 		if FileAccess.file_exists("res://cars/wheels/"+default_wheels+"/"+default_wheels+".glb"):
 			print("Invalid name of default wheels")
 			can_write = false
+	if car_class < 0:
+		print("Car class must be a non-negative integer")
+		can_write = false
 	
 	if can_write:
 		# Made it past verification, now write to JSON
@@ -112,12 +120,13 @@ func _ready():
 			"scene_path": "res://cars/models/"+internal_name+"/"+internal_name+".tscn",
 			"model_path": "res://cars/models/"+internal_name+"/"+internal_name+".glb",
 			"default_wheels": default_wheels,
-			"can_buy_in_dealership": can_buy_in_dealership
+			"can_buy_in_dealership": can_buy_in_dealership,
+			"class": car_class
 		}
 		
 		existing_data.get_or_add(internal_name, data)
 		var data_to_json = JSON.stringify(existing_data, "\t",false)
 		
-		cars_file = FileAccess.open("res://data/cars_data_TEST.json", FileAccess.WRITE)
+		cars_file = FileAccess.open(cars_data_file_path, FileAccess.WRITE)
 		cars_file.store_string(data_to_json)
 		cars_file.close()

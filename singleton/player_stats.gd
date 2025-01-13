@@ -10,7 +10,6 @@ var total_mechanics : int = 0
 var available_mechanics : int = 0
 var mechanic_base_cost : int = 5000
 
-# TODO: Combine these into a dictionary
 var engine_parts : int = 1000
 var weight_parts : int = 1000 # Carbon fibre parts to reduce weight
 var transmission_parts : int = 1000
@@ -133,26 +132,22 @@ func upgrade_car(car_id : int, upgrade_type : String):
 			if get_upgrade_parts(upgrade_type) >= parts_needed:
 				current_car["upgrades"][upgrade_type] += 1
 				remove_upgrade_parts(upgrade_type, parts_needed)
-				# TODO: Change performance values here
+				
 				if upgrade_type == "engine": # Top speed
 					for i in current_car["performance_data"]["top_speed_for_gear"].size():
-						current_car["performance_data"]["top_speed_for_gear"][i] += 2 # TODO: Test with different values
-						# TODO: Change increase in performance, current value is for testing only 
-						current_car["performance_data"]["top_speed_mps"] += 2
+						current_car["performance_data"]["top_speed_for_gear"][i] += 2
+					current_car["performance_data"]["top_speed_mps"] = current_car["performance_data"]["top_speed_for_gear"][current_car["performance_data"]["top_speed_for_gear"].size()-1]
 				elif upgrade_type == "transmission": # Acceleration
 					for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
-						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 1 # TODO: Test with different values (0.2)
-						# TODO: Change increase in performance, current value is for testing only 
+						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 0.5
 				elif upgrade_type == "weight": # Top speed and acceleration
 					# Top speed
 					for i in current_car["performance_data"]["top_speed_for_gear"].size():
-						current_car["performance_data"]["top_speed_for_gear"][i] += 1 # TODO: Test with different values
-						# TODO: Change increase in performance, current value is for testing only 
-					current_car["performance_data"]["top_speed_mps"] += 1
+						current_car["performance_data"]["top_speed_for_gear"][i] += 1
+					current_car["performance_data"]["top_speed_mps"] = current_car["performance_data"]["top_speed_for_gear"][current_car["performance_data"]["top_speed_for_gear"].size()-1]
 					# Acceleration
 					for i in current_car["performance_data"]["acceleration_rate_for_gear"].size():
-						current_car["performance_data"]["acceleration_rate_for_gear"][i] += .5 # TODO: Test with different values (0.2)
-						# TODO: Change increase in performance, current value is for testing only
+						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 0.25
 				elif upgrade_type == "nitrous":
 					pass
 					# TODO: Figure out how to handle nitrous upgrades:
@@ -195,7 +190,7 @@ func change_player_car_property(car_id : int, property_name : String, value):
 					print_debug("Invalid property name")
 		else:
 			print_debug("Player doesn't own a car with ID: %d" % car_id)
-	pass
+
 #car = {
 	#"model": car_key,
 	#"color": car_color,

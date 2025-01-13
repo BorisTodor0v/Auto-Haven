@@ -13,7 +13,7 @@ var player_general_car_data
 
 @export var rival_car_position : Node3D
 var rival_car : Car
-var rival_car_data
+var rival_car_performance_data
 var rival_car_wheels : Node3D
 var rival_general_car_data
 
@@ -158,13 +158,14 @@ func set_player_car(player_car_id : int):
 func set_rival_car(rival_data : Dictionary):
 	if rival_car_position.get_child_count() > 0:
 		rival_car_position.get_child(0).queue_free()
-	rival_general_car_data = rival_data["car_data"]
+	rival_general_car_data = rival_data["general_car_data"]
+	rival_car_performance_data = rival_data["performance_data"]
 	
 	var scene = load(rival_general_car_data["scene_path"])
 	var instance = scene.instantiate()
 	rival_car = instance
 	rival_car_position.add_child(rival_car)
-
+	
 	## Set car color
 	var material : StandardMaterial3D = load("res://resources/shaders/car_base_color.tres").duplicate()
 	var mesh : MeshInstance3D = null
@@ -203,13 +204,11 @@ func set_rival_car(rival_data : Dictionary):
 	reaction_timer.wait_time = rival_reaction_time
 	
 	if rival_data["upgrades"]["nitrous"] > 0:
-		print_debug("Rival car has nitrous level %d" % rival_data["upgrades"]["nitrous"])
-		rival_nitrous_gear = randi_range(2, rival_data["car_data"]["gears"])
-		print_debug("Nitrous will be used in gear: %d" % rival_nitrous_gear)
+		rival_nitrous_gear = randi_range(2, rival_data["general_car_data"]["gears"])
+		print_debug("Nitrous will be used by rival in gear: %d" % rival_nitrous_gear)
 		rival_nitrous_duration = float(rival_data["upgrades"]["nitrous"]) / 2
 		rival_nitrous_duration_remaining = rival_nitrous_duration
 		rival_nitrous_power = 1 + (float(rival_data["upgrades"]["nitrous"]) / 13.3)
-
 
 func confirm_race():
 	start_race_countdown()
@@ -233,6 +232,7 @@ func launch():
 		race_ui.show_race_screen()
 	else: # False start, stop the race
 		show_post_race_screen("dsq")
+		PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
 		race_ui.rewards_label.text = "Don't jump the gun next time"
 		reset_cars()
 		PlayerStats.remove_cash(wager)
@@ -280,26 +280,22 @@ func shift_gear():
 
 func accelerate_rival_car(delta):
 	if rival_rpm < rival_general_car_data["max_rpm"] && rival_general_car_data["top_speed_mps"]:
-		rival_rpm = rival_velocity / rival_general_car_data["top_speed_for_gear"][rival_gear - 1] * rival_general_car_data["max_rpm"]
+		rival_rpm = rival_velocity / rival_car_performance_data["top_speed_for_gear"][rival_gear - 1] * rival_car_performance_data["max_rpm"]
 		if is_rival_nitrous_active:
-			rival_velocity += (rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1] * rival_nitrous_power ) * delta
+			rival_velocity += (rival_car_performance_data["acceleration_rate_for_gear"][rival_gear - 1] * rival_nitrous_power ) * delta
 		else:
-			rival_velocity += rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1] * delta
+			rival_velocity += rival_car_performance_data["acceleration_rate_for_gear"][rival_gear - 1] * delta
 	move_rival_car(delta)
 	
 	# Gear shifting logic
 	if rival_rpm >= rival_shift_point && rival_gear < rival_general_car_data["gears"]:
 		rival_car.play_gearshift_animation()
 		rival_gear += 1
-		#print_debug
-		print("Rival shifted to gear %d at %d RPM" % [rival_gear, rival_rpm]) 
 		if rival_gear == rival_nitrous_gear:
 			is_rival_nitrous_active = true
-			print("Rival will use nitrous in this gear")
-		var previous_gear_top_speed = rival_general_car_data["top_speed_for_gear"][rival_gear - 2]
-		var new_gear_top_speed = rival_general_car_data["top_speed_for_gear"][rival_gear - 1]
+		var previous_gear_top_speed = rival_car_performance_data["top_speed_for_gear"][rival_gear - 2]
+		var new_gear_top_speed = rival_car_performance_data["top_speed_for_gear"][rival_gear - 1]
 		rival_rpm *= previous_gear_top_speed / new_gear_top_speed
-		print_debug("New RPM: %d with acceleration rate of: %f" % [rival_rpm, rival_general_car_data["acceleration_rate_for_gear"][rival_gear - 1]])
 		
 
 func decelerate_rival_car(delta):
@@ -332,18 +328,15 @@ func end_race():
 	if race_state == RaceStates.RUN:
 		if player_crossed_line && rival_crossed_line == false:
 			show_post_race_screen("win")
-			# TODO: Increment win counter for the player car
 			give_rewards()
 		elif player_crossed_line && rival_crossed_line:
 			if player_time < rival_time:
 				show_post_race_screen("win")
-				# TODO: Increment win counter for the player car
-				#give_rewards()
 			else:
 				show_post_race_screen("loss")
 				PlayerStats.remove_cash(wager)
 				race_ui.rewards_label.text = "Better luck next time..."
-				# TODO: Increment loss counter for the player car
+				PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
 		race_ui.update_labels()
 	
 func reset_cars():
@@ -390,6 +383,7 @@ func show_post_race_screen(finish_type : String):
 	race_ui.show_post_race_screen(finish_type, run_stats)
 
 func give_rewards():
+	PlayerStats.get_car(PlayerStats.get_active_car())["wins"] += 1
 	var rep_reward : int = 100
 	PlayerStats.add_rep(rep_reward)
 	PlayerStats.add_cash(wager)
