@@ -1,0 +1,57 @@
+{
+	"player_data": {
+		"cash": 100000,
+		"rep": 0,
+		"max_fuel": 50,
+		"tiles_owned": 1,
+		"total_mechanics": 0,
+		"upgrade_parts": {
+			"engine": 1000,
+			"weight": 1000,
+			"transmission": 1000,
+			"nitrous": 1000
+		},
+		"owned_cars": {
+			"1": {
+				"model": "chal",
+				"color": "(1, 0.9, 0, 1)",
+				"wheels": "wheel_003",
+				"upgrades": {
+					"engine": 0,
+					"weight": 0,
+					"transmission": 0,
+					"nitrous": 0
+				},
+				"is_stored": true,
+				"performance_data": {
+					"top_speed_for_gear": [
+						24.5435,
+						34.43281,
+						44.3889,
+						54.7222,
+						64.5913,
+						68.4444
+					],
+					"top_speed_mps": 68.4444,
+					"acceleration_rate_for_gear": [
+						6,
+						6,
+						5,
+						5,
+						4,
+						3
+					],
+					"redline": 7500,
+					"max_rpm": 7700,
+					"gears": 6
+				},
+				"wins": 0,
+				"losses": 0
+			}
+		},
+		"active_car": 1
+	},
+	"player_cars_placed_in_garage": {
+
+	}
+}

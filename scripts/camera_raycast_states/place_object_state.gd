@@ -52,7 +52,10 @@ func set_item(item_type : String, item):
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
 				current_item_default_material = current_item_mesh.get_active_material(0).duplicate()
-				current_item_default_material.albedo_color = player_car_data["color"]
+				if player_car_data["color"] is Color:
+					current_item_default_material.albedo_color = player_car_data["color"]
+				else:
+					current_item_default_material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
 			else:
 				print_debug("PROBLEM, MESH IS NULL")
 
@@ -107,11 +110,11 @@ func set_item(item_type : String, item):
 		_:
 			print_debug("Invalid item type")
 
-func set_edit_item(item_node : Node3D, item_name : String, car_id : int):
+func set_edit_item(item_node : Node3D, item_name : String, car_id : String):
 	edit_mode_enabled = true # Moving an existing object in the garage
 	edit_object_original_position = item_node.global_position # Memorize the previous position of the object
 	edit_object_original_rotation = item_node.global_rotation # Memorize the previous rotation of the object
-	if car_id == -1: # Item is a furniture object
+	if int(car_id) == -1: # Item is a furniture object
 		if item_name.begins_with("wall_"):
 			current_item_type = "walls"
 		else:
@@ -124,7 +127,7 @@ func set_edit_item(item_node : Node3D, item_name : String, car_id : int):
 		else:
 			print_debug("PROBLEM, MESH IS NULL")
 		current_item.reparent(self, true)
-	elif car_id >= 0: # Item is a player owned car
+	elif int(car_id) >= 0: # Item is a player owned car
 		# TODO: Instantiate wheels and add them to the car
 		current_item = item_node
 		current_item_type = "car"

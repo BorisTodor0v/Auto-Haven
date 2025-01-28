@@ -9,7 +9,7 @@ extends Node
 
 @export var internal_name : String
 
-var internal_id : int
+var internal_id : String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -64,10 +64,10 @@ func get_mesh() -> MeshInstance3D:
 	print_debug(mesh)
 	return mesh
 
-func set_internal_id(id : int):
+func set_internal_id(id : String):
 	internal_id = id
 
-func get_internal_id() -> int:
+func get_internal_id() -> String:
 	return internal_id
 
 func set_wheels(wheel_name : String):

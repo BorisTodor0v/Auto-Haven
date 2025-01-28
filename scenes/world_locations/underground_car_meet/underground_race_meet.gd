@@ -14,7 +14,7 @@ extends WorldLocation
 @export var pink_slip_racer_marker : Node3D
 
 var player_car : Car
-var player_car_id : int
+var player_car_id : String
 var player_car_data : Dictionary
 var player_car_general_data : Dictionary
 
@@ -26,7 +26,7 @@ const PINK_SLIP_CHANCE : int = 5 # % Chance the racer is pink slip racer
 var active_racer = null
 var active_racer_node : Node3D = null
 
-signal remove_player_car(id : int)
+signal remove_player_car(id : String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -54,7 +54,7 @@ func get_ui():
 	return $UI
 
 func place_player_car():
-	if PlayerStats.get_active_car() > 0:
+	if int(PlayerStats.get_active_car()) > 0:
 		player_car_id = PlayerStats.get_active_car()
 		player_car_data = PlayerStats.get_car(player_car_id)
 		player_car_general_data = CarsData.get_car(player_car_data["model"])
@@ -86,7 +86,10 @@ func place_player_car():
 			if child is MeshInstance3D:
 				mesh = child
 		if mesh != null && material != null:
-			material.albedo_color = player_car_data["color"]
+			if player_car_data["color"] is Color:
+				material.albedo_color = player_car_data["color"]
+			else:
+				material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
 			mesh.set_surface_override_material(0, material)
 	else:
 		pass
@@ -303,7 +306,7 @@ func end_race():
 	active_racer_node.queue_free()
 	
 	# If the player has lost their car in a pink slip race, send them back to the garage
-	if PlayerStats.active_car == -1:
+	if int(PlayerStats.active_car) == -1:
 		remove_player_car.emit(player_car_id)
 		leave_location.emit()
 

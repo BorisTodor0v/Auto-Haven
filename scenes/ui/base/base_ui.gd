@@ -10,6 +10,7 @@ extends UI
 @export var refuel_progress_bar : ProgressBar
 @export var refuel_time_label : Label
 
+@export var save_button : Button
 @export var buy_fuel_refill_button : Button
 
 @onready var message = $MarginContainer/VBoxContainer/Bottom/VBoxContainer/MessageContainer/MessageBackground
@@ -18,6 +19,7 @@ extends UI
 
 signal open_menu(menu_name : String)
 signal travel_button_pressed
+signal save_game
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,6 +39,7 @@ func _ready():
 		margin.add_theme_constant_override("margin_bottom", margin_value)
 		margin.add_theme_constant_override("margin_right", margin_value)
 		$MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control/Button.hide()
+		save_button.hide()
 	message.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -88,3 +91,6 @@ func _on_buy_fuel_refill_button_pressed():
 	if PlayerStats.get_cash() >= refuel_cost:
 		PlayerStats.remove_cash(refuel_cost)
 		PlayerStats.fuel = PlayerStats.max_fuel	
+
+func _on_save_game_button_pressed():
+	save_game.emit()

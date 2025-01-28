@@ -94,7 +94,7 @@ func begin_placing_item(item_type : String, item):
 	raycast_place_object_state.set_item(item_type, item)
 	set_camera_raycast_states("place_object")
 
-func begin_edit_item(item_node : Node3D, item_name : String, car_id : int):
+func begin_edit_item(item_node : Node3D, item_name : String, car_id : String):
 	raycast_place_object_state.set_edit_item(item_node, item_name, car_id)
 	set_camera_raycast_states("place_object")
 

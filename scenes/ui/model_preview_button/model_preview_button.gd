@@ -11,7 +11,7 @@ var preview_scene = preload("res://cars/car_preview_scene/car_preview.tscn")
 
 var car_key : String
 
-func assign_car(car_id : int):
+func assign_car(car_id : String):
 	var player_car_data = PlayerStats.get_car(car_id)
 	var general_car_data = CarsData.get_car(player_car_data["model"])
 	var preview_scene_instance = preview_scene.instantiate()
@@ -19,7 +19,7 @@ func assign_car(car_id : int):
 	sub_viewport.add_child(preview_scene_instance)
 	set_labels(general_car_data["name"], -1)
 
-func assign_player_car(car_id : int):
+func assign_player_car(car_id : String):
 	var player_car_data = PlayerStats.get_car(car_id)
 	var general_car_data = CarsData.get_car(player_car_data["model"])
 	var preview_scene_instance = preview_scene.instantiate()

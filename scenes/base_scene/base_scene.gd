@@ -20,8 +20,13 @@ var nighttime_light_energy : float = 0.075
 var nighttime_light_orientation : Vector3 = Vector3(deg_to_rad(-42.3), deg_to_rad(-171.3), deg_to_rad(174.1))
 var nighttime_world_environment_energy_multiplier : float = 0.01
 
+# Saving and loading variables
+var save_data_path : String = "res://save_data/"
+var save_file_name : String = "save_data.json"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	load_game()
 	garage_scene.connect("repair_completed", complete_job)
 	garage_scene.connect("pressed_on_tile", pressed_on_tile)
 	garage_scene.connect("end_placing_item", end_placing_item)
@@ -34,6 +39,7 @@ func _ready():
 	ui.connect("on_garage_submenu_item_pressed", begin_placing_item)
 	ui.connect("garage_submenu_closed", cancel_placing_item)
 	ui.connect("edit_mode_enabled", set_edit_mode)
+	ui.connect("save_game", save_game)
 	job_car_spawner.connect("job_car_spawned", check_for_mechanics)
 	job_car_spawner.set_car_spots(garage_scene.get_job_car_spots())
 	car_interaction_menu.connect("upgrade_car", upgrade_car)
@@ -43,7 +49,7 @@ func _ready():
 	car_interaction_menu.connect("color_changed", update_car_color)
 	ui.update_labels()
 	# Function calls for testing, remove in final version
-	test_func_give_player_car()
+	#test_func_give_player_car()
 
 func complete_job(cash_reward : int, rep_reward : int, is_repaired_by_player : bool):
 	if is_repaired_by_player == false:
@@ -113,7 +119,7 @@ func open_menu(menu_name : String):
 func travel_to_location(location_name : String):
 	var location = LocationsData.get_location(location_name)
 	if location_name != "garage":
-		if location["requires_car"] == true && PlayerStats.get_active_car() == -1:
+		if location["requires_car"] == true && int(PlayerStats.get_active_car()) == -1:
 			ui.show_message("Select a car from your garage to travel to this location with", 3)
 		else:
 			garage_scene.hide()
@@ -212,7 +218,7 @@ func end_placing_item(placed_item_type : String, placed_item_id):
 		## Specific procedures for placing specific types of items
 		match placed_item_type:
 			"car":
-				PlayerStats.get_car(placed_item_id)["is_stored"] = false
+				PlayerStats.get_car(str(placed_item_id))["is_stored"] = false
 				ui.update_submenu_list()
 			"furniture":
 				var furniture_item_data = FurnitureData.get_values_from_key(placed_item_id)
@@ -246,29 +252,29 @@ func set_edit_mode(state : bool):
 # To drag race when selecting a run type (Versus run)
 # In it's place, added a check to see if the object is a Car, and if so to then call the function
 # Will probably need to check the UI instead of the car, as the problem is thrown there
-func handle_object_clicked(object_node, object_name : String, car_id : int):
+func handle_object_clicked(object_node, object_name : String, car_id : String):
 	if is_redecorating:
 		print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
 		garage_scene.begin_edit_item(object_node, object_name, car_id)
 		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel. X to delete, or if it's a car to send back to storage.", 9999)
 	else:
 		if object_node is Car:
-			if car_id >= 0:
+			if int(car_id) >= 0:
 				if ui.has_method("car_interaction_menu_assign_car"):
 					ui.car_interaction_menu_assign_car(car_id)
 					car_interaction_menu_active_car_node = object_node
 					open_menu("car_interaction_menu")
 
-func upgrade_car(car_id : int, upgrade_type : String):
+func upgrade_car(car_id : String, upgrade_type : String):
 	PlayerStats.upgrade_car(car_id, upgrade_type)
 
-func store_car(car_id : int):
+func store_car(car_id : String):
 	PlayerStats.get_car(car_id)["is_stored"] = true
 	car_interaction_menu_active_car_node.queue_free()
 
-func sell_car(car_id : int):
+func sell_car(car_id : String):
 	if PlayerStats.get_active_car() == car_id:
-		PlayerStats.set_active_car(-1)
+		PlayerStats.set_active_car("-1")
 	var player_car_data : Dictionary = PlayerStats.get_car(car_id)
 	var car_name : String = player_car_data["model"]
 	var general_car_data : Dictionary = CarsData.get_car(car_name)
@@ -292,7 +298,7 @@ func test_signal(a : String):
 func test_func_give_player_car():
 	PlayerStats.add_cash(50000)
 	buy_car("chal", Color(1, .9, 0))
-	PlayerStats.set_active_car(1)
+	PlayerStats.set_active_car("1")
 
 func switch_time_of_day_to(target_time : String):
 	match target_time:
@@ -314,3 +320,96 @@ func update_car_wheels(wheel_name : String):
 func update_car_color(color : Color):
 	car_interaction_menu_active_car_node.set_color(color)
 	ui.update_labels()
+
+func save_game():
+	print_debug("Saving game...")
+	# Declare needed variables
+	var serialized_data : Dictionary = {}
+	var player_cars_placed_in_garage : Dictionary = {}
+	
+	# Serialize player data
+		# Does not contain which tiles the player owns, those will need to be serialized separately
+	var owned_cars : Dictionary = {}
+	# When saving the owned cars, the id is converted from integer to String.
+	# This is used to make sure the id for the owned cars is saved as an integer.
+	
+	var player_data : Dictionary = {
+		"cash": PlayerStats.get_cash(),
+		"rep": PlayerStats.get_rep(),
+		"max_fuel": PlayerStats.max_fuel,
+		"fuel": PlayerStats.fuel,
+		"tiles_owned": PlayerStats.get_tiles_owned(),
+		"total_mechanics": PlayerStats.get_total_mechanics(),
+		"upgrade_parts": {
+			"engine": PlayerStats.engine_parts,
+			"weight": PlayerStats.weight_parts,
+			"transmission": PlayerStats.transmission_parts,
+			"nitrous": PlayerStats.nitrous_parts
+		},
+		"owned_cars": PlayerStats.get_owned_cars(),
+		"active_car": PlayerStats.get_active_car()
+	}
+	serialized_data.get_or_add("player_data", player_data)
+	
+	# Get all nodes with the "Persist" group
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+	print_debug(save_nodes)
+	for node in save_nodes:
+		print_debug(node.get_groups())
+	# Output: [&"Holds Placeable Objects", &"Persist"]
+	
+	# Serialize node data
+	for node in save_nodes:
+		if node.get_groups().has("Player Car Container"):
+			# Logic to serialize player owned cars placed in the garage
+				# Player cars have an internal ID, which is the ID/key in the 
+				# player owned cars dictionary in PlayerStats
+				# Can save the internal id, position and rotation. Car model, color can be taken from the afore-
+				# mentioned dictionary.
+			for car : Node3D in node.get_children():
+				print_debug(str(car) + " / Internal ID: " + str(car.get_internal_id()))
+				print_debug(car.position)
+				print_debug(car.rotation)
+				var player_car_entry : Dictionary = {
+					"position_x": car.position.x,
+					"position_y": car.position.y,
+					"position_z": car.position.z,
+					"rotation_x": car.rotation.x,
+					"rotation_y": car.rotation.y,
+					"rotation_z": car.rotation.z,
+				}
+				player_cars_placed_in_garage.get_or_add(car.get_internal_id(), player_car_entry)
+				# Might need to add the wheel and colors, we'll see
+			# Add the serialized car data to the "serialized_data" dictionary
+			serialized_data.get_or_add("player_cars_placed_in_garage", player_cars_placed_in_garage)
+			print_debug(serialized_data)
+			
+	# Write serialized data to file - JSON FORMAT
+	var save_file = FileAccess.open(save_data_path+"/"+save_file_name, FileAccess.WRITE)
+	var json_string = JSON.stringify(serialized_data, "\t",false)
+	save_file.store_string(json_string)
+	save_file.close()
+	
+func load_game():
+	if FileAccess.file_exists(save_data_path+"/"+save_file_name):
+		print_debug("Existing save file found, loading")
+		# Read data from file
+		var save_file = FileAccess.open(save_data_path+"/"+save_file_name, FileAccess.READ)
+		var save_data : Dictionary = JSON.parse_string(save_file.get_as_text())
+		save_file.close()
+		
+		# Load player data:
+		PlayerStats.cash = save_data["player_data"]["cash"]
+		PlayerStats.rep = save_data["player_data"]["rep"]
+		PlayerStats.max_fuel = save_data["player_data"]["max_fuel"]
+		PlayerStats.fuel = save_data["player_data"]["fuel"]
+		PlayerStats.tiles_owned = save_data["player_data"]["tiles_owned"]
+		PlayerStats.total_mechanics = save_data["player_data"]["total_mechanics"]
+		PlayerStats.engine_parts = save_data["player_data"]["upgrade_parts"]["engine"]
+		PlayerStats.weight_parts = save_data["player_data"]["upgrade_parts"]["weight"]
+		PlayerStats.transmission_parts = save_data["player_data"]["upgrade_parts"]["transmission"]
+		PlayerStats.nitrous_parts = save_data["player_data"]["upgrade_parts"]["nitrous"]
+		PlayerStats.owned_cars = save_data["player_data"]["owned_cars"]
+		PlayerStats.active_car = save_data["player_data"]["active_car"]
+		
+		#Other data to load

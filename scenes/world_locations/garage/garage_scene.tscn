@@ -14,7 +14,7 @@ script = ExtResource("1_hufk2")
 
 [node name="garage" parent="." instance=ExtResource("1_fibno")]
 
-[node name="Tiles" type="Node3D" parent="." groups=["Tile"]]
+[node name="Tiles" type="Node3D" parent="." groups=["Persist", "Tile"]]
 
 [node name="Tile" parent="Tiles" instance=ExtResource("2_wy7l3")]
 is_unlocked = true
@@ -147,7 +147,7 @@ gizmo_extents = 2.0
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -3.1, 0.05, 19.3)
 gizmo_extents = 2.0
 
-[node name="CarLifts" type="Node3D" parent="."]
+[node name="CarLifts" type="Node3D" parent="." groups=["Holds Placeable Objects", "Persist"]]
 
 [node name="CarLift" parent="CarLifts" instance=ExtResource("4_iop7i")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 2)
@@ -165,11 +165,11 @@ internal_name = "car_lift_001"
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17, 0, 11)
 internal_name = "car_lift_001"
 
-[node name="PlayerCars" type="Node3D" parent="."]
+[node name="PlayerCars" type="Node3D" parent="." groups=["Holds Placeable Objects", "Persist", "Player Car Container"]]
 
-[node name="Furniture" type="Node3D" parent="."]
+[node name="Furniture" type="Node3D" parent="." groups=["Holds Placeable Objects", "Persist"]]
 
-[node name="Walls" type="Node3D" parent="."]
+[node name="Walls" type="Node3D" parent="." groups=["Holds Placeable Objects", "Persist"]]
 
 [node name="CameraStates" type="Node" parent="."]
 

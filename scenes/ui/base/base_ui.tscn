@@ -9,7 +9,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="BaseUI" type="Control" node_paths=PackedStringArray("fuel_label", "fuel_progress_bar", "refuel_progress_bar", "refuel_time_label", "buy_fuel_refill_button")]
+[node name="BaseUI" type="Control" node_paths=PackedStringArray("fuel_label", "fuel_progress_bar", "refuel_progress_bar", "refuel_time_label", "save_button", "buy_fuel_refill_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +21,7 @@ fuel_label = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxConta
 fuel_progress_bar = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/Fuel/MarginContainer/VBoxContainer/ProgressBar")
 refuel_progress_bar = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer/RefuelProgressBar")
 refuel_time_label = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/VBoxContainer2/FuelGauge/MarginContainer/VBoxContainer/RefuelTimeLabel")
+save_button = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/SaveGame/SaveGameButton")
 buy_fuel_refill_button = NodePath("MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control2/BuyFuelRefillButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -57,21 +58,19 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Level" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
+[node name="SaveGame" type="Control" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/Level"]
+[node name="SaveGameButton" type="Button" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/SaveGame"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "LEVEL GAUGE"
-horizontal_alignment = 1
-vertical_alignment = 1
+text = "Save game"
 
 [node name="Rep" type="Panel" parent="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge"]
 layout_mode = 2
@@ -373,6 +372,7 @@ text = "Your garage"
 [node name="MessageTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer/LevelGauge/SaveGame/SaveGameButton" to="." method="_on_save_game_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control2/BuyFuelRefillButton" to="." method="_on_buy_fuel_refill_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/TravelButton" to="." method="_on_travel_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/HBoxContainer/Left/VBoxContainer/ManageGarageButton" to="." method="_on_manage_garage_button_pressed"]

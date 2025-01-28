@@ -18,6 +18,7 @@ func set_car(car_data : Dictionary):
 	$CarPosition.add_child(car_model)
 
 func set_player_car(car_data : Dictionary):
+	#print_debug(car_data["color"])
 	var general_car_data = CarsData.get_car(car_data["model"])
 	var car_model = load(general_car_data["model_path"]).instantiate()
 	var wheel_model = load("res://cars/wheels/"+car_data["wheels"]+"/"+car_data["wheels"]+".glb").instantiate()
@@ -38,7 +39,11 @@ func set_player_car(car_data : Dictionary):
 		var material = mesh.get_active_material(0)
 		if material != null:
 			var unique_material = material.duplicate()
-			unique_material.albedo_color = car_data["color"]
+			if car_data["color"] is Color:
+				unique_material.albedo_color = car_data["color"]
+			else:
+				unique_material.albedo_color = CarsData.parse_color_from_string(car_data["color"])
+			#print_debug(unique_material.albedo_color)
 			mesh.set_surface_override_material(0, unique_material)
 
 func set_model(model_path : String, model_scale : float):

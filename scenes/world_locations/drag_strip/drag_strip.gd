@@ -107,7 +107,7 @@ func _process(delta):
 		if player_nitrous_duration_remaining <= 0:
 			is_nitrous_active = false
 
-func set_player_car(player_car_id : int):
+func set_player_car(player_car_id : String):
 	player_car_data = PlayerStats.get_car(player_car_id)
 	player_general_car_data = CarsData.get_car(player_car_data["model"])
 	
@@ -131,7 +131,10 @@ func set_player_car(player_car_id : int):
 		if child is MeshInstance3D:
 			mesh = child
 	if mesh != null && material != null:
-		material.albedo_color = player_car_data["color"]
+		if player_car_data["color"] is Color:
+			material.albedo_color = player_car_data["color"]
+		else:
+			material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
 		mesh.set_surface_override_material(0, material)
 	
 	player_car_wheels = player_car.get_wheels()

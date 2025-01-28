@@ -1,3 +1,10 @@
-- Added preview images for each location to the travel locations list
-- Added scene files for cars without one
-- Added extra garage decoration options
+- Changed the variable type of each player owned car's id from integer to String to accomodate loading saved data for owned cars.
+- Changes to the type of the player car id from integer to String in the Camera "Place object state", Drag Strip, Underground race meet and race location.
+- Added a method in CarsData to parse a string to return a Color value.
+- Changes to the way the player car color is set in the Car interaction menu, Car preview scene, Drag strip, Underground race meet and race location.
+- Implemented initial version of saving and loading data
+	- Data is saved in "save_data/save_data.json"
+		- Can delete the file to return to initial state of the game.
+	- Currently, only the data in PlayerStats is saved (with the exception of tiles_owned).
+	- NOTE: When saving, make sure all player owned cars are stored and none are placed in the garage. The functionality to load placed cars in the garage is not implemented and will cause losing the cars in the garage. To bring back the cars will require manual editing of the save file.
+		- In case a car is not stored when saving, look for the key/s "is_stored" in the save file with the value false, and change them to true. Do not use quotation marks.

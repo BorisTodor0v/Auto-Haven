@@ -42,15 +42,15 @@ var respray_cost : int = 1000
 @onready var respray_cost_label : Label = $MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer/ResprayCostLabel
 @onready var color_picker : ColorPicker = $MarginContainer/Control/MarginContainer/VBoxContainer/Center/HBoxContainer/CustomizationPart/MarginContainer/VBoxContainer/VBoxContainer/ColorPicker/MarginContainer2/MarginContainer/VBoxContainer/ColorPick/CenterContainer/ColorPicker
 
-var current_car_id : int
+var current_car_id : String
 var general_car_data
 var player_car_data
 var acceleration : float = 0
 
 signal open_menu(menu_name : String)
-signal upgrade_car(car_id : int, upgrade_type : String)
-signal store_car(car_id : int)
-signal sell_car(car_id : int)
+signal upgrade_car(car_id : String, upgrade_type : String)
+signal store_car(car_id : String)
+signal sell_car(car_id : String)
 
 signal wheels_changed(wheel_name : String)
 signal color_changed(color : Color)
@@ -66,7 +66,7 @@ func _ready():
 	
 	fill_wheels_menu()
 
-func assign_car(car_id : int):
+func assign_car(car_id : String):
 	current_car_id = car_id
 	player_car_data = PlayerStats.get_car(car_id)
 	general_car_data = CarsData.get_car(player_car_data["model"])
@@ -122,7 +122,10 @@ func assign_car(car_id : int):
 		nitrous_parts_label.text = "Maxed out"
 	
 	# Color sub-menu
-	color_picker.color = player_car_data["color"]
+	if player_car_data["color"] is Color:
+		color_picker.color = player_car_data["color"]
+	else:
+		color_picker.color = CarsData.parse_color_from_string(player_car_data["color"])
 	
 	# Preview
 	var preview_scene_instance = preview_scene.instantiate()
@@ -138,7 +141,7 @@ func close_menu():
 func _on_close_button_pressed():
 	close_menu()
 
-func set_active_car_button_state(car_id : int):
+func set_active_car_button_state(car_id : String):
 	if car_id != PlayerStats.get_active_car(): # Current car is not selected as active
 		set_active_car_button.text = "Set as active car"
 		set_active_car_button.disabled = false
@@ -196,7 +199,6 @@ func _on_color_customization_pressed():
 	show_submenu("color")
 
 func fill_wheels_menu():
-	print_debug(CarsData.get_all_wheels())
 	for wheel in CarsData.get_all_wheels():
 		var button_instance = wheel_button.instantiate()
 		var wheel_price : int = CarsData.wheels[wheel]["price"]

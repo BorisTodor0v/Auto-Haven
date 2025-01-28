@@ -103,7 +103,7 @@ func _process(delta):
 			is_rival_nitrous_active = false
 			print_debug("Rival nitrous is no longer active")
 
-func set_player_car(player_car_id : int):
+func set_player_car(player_car_id : String):
 	player_car_data = PlayerStats.get_car(player_car_id)
 	player_general_car_data = CarsData.get_car(player_car_data["model"])
 	
@@ -128,7 +128,10 @@ func set_player_car(player_car_id : int):
 		if child is MeshInstance3D:
 			mesh = child
 	if mesh != null && material != null:
-		material.albedo_color = player_car_data["color"]
+		if player_car_data["color"] is Color:
+			material.albedo_color = player_car_data["color"]
+		else:
+			material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
 		mesh.set_surface_override_material(0, material)
 	
 	## Add headlights to car
@@ -237,7 +240,7 @@ func launch():
 		if rival_data["pink_slip"]:
 			# Take away the players car upon losing
 			PlayerStats.remove_car(PlayerStats.get_active_car())
-			PlayerStats.set_active_car(-1)
+			PlayerStats.set_active_car(str(-1))
 			race_ui.rewards_label.text = "Say goodbye to your car. Don't jump the gun next time"
 		else:
 			PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
@@ -344,7 +347,7 @@ func end_race():
 				if rival_data["pink_slip"]:
 					# Take away the players car upon losing
 					PlayerStats.remove_car(PlayerStats.get_active_car())
-					PlayerStats.set_active_car(-1)
+					PlayerStats.set_active_car(str(-1))
 					race_ui.rewards_label.text = "Say goodbye to your car."
 				else:
 					PlayerStats.remove_cash(wager)

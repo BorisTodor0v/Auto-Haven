@@ -63,3 +63,22 @@ func get_all_cars_by_class(class_value : int) -> Dictionary:
 			if cars[car]["class"] == class_value:
 				result_cars.get_or_add(car, cars[car])
 		return result_cars
+
+func parse_color_from_string(color_string : String) -> Color:
+	var error_color : Color = Color(1, 0.412, .716, 1)
+	if !color_string.begins_with("(") and !color_string.ends_with(")"):
+		print_debug("Color string does not start and end with brackets")
+		return error_color
+	var remove_brackets = color_string.erase(0, 1)
+	remove_brackets = remove_brackets.erase(remove_brackets.length()-1, 1)
+	var split_segments = color_string.split(',')
+	if split_segments.size() != 4:
+		print_debug("Invalid amount of segments after splitting (Expected 4, got %d)" % split_segments.size())
+		return error_color
+	var r : float = float(split_segments[0])
+	var g : float = float(split_segments[1])
+	var b : float = float(split_segments[2])
+	var a : float = float(split_segments[3])
+	
+	var parsed_color : Color = Color(r, g, b, a)
+	return parsed_color

@@ -27,6 +27,11 @@ FurnitureData="*res://singleton/furniture_data.gd"
 
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+Persist="Indicate which Node data will be saved."
+"Holds Placeable Objects"="Indicates the Node has children Nodes that are placeable objects in the game that need to be handled when saving."
+
 [input]
 
 mouse1={

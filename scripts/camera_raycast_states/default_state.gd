@@ -25,8 +25,8 @@ func _process(_delta):
 			if collider is PlaceableObject or collider is Car:
 				# If it's a car, it needs to provide which ID it is in the player owned car list, aswell as the model
 				if collider is Car:
-					if collider.get_internal_id() > 0:
-						pressed_on_object.emit(collider, PlayerStats.get_car(int(collider.get_internal_id()))["model"], int(collider.get_internal_id()))
+					if int(collider.get_internal_id()) > 0:
+						pressed_on_object.emit(collider, PlayerStats.get_car((collider.get_internal_id()))["model"], collider.get_internal_id())
 				# Else, if it's a furniture item, pass only the model name
 				else:
 					pressed_on_object.emit(collider, collider.get_internal_name(), -1)

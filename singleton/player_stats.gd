@@ -84,26 +84,32 @@ func get_garage_expansion_cost() -> int:
 	return tile_base_price * tiles_owned
 
 func add_car(new_car : Dictionary):
-	var id : int = owned_cars.size()+1
+	#TODO: Change the way the ID is assigned
+	# Instead of the number of owned cars + 1, get the id of the last element of the owned cars dictionary
+	# and increment the new id from that value.
+	# The method currently defined doesn't work because if you buy a car (ids: 1, 2) and sell the
+	# previous one (ids: 2), the size of the owned cars dict is 1, so +1 will give the same id of
+	# an already existing car.
+	var id : String = str(owned_cars.size()+1)
 	owned_cars.get_or_add(id, new_car)
-	print("Current collection:")
-	print_debug(owned_cars)
 
 ## Returns all player owned cars
 func get_owned_cars():
 	return owned_cars
 
 ## Returns the car that corresponds with the id
-func get_car(id : int):
+func get_car(id : String):
 	return owned_cars[id]
 
 func get_active_car():
-	return active_car
+	return str(active_car)
 
-func set_active_car(id : int):
-	active_car = id
+func set_active_car(id : String):
+	active_car = int(id)
 
-func remove_car(id : int):
+func remove_car(id : String):
+	# TODO: Remove_car doesn't actually erase the car. Probably problem with the new type of the id
+	# Change to string and test
 	owned_cars.erase(id)
 
 func add_upgrade_parts(type : String, amount : int):
@@ -139,7 +145,7 @@ func get_upgrade_parts(type : String):
 		"transmission":
 			return transmission_parts
 
-func upgrade_car(car_id : int, upgrade_type : String):
+func upgrade_car(car_id : String, upgrade_type : String):
 	var current_car : Dictionary = get_car(car_id)
 	if upgrade_type == "engine" || \
 	upgrade_type == "weight" || \
@@ -176,7 +182,7 @@ func upgrade_car(car_id : int, upgrade_type : String):
 		print_debug("Invalid upgrade type - " + upgrade_type)
 	print_debug(current_car)
 
-func change_player_car_property(car_id : int, property_name : String, value):
+func change_player_car_property(car_id : String, property_name : String, value):
 	if get_car(car_id) != null:
 		if owned_cars.has(car_id):
 			match property_name:
