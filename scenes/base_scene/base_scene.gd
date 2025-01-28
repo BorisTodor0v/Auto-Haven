@@ -131,6 +131,7 @@ func travel_to_location(location_name : String):
 						switch_time_of_day_to("day")
 					"underground_race_meet":
 						switch_time_of_day_to("night")
+						new_scene.connect("remove_player_car", remove_player_car_from_garage)
 					_:
 						pass
 			ui.hide()
@@ -281,6 +282,9 @@ func sell_car(car_id : int):
 	car_interaction_menu_active_car_node.queue_free()
 	PlayerStats.add_cash(sale_price)
 	ui.update_labels()
+
+func remove_player_car_from_garage(car_id : int):
+	garage_scene.remove_car(car_id)
 
 func test_signal(a : String):
 	print_debug("Signal reached base scene " + a)

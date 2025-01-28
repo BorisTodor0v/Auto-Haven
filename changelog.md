@@ -1,4 +1,6 @@
-- Added fuel requirement for participating in races
-	- Fuel is spent when participating in a Versus run in the Drag Strip, or in a race from the Underground race meet.
-	- Refilled periodically, or the player can spend money to instantly refill fuel
-	- Every 2000 rep earned the maximum fuel capacity is increased by 1
+- Added pink slip races
+	- Racer with a red colored marker above their car. 
+	- Cannot negotiate monetary wager, will only race for cars / pink slips.
+	- If the player wins they get the racer's car, and vice versa.
+	- Guaranteed to have level 5 upgrades and beyond on all parts.
+	- 5% chance to appear.

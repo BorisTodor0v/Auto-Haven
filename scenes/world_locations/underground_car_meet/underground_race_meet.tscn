@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://cpwgfs3bmyiuv"]
+[gd_scene load_steps=41 format=4 uid="uid://cpwgfs3bmyiuv"]
 
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/underground_race_meet.gd" id="1_ou5pt"]
 [ext_resource type="Material" uid="uid://baklpaoo7kkhc" path="res://scenes/world_locations/underground_car_meet/model/parking_lot/parking_lot.tres" id="2_d72pn"]
@@ -114,7 +114,7 @@ sky = SubResource("Sky_vlhdv")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_emt6h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5bwmx"]
 transparency = 1
 albedo_color = Color(0, 1, 0, 0.129412)
 emission_enabled = true
@@ -142,7 +142,7 @@ _surfaces = [{
 "format": 34896613399,
 "index_count": 18,
 "index_data": PackedByteArray("AwAJAAYAAQAOAAgAAgAMAA8AAAAFAAsADQAEAAcADQAKAAQA"),
-"material": SubResource("StandardMaterial3D_emt6h"),
+"material": SubResource("StandardMaterial3D_5bwmx"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 16,
@@ -177,7 +177,31 @@ _data = {
 "hover": SubResource("Animation_i0hux")
 }
 
-[node name="UndergroundRaceMeet" type="Node3D" node_paths=PackedStringArray("car_meet_camera", "race_location_camera", "car_meet", "race_location", "racer_car_positions", "decor_car_positions", "grid_positions", "player_car_marker")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bsmm"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.129412)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_t8k4i"]
+resource_name = "marker_Cube_001"
+_surfaces = [{
+"aabb": AABB(-0.42, 2.5, -0.42, 0.84, 3, 0.84),
+"attribute_data": PackedByteArray("/1//P/9f/7//X/9//1/////f/z//nwAA/5/////f/3//n/+//5//v/+f/z//n/8//5//P/+f/3//n/9//5//fw=="),
+"format": 34896613399,
+"index_count": 18,
+"index_data": PackedByteArray("AwAJAAYAAQAOAAgAAgAMAA8AAAAFAAsADQAEAAcADQAKAAQA"),
+"material": SubResource("StandardMaterial3D_1bsmm"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/38AAP9/nLr/fwAA/39G/P9/AAD/fyXP/38AAP9/XNUAAP///////wAA/////5y6AAD/////XNUAAP//AAD//wAA//8AAEb8AAD//wAAXNX//////////////////5y6////////Jc//////AAD///////8AAEb8/////wAAJc/ABxf3jUYJPtgs5iyNz2bb/3//v8AHF/eNz2bb/3//v41GCT6Nz2bb/3//v8AHF/fYLOYs/3//v41GCT7YLOYs")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_5mqqg")
+
+[node name="UndergroundRaceMeet" type="Node3D" node_paths=PackedStringArray("car_meet_camera", "race_location_camera", "car_meet", "race_location", "racer_car_positions", "decor_car_positions", "grid_positions", "player_car_marker", "pink_slip_racer_marker")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -40)
 script = ExtResource("1_ou5pt")
 car_meet_camera = NodePath("CameraPivot/Camera3D")
@@ -188,6 +212,7 @@ racer_car_positions = NodePath("underground_car_meet/CarPositions/RacerCars")
 decor_car_positions = NodePath("underground_car_meet/CarPositions/DecorCars")
 grid_positions = NodePath("ugcm_race_location/Grid Positions")
 player_car_marker = NodePath("marker")
+pink_slip_racer_marker = NodePath("PinkSlipRacerMarker")
 
 [node name="underground_car_meet" type="Node3D" parent="."]
 
@@ -1634,7 +1659,6 @@ vertical_alignment = 1
 
 [node name="RewardLabel" type="Label" parent="UI/RaceUI/PostRace/MarginContainer/VBoxContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "REWARD: _________________________"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -1718,6 +1742,13 @@ skeleton = NodePath("")
 libraries = {
 "": SubResource("AnimationLibrary_6l5dt")
 }
+
+[node name="PinkSlipRacerMarker" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
+
+[node name="Marker" type="MeshInstance3D" parent="PinkSlipRacerMarker"]
+mesh = SubResource("ArrayMesh_t8k4i")
+skeleton = NodePath("")
 
 [connection signal="visibility_changed" from="underground_car_meet" to="." method="_on_underground_car_meet_visibility_changed"]
 [connection signal="pressed" from="UI/BaseUI/VBoxContainer/Control2/HBoxContainer/Control2/MarginContainer/LeaveLocationButton" to="UI" method="_on_leave_location_button_pressed"]

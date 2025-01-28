@@ -36,7 +36,8 @@ var negotiation_phase : int = 0
 var current_wager : int = 0
 
 signal leave_location
-signal begin_race(wager : int)
+signal begin_standard_race(wager : int)
+signal begin_pink_slip_race
 signal racer_interaction_menu_closed(can_enable_raycast : bool)
 
 func _ready():
@@ -65,7 +66,10 @@ func _on_accept_wager_button_pressed():
 
 func _on_start_race_button_pressed():
 	racer_interact_screen.hide()
-	begin_race.emit(current_wager)
+	if racer_data["pink_slip"]:
+		begin_pink_slip_race.emit()
+	else:
+		begin_standard_race.emit(current_wager)
 	racer_interaction_menu_closed.emit(false)
 
 func _on_propose_counter_offer_button_pressed():
@@ -133,9 +137,25 @@ func show_racer_interact_screen(_racer_data : Dictionary):
 			racer_data["wins"],
 			racer_data["losses"]
 			]
+	
+	if racer_data["pink_slip"]:
+		print_debug("Racer only offers pink slip")
+		# TODO: Make adjustments to the racer interaction menu for pink slip racers
+		
+		# Display the pink slip in the wager negotiation segment
+		wager_negotiation_labels[0].text = "Racer wants to race for pink slips."
+		current_wager_label.text = "Current wager: Pink slip"
+		
+		# Cannot propose any counter offer, either accept instantly or decline and close the menu
+		counter_offer_input.editable = false
+		negotiation_controls[1].disabled = true
+		
+		# When a race
+	else:
+		negotiation_phase = 1
+		negotiate_wager(negotiation_phase, 0, false)
+	
 	racer_data_label.text = display_data
-	negotiation_phase = 1
-	negotiate_wager(negotiation_phase, 0, false)
 
 ## Negotiate wager for race. Phases can range from 1 to 3.
 ## offer = 0 indicates no offer has been made, aka it's the first offer.
@@ -238,7 +258,10 @@ func cancel_negotiations():
 func racer_accept_offer():
 	negotiation_buttons.hide()
 	start_race_container.show()
-	current_wager_label.text = "Current wager: $%d" % current_wager
+	if racer_data["pink_slip"]:
+		current_wager_label.text = "Current wager: Pink slip"
+	else:
+		current_wager_label.text = "Current wager: $%d" % current_wager
 	wager_negotiation_labels[6].text = "Deal."
 
 func generate_counter_offer(offer : int) -> int:

@@ -12,6 +12,7 @@ var player_car_wheels : Node3D
 var player_general_car_data
 
 @export var rival_car_position : Node3D
+var rival_data : Dictionary
 var rival_car : Car
 var rival_car_performance_data
 var rival_car_wheels : Node3D
@@ -155,7 +156,8 @@ func set_player_car(player_car_id : int):
 	
 	race_ui.set_redline(player_car_data["performance_data"]["redline"])
 
-func set_rival_car(rival_data : Dictionary):
+func set_rival_car(_rival_data : Dictionary):
+	rival_data = _rival_data
 	if rival_car_position.get_child_count() > 0:
 		rival_car_position.get_child(0).queue_free()
 	rival_general_car_data = rival_data["general_car_data"]
@@ -232,10 +234,16 @@ func launch():
 		race_ui.show_race_screen()
 	else: # False start, stop the race
 		show_post_race_screen("dsq")
-		PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
-		race_ui.rewards_label.text = "Don't jump the gun next time"
-		reset_cars()
-		PlayerStats.remove_cash(wager)
+		if rival_data["pink_slip"]:
+			# Take away the players car upon losing
+			PlayerStats.remove_car(PlayerStats.get_active_car())
+			PlayerStats.set_active_car(-1)
+			race_ui.rewards_label.text = "Say goodbye to your car. Don't jump the gun next time"
+		else:
+			PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
+			race_ui.rewards_label.text = "Don't jump the gun next time"
+			reset_cars()
+			PlayerStats.remove_cash(wager)
 
 func accelerate_player_car(delta):
 	if current_rpm < player_car_data["performance_data"]["max_rpm"] && current_velocity < player_car_data["performance_data"]["top_speed_mps"]:
@@ -296,7 +304,6 @@ func accelerate_rival_car(delta):
 		var previous_gear_top_speed = rival_car_performance_data["top_speed_for_gear"][rival_gear - 2]
 		var new_gear_top_speed = rival_car_performance_data["top_speed_for_gear"][rival_gear - 1]
 		rival_rpm *= previous_gear_top_speed / new_gear_top_speed
-		
 
 func decelerate_rival_car(delta):
 	if rival_velocity > 2:
@@ -334,11 +341,17 @@ func end_race():
 				show_post_race_screen("win")
 			else:
 				show_post_race_screen("loss")
-				PlayerStats.remove_cash(wager)
-				race_ui.rewards_label.text = "Better luck next time..."
-				PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
+				if rival_data["pink_slip"]:
+					# Take away the players car upon losing
+					PlayerStats.remove_car(PlayerStats.get_active_car())
+					PlayerStats.set_active_car(-1)
+					race_ui.rewards_label.text = "Say goodbye to your car."
+				else:
+					PlayerStats.remove_cash(wager)
+					race_ui.rewards_label.text = "Better luck next time..."
+					PlayerStats.get_car(PlayerStats.get_active_car())["losses"] += 1
 		race_ui.update_labels()
-	
+
 func reset_cars():
 	race_state = RaceStates.NONE
 	camera_tracker.global_position = camera_tracker_initial_position
@@ -354,7 +367,8 @@ func reset_cars():
 	current_gear = 1
 	current_velocity = 0
 	player_nitrous_duration_remaining = player_nitrous_duration
-	race_ui.show_nitrous_button()
+	if player_car_data["upgrades"]["nitrous"] != 0:
+		race_ui.show_nitrous_button()
 	race_ui.set_nitrous_bar_value(player_nitrous_duration)
 	is_player_nitrous_active = false
 	
@@ -383,45 +397,71 @@ func show_post_race_screen(finish_type : String):
 	race_ui.show_post_race_screen(finish_type, run_stats)
 
 func give_rewards():
-	PlayerStats.get_car(PlayerStats.get_active_car())["wins"] += 1
-	var rep_reward : int = 100
-	PlayerStats.add_rep(rep_reward)
-	PlayerStats.add_cash(wager)
-	var rewards_string : String = "Rewards: $%d, %d Rep" % [wager, rep_reward]
-	wager = 0 # Reset for next race
-	var rng : float = randf_range(0, 1) # random_number_generator
-	# 50% chance to get an upgrade part
-	if rng >= 0.5:
-		if rng >= 0.5 && rng < 0.7: # Parts from 1 category
-			var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
-			var parts_category_index : int = randi_range(0, 3)
-			var parts_amount : int = randi_range(1, 20)
-			rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
-			PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
-		elif rng >= 0.7 && rng < 0.85: # Parts from 2 categories
-			for i in 2:
+	if rival_data["pink_slip"]:
+		var new_car = {
+			"model": rival_data["car"],
+			"color": rival_data["color"],
+			"wheels": rival_data["wheels"],
+			"upgrades": {
+				"engine": rival_data["upgrades"]["engine"],
+				"weight": rival_data["upgrades"]["weight"],
+				"transmission": rival_data["upgrades"]["transmission"],
+				"nitrous": rival_data["upgrades"]["nitrous"]
+			},
+			"is_stored": true,
+			"performance_data": {
+				"top_speed_for_gear": rival_car_performance_data["top_speed_for_gear"].duplicate(),
+				"top_speed_mps": rival_car_performance_data["top_speed_mps"],
+				"acceleration_rate_for_gear": rival_car_performance_data["acceleration_rate_for_gear"].duplicate(),
+				"redline": rival_general_car_data["redline"],
+				"max_rpm": rival_general_car_data["max_rpm"],
+				"gears": rival_general_car_data["gears"]
+			},
+			"wins": 0,
+			"losses": 0
+		}
+		PlayerStats.add_car(new_car)
+		race_ui.rewards_label.text = "Enjoy your new ride"
+	else:
+		PlayerStats.get_car(PlayerStats.get_active_car())["wins"] += 1
+		var rep_reward : int = 100
+		PlayerStats.add_rep(rep_reward)
+		PlayerStats.add_cash(wager)
+		var rewards_string : String = "Rewards: $%d, %d Rep" % [wager, rep_reward]
+		wager = 0 # Reset for next race
+		var rng : float = randf_range(0, 1) # random_number_generator
+		# 50% chance to get an upgrade part
+		if rng >= 0.5:
+			if rng >= 0.5 && rng < 0.7: # Parts from 1 category
 				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
 				var parts_category_index : int = randi_range(0, 3)
 				var parts_amount : int = randi_range(1, 20)
 				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
 				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
-		elif rng >= 0.85 && rng < 0.925: # Parts from 3 categories
-			for i in 3:
-				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
-				var parts_category_index : int = randi_range(0, 3)
-				var parts_amount : int = randi_range(1, 20)
-				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
-				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
-		else: # Parts from all 4 categories
-			for i in 4:
-				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
-				var parts_category_index : int = i
-				var parts_amount : int = randi_range(1, 20)
-				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
-				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
-	else: # 50% chance to NOT get an upgrade part, better luck next time
-		pass
-	race_ui.rewards_label.text = rewards_string
+			elif rng >= 0.7 && rng < 0.85: # Parts from 2 categories
+				for i in 2:
+					var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+					var parts_category_index : int = randi_range(0, 3)
+					var parts_amount : int = randi_range(1, 20)
+					rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+					PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+			elif rng >= 0.85 && rng < 0.925: # Parts from 3 categories
+				for i in 3:
+					var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+					var parts_category_index : int = randi_range(0, 3)
+					var parts_amount : int = randi_range(1, 20)
+					rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+					PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+			else: # Parts from all 4 categories
+				for i in 4:
+					var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+					var parts_category_index : int = i
+					var parts_amount : int = randi_range(1, 20)
+					rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+					PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+		else: # 50% chance to NOT get an upgrade part, better luck next time
+			pass
+		race_ui.rewards_label.text = rewards_string
 	race_ui.update_labels()
 
 func fire_nitrous_player():

@@ -127,3 +127,9 @@ func begin_floor_tile_edit(selected_tile_index : int):
 func _on_visibility_changed():
 	camera.global_position = camera_initial_position
 	camera.global_rotation = camera_initial_rotation
+
+func remove_car(id : int):
+	for car in player_cars.get_children():
+		if car.internal_id == id:
+			car.queue_free()
+			break

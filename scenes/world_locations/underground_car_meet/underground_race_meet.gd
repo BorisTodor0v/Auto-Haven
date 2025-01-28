@@ -11,24 +11,30 @@ extends WorldLocation
 @export var grid_positions : Node3D
 
 @export var player_car_marker : Node3D
+@export var pink_slip_racer_marker : Node3D
 
 var player_car : Car
+var player_car_id : int
 var player_car_data : Dictionary
 var player_car_general_data : Dictionary
 
 # Key - Marker3D node which contains the racer as a child
 # Values - See "generate_racer_cars" function
 var racers_data : Dictionary
+const PINK_SLIP_CHANCE : int = 5 # % Chance the racer is pink slip racer
 
 var active_racer = null
 var active_racer_node : Node3D = null
+
+signal remove_player_car(id : int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	ui = $UI
 	camera = $CameraPivot/Camera3D
 	ui.connect("leave_location", leave_location.emit)
-	ui.connect("begin_race", begin_race)
+	ui.connect("begin_standard_race", begin_standard_race)
+	ui.connect("begin_pink_slip_race", begin_pink_slip_race)
 	ui.connect("racer_interaction_menu_closed", close_racer_interaction_menu)
 	ui.connect("run_finished", end_race)
 	camera.connect("pressed_on_racer", open_racer_interaction_menu)
@@ -49,7 +55,8 @@ func get_ui():
 
 func place_player_car():
 	if PlayerStats.get_active_car() > 0:
-		player_car_data = PlayerStats.get_car(PlayerStats.get_active_car())
+		player_car_id = PlayerStats.get_active_car()
+		player_car_data = PlayerStats.get_car(player_car_id)
 		player_car_general_data = CarsData.get_car(player_car_data["model"])
 		
 		var scene = load(player_car_general_data["scene_path"])
@@ -87,8 +94,7 @@ func place_player_car():
 func generate_racer_cars():
 	for car_position in racer_car_positions.get_children():
 		if randi_range(1, 10) > 5: # 40% chance to spawn a racer
-			if car_position.get_child_count() == 0:
-				
+			if car_position.get_child_count() == 0:				
 				# Roll for racer class
 				var racer_class : int = 0
 				var cars_in_racer_class : Dictionary = {}
@@ -150,11 +156,19 @@ func generate_racer_cars():
 							wheel_position.add_child(wheel_model.duplicate())
 						break
 				
+				var is_pink_slip_racer : bool = false
+				if randi_range(0, 100) <= PINK_SLIP_CHANCE:
+					is_pink_slip_racer = true
+					# Add special marker above the racer car if he is a pink slip racer
+					var pink_slip_marker : Node3D = pink_slip_racer_marker.duplicate()
+					pink_slip_marker.position = Vector3.ZERO
+					static_body_parent.add_child(pink_slip_marker)
+				
 				# Calculate performance based on upgrades
-				var engine_upgrade_level : int = randi_range(0, 10)
-				var weight_upgrade_level : int = randi_range(0, 10)
-				var transmission_upgrade_level : int = randi_range(0, 10)
-				var nitrous_upgrade_level : int = randi_range(0, 10)
+				var engine_upgrade_level : int = randi_range(5 if is_pink_slip_racer else 0, 10)
+				var weight_upgrade_level : int = randi_range(5 if is_pink_slip_racer else 0, 10)
+				var transmission_upgrade_level : int = randi_range(5 if is_pink_slip_racer else 0, 10)
+				var nitrous_upgrade_level : int = randi_range(5 if is_pink_slip_racer else 0, 10)
 				
 				var performance_data : Dictionary = {
 					"top_speed_for_gear": general_car_data["top_speed_for_gear"].duplicate(),
@@ -200,7 +214,8 @@ func generate_racer_cars():
 					"money": money,
 					"rep": rep,
 					"wins": wins,
-					"losses": losses
+					"losses": losses,
+					"pink_slip": is_pink_slip_racer
 				}
 				racers_data.get_or_add(car_position, racer_data)
 		else:
@@ -249,7 +264,7 @@ func close_racer_interaction_menu(can_enable_raycast : bool):
 	active_racer = null
 	set_camera_raycast_enabled(can_enable_raycast)
 
-func begin_race(wager : int):
+func begin_standard_race(wager : int):
 	PlayerStats.fuel -= PlayerStats.race_fuel_cost
 	ui.update_labels()
 	car_meet_camera.current = false
@@ -258,6 +273,17 @@ func begin_race(wager : int):
 	race_location.show()
 	race_location.set_rival_car(active_racer)
 	race_location.wager = wager
+	set_camera_raycast_enabled(false)
+	ui.show_race_ui()
+
+func begin_pink_slip_race():
+	PlayerStats.fuel -= PlayerStats.race_fuel_cost
+	ui.update_labels()
+	car_meet_camera.current = false
+	race_location_camera.current = true
+	car_meet.hide()
+	race_location.show()
+	race_location.set_rival_car(active_racer)
 	set_camera_raycast_enabled(false)
 	ui.show_race_ui()
 
@@ -275,6 +301,11 @@ func end_race():
 	# Delete the opponent from the race location and the race meet
 	racers_data.erase(racers_data.get(active_racer_node))
 	active_racer_node.queue_free()
+	
+	# If the player has lost their car in a pink slip race, send them back to the garage
+	if PlayerStats.active_car == -1:
+		remove_player_car.emit(player_car_id)
+		leave_location.emit()
 
 func set_camera_raycast_enabled(state : bool):
 	camera.raycast_enabled = state
