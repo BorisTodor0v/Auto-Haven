@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cg1pk46uixohd"
-path="res://.godot/imported/wheel_003.glb-f7814d3a5906b4975de19fe39fb85a0c.scn"
+uid="uid://c6jwa8mrekljt"
+path="res://.godot/imported/wall_004.glb-4c837e37b41a7af28108e74e1082f606.scn"
 
 [deps]
 
-source_file="res://cars/wheels/wheel_003/wheel_003.glb"
-dest_files=["res://.godot/imported/wheel_003.glb-f7814d3a5906b4975de19fe39fb85a0c.scn"]
+source_file="res://garage_decorations/props/walls/models/wall_004/wall_004.glb"
+dest_files=["res://.godot/imported/wall_004.glb-4c837e37b41a7af28108e74e1082f606.scn"]
 
 [params]
 

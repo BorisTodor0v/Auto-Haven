@@ -4,15 +4,15 @@
 
 [node name="CarCreator" type="Node3D"]
 script = ExtResource("1_axjfa")
-car_name = "Bahmeister"
-manufacturer = "DAW"
-price = 17000
-gears = 6
-top_speed_for_gear = Array[float]([11.11, 22.22, 33.33, 44.44, 55.56, 69.44])
-acceleration_rate_for_gear = Array[float]([3.5, 4.2, 6.0, 5.0, 3.0, 3.0])
-redline = 6600
-max_rpm = 6600
-peak_hp_rpm = 6600
-internal_name = "5s60"
+car_name = "Balancoire"
+manufacturer = "Regle"
+price = 3000
+gears = 5
+top_speed_for_gear = Array[float]([15.0, 20.0, 29.0, 34.0, 41.0])
+acceleration_rate_for_gear = Array[float]([3.0, 3.0, 2.5, 2.0, 2.0])
+redline = 6900
+max_rpm = 7100
+peak_hp_rpm = 6750
+internal_name = "ris"
 default_wheels = "wheel_01"
 can_buy_in_dealership = true

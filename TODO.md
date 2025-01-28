@@ -1,25 +1,7 @@
-32/51 Completed
-[XXXXXXXXXX 64% XXx-------]
+50/51 Completed
+[XXXXXXXXXX 98% XXXXXXXXXx]
 
 ## Pending
-- [ ] More garage decorations:
-	- [ ] Furniture items
-	- [ ] Walls
-	- [ ] Floor tiles
-
-- [ ] UI Icons:
-	- [ ] Travel locations list:
-		- [ ] Garage
-		- [ ] Car dealership
-		- [ ] Drag Strip
-		- [ ] Underground Race Meet
-
-- [ ] Create scenes for any existing car models without one:
-	- [ ] belvedere (NOTE: Not sold in dealership)
-	- [ ] camaro69
-	- [ ] gtr34
-	- [ ] ris
-	- [ ] rs6
 
 - [ ] Saving and loading data
 
@@ -43,7 +25,7 @@ While redecorating garage:
 		- [X] Calculate value from car price and level of upgrades
 	- [X] Return car to storage functionality
 	- [X] Add a preview of the car on the left side
-- UI Icons:
+- [X] UI Icons:
 	- [X] Garage management menu:
 		- [X] Hire mechanics
 		- [X] Expand garage
@@ -52,6 +34,11 @@ While redecorating garage:
 		- [X] Buy furniture / props
 		- [X] Car storage
 		- [X] Redecorate
+	- [X] Travel locations list:
+		- [X] Garage
+		- [X] Car dealership
+		- [X] Drag Strip
+		- [X] Underground Race Meet
 - [X] Change color in car interaction menu
 - [X] Change wheels in car interaction menu
 - [X] When generating racers in the underground race meet, randomize performance upgrades and wheels
@@ -67,3 +54,13 @@ While redecorating garage:
 	- Cannot negotiate wager, only pink slips
 	- Guaranteed to have level 5 upgrades and beyond on all parts
 	- Rare spawn.
+- [X] More garage decorations:
+	- [X] Furniture items
+	- [X] Walls
+	- [X] Floor tiles
+	- [X] Create scenes for any existing car models without one:
+	- [X] belvedere (NOTE: Not sold in dealership)
+	- [X] camaro69
+	- [X] gtr34
+	- [X] ris
+	- [X] rs6

@@ -11,4 +11,16 @@
 		"model_path" : "res://garage_decorations/props/walls/models/wall_002/wall_002.glb",
 		"preview_scale": 1
 	},
+	"wall_003":{
+		"name" : "Blue wall",
+		"price" : 100,
+		"model_path" : "res://garage_decorations/props/walls/models/wall_003/wall_003.glb",
+		"preview_scale": 1
+	},
+	"wall_004":{
+		"name" : "Orange wall",
+		"price" : 100,
+		"model_path" : "res://garage_decorations/props/walls/models/wall_004/wall_004.glb",
+		"preview_scale": 1
+	},
 }

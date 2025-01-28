@@ -28,6 +28,35 @@
 		"can_buy_in_dealership": true,
 		"class": 0
 	},
+		"ris": {
+		"name": "Balancoire",
+		"manufacturer": "Regle",
+		"price": 3000,
+		"gears": 5,
+		"top_speed_for_gear": [
+			15,
+			20,
+			29,
+			34,
+			41
+		],
+		"acceleration_rate_for_gear": [
+			3,
+			3,
+			2.5,
+			2,
+			2
+		],
+		"top_speed_mps": 41,
+		"redline": 6900,
+		"max_rpm": 7100,
+		"peak_hp_rpm": 6750,
+		"scene_path": "res://cars/models/ris/ris.tscn",
+		"model_path": "res://cars/models/ris/ris.glb",
+		"default_wheels": "wheel_001",
+		"can_buy_in_dealership": true,
+		"class": 0
+	},
 	"350": {
 		"name": "Go-Ju",
 		"manufacturer": "Sanni",
@@ -119,6 +148,118 @@
 		"model_path": "res://cars/models/5s60/5s60.glb",
 		"default_wheels": "wheel_001",
 		"can_buy_in_dealership": true,
+		"class": 2
+	},
+	"belvedere": {
+		"name": "Citadel",
+		"manufacturer": "Janner",
+		"price": 7000,
+		"gears": 3,
+		"top_speed_for_gear": [
+			15,
+			30,
+			49
+		],
+		"acceleration_rate_for_gear": [
+			3.5,
+			4.2,
+			5
+		],
+		"top_speed_mps": 49,
+		"redline": 7400,
+		"max_rpm": 7500,
+		"peak_hp_rpm": 7000,
+		"scene_path": "res://cars/models/belvedere/belvedere.tscn",
+		"model_path": "res://cars/models/belvedere/belvedere.glb",
+		"default_wheels": "wheel_003",
+		"can_buy_in_dealership": false,
+		"class": 1
+	},
+	"rs6": {
+		"name": "Schloss",
+		"manufacturer": "Kristall",
+		"price": 75000,
+		"gears": 6,
+		"top_speed_for_gear": [
+			20,
+			40,
+			50,
+			60,
+			70,
+			84.73
+		],
+		"acceleration_rate_for_gear": [
+			8,
+			5,
+			5.5,
+			5.5,
+			5.5,
+			3.5
+		],
+		"top_speed_mps": 84.73,
+		"redline": 7400,
+		"max_rpm": 7500,
+		"peak_hp_rpm": 7000,
+		"scene_path": "res://cars/models/rs6/rs6.tscn",
+		"model_path": "res://cars/models/rs6/rs6.glb",
+		"default_wheels": "wheel_001",
+		"can_buy_in_dealership": true,
+		"class": 3
+	},
+	"gtr34": {
+		"name": "Horizon",
+		"manufacturer": "Sanni",
+		"price": 50000,
+		"gears": 6,
+		"top_speed_for_gear": [
+			15,
+			30,
+			45,
+			50,
+			60,
+			70
+		],
+		"acceleration_rate_for_gear": [
+			7,
+			6,
+			5,
+			4,
+			3,
+			2
+		],
+		"top_speed_mps": 70,
+		"redline": 6900,
+		"max_rpm": 7000,
+		"peak_hp_rpm": 6800,
+		"scene_path": "res://cars/models/gtr34/gtr34.tscn",
+		"model_path": "res://cars/models/gtr34/gtr34.glb",
+		"default_wheels": "wheel_002",
+		"can_buy_in_dealership": true,
+		"class": 2
+	},
+	"camaro69": {
+		"name": "Confrere",
+		"manufacturer": "DMC",
+		"price": 25000,
+		"gears": 3,
+		"top_speed_for_gear": [
+			19,
+			37,
+			58
+		],
+		"acceleration_rate_for_gear": [
+			5,
+			4,
+			3
+		],
+		"top_speed_mps": 58,
+		"redline": 4800,
+		"max_rpm": 4900,
+		"peak_hp_rpm": 4600,
+		"scene_path": "res://cars/models/camaro69/camaro69.tscn",
+		"model_path": "res://cars/models/camaro69/camaro69.glb",
+		"default_wheels": "wheel_003",
+		"can_buy_in_dealership": false,
 		"class": 2
 	}
 }

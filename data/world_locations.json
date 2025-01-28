@@ -3,24 +3,28 @@
 		"name" : "Garage",
 		"path" : "res://scenes/world_locations/garage/garage_scene.tscn",
 		"requires_car" : false,
-		"description": "Your garage. Take on customer repair jobs to earn money and increase your reputation."
+		"description": "Your garage. Take on customer repair jobs to earn money and increase your reputation.",
+		"image_preview_path": "res://resources/images/ui/location_previews/garage.png"
 	},
 	"car_dealership":{
 		"name" : "Car Dealership",
 		"path" : "res://scenes/world_locations/car_dealership/car_dealership.tscn",
 		"requires_car" : false,
-		"description": "Haven Car Dealership. Buy cars to expand your collection."
+		"description": "Haven Car Dealership. Buy cars to expand your collection.",
+		"image_preview_path": "res://resources/images/ui/location_previews/car_dealership.png"
 	},
 	"drag_strip":{
 		"name" : "Drag Strip",
 		"path" : "res://scenes/world_locations/drag_strip/drag_strip.tscn",
 		"requires_car" : true,
-		"description": "Take your cars to the track and test their speed and your reaction time in a drag race, as well as show off what your garage is capable of doing to cars. \nCan choose between practice mode or participate in a race against an opponent."
+		"description": "Take your cars to the track and test their speed and your reaction time in a drag race, as well as show off what your garage is capable of doing to cars. \nCan choose between practice mode or participate in a race against an opponent.",
+		"image_preview_path": "res://resources/images/ui/location_previews/drag_strip.png"
 	},
 	"underground_race_meet":{
 		"name" : "Underground Race Meet",
 		"path" : "res://scenes/world_locations/underground_car_meet/underground_race_meet.tscn",
 		"requires_car" : true,
-		"description": "Think your car is good and your driving can match it? Put your money where your mouth and participate in unsanctioned street races with cash buy-ins. Who knows what kind of people you'll be up against, but the risk is worth the reward."
+		"description": "Think your car is good and your driving can match it? Put your money where your mouth and participate in unsanctioned street races with cash buy-ins. Who knows what kind of people you'll be up against, but the risk is worth the reward.",
+		"image_preview_path": "res://resources/images/ui/location_previews/underground_race_meet.png"
 	}
 }

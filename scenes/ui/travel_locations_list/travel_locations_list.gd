@@ -2,12 +2,11 @@ extends Control
 
 @onready var locations_list : VBoxContainer = $MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/List/MarginContainer/ScrollContainer/VBoxContainer
 @onready var location_description : RichTextLabel = $MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Description/MarginContainer/Panel/MarginContainer/RichTextLabel
+@export var location_preview : TextureRect
 
 var selected_location : String = "garage"
 
 signal travel_to_location(location_name : String)
-# TO BE IMPLEMENTED
-#signal travel_to_location_with_car(location_name : String, car : Car)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,8 +24,11 @@ func _ready():
 	_on_location_list_item_pressed(selected_location)
 
 func _on_location_list_item_pressed(_location : String):
-	selected_location = _location
 	var location = LocationsData.get_location(_location)
+	var image = Image.load_from_file(location["image_preview_path"])
+	var texture = ImageTexture.create_from_image(image)
+	location_preview.set_texture(texture)
+	selected_location = _location
 	location_description.text = location["description"]
 
 func on_cancel_button_pressed():

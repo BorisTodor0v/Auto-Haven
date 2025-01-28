@@ -6,6 +6,13 @@
 		"scene_path" : "res://garage_decorations/car_lifts/car_lift_001/car_lift.tscn",
 		"preview_scale": 0.7
 	},
+	"car_lift_002":{
+		"name" : "Car lift",
+		"price" : 1000,
+		"model_path" : "res://garage_decorations/car_lifts/car_lift_002/car_lift.glb",
+		"scene_path" : "res://garage_decorations/car_lifts/car_lift_002/car_lift.tscn",
+		"preview_scale": 0.7
+	},
 	"cardboard_box":{
 		"name" : "Cardboard box",
 		"price" : 10,
@@ -32,6 +39,13 @@
 		"price": 700,
 		"model_path": "res://garage_decorations/props/arcade_cabinets_001/arcade_cabinets_001.glb",
 		"scene_path": "res://garage_decorations/props/arcade_cabinets_001/arcade_cabinets_001.tscn",
+		"preview_scale": 1.4
+	},
+	"vending_machine":{
+		"name": "Snack machine",
+		"price": 1500,
+		"model_path": "res://garage_decorations/props/vending_machine/vending_machine.glb",
+		"scene_path": "res://garage_decorations/props/vending_machine/vending_machine.tscn",
 		"preview_scale": 1.4
 	}
 }

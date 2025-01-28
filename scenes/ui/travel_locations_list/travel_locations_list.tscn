@@ -1,9 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://phrehkl71v7e"]
+[gd_scene load_steps=2 format=3 uid="uid://phrehkl71v7e"]
 
-[ext_resource type="Texture2D" uid="uid://c38kb2kvu000w" path="res://icon.svg" id="1_j80e5"]
 [ext_resource type="Script" path="res://scenes/ui/travel_locations_list/travel_locations_list.gd" id="1_kxpsp"]
 
-[node name="TravelLocationsList" type="Control"]
+[node name="TravelLocationsList" type="Control" node_paths=PackedStringArray("location_preview")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kxpsp")
+location_preview = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations/Preview/TextureRect")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -182,7 +182,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_j80e5")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="Description" type="Control" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/Middle/Locations"]
 layout_mode = 2

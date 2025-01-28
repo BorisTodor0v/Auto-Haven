@@ -1,6 +1,3 @@
-- Added pink slip races
-	- Racer with a red colored marker above their car. 
-	- Cannot negotiate monetary wager, will only race for cars / pink slips.
-	- If the player wins they get the racer's car, and vice versa.
-	- Guaranteed to have level 5 upgrades and beyond on all parts.
-	- 5% chance to appear.
+- Added preview images for each location to the travel locations list
+- Added scene files for cars without one
+- Added extra garage decoration options

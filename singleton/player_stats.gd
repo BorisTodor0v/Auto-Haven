@@ -1,6 +1,6 @@
 extends Node
 
-var cash : int = 10000
+var cash : int = 100000
 var rep : int = 0
 
 var max_fuel : int = 50
