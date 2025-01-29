@@ -1,9 +1,10 @@
-50/51 Completed
-[XXXXXXXXXX 98% XXXXXXXXXx]
+51/51 Completed
+[XXXXXXXXXX 100% XXXXXXXXXX] 🥳🥳
+
+All main features implemented!
+Up next: bug fixes
 
 ## Pending
-
-- [ ] Saving and loading data
 
 ## Completed
 
@@ -64,3 +65,4 @@ While redecorating garage:
 	- [X] gtr34
 	- [X] ris
 	- [X] rs6
+- [X] Saving and loading data

@@ -71,7 +71,7 @@ func parse_color_from_string(color_string : String) -> Color:
 		return error_color
 	var remove_brackets = color_string.erase(0, 1)
 	remove_brackets = remove_brackets.erase(remove_brackets.length()-1, 1)
-	var split_segments = color_string.split(',')
+	var split_segments = remove_brackets.split(',')
 	if split_segments.size() != 4:
 		print_debug("Invalid amount of segments after splitting (Expected 4, got %d)" % split_segments.size())
 		return error_color

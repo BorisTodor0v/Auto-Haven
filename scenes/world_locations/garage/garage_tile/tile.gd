@@ -120,3 +120,6 @@ func click_on_gridmap(intersect_position : Vector3, tile : int):
 
 func get_grid_map_cell_item(intersect_position : Vector3):
 	return grid_map.get_cell_item(intersect_position)
+
+func get_grid_map():
+	return grid_map

@@ -323,16 +323,16 @@ func update_car_color(color : Color):
 
 func save_game():
 	print_debug("Saving game...")
-	# Declare needed variables
 	var serialized_data : Dictionary = {}
 	var player_cars_placed_in_garage : Dictionary = {}
+	var decor_items_in_garage : Dictionary = {}
+	var car_lifts_in_garage : Dictionary = {}
+	var walls : Dictionary = {}
+	var tiles : Dictionary = {}
 	
 	# Serialize player data
-		# Does not contain which tiles the player owns, those will need to be serialized separately
-	var owned_cars : Dictionary = {}
-	# When saving the owned cars, the id is converted from integer to String.
-	# This is used to make sure the id for the owned cars is saved as an integer.
-	
+	# Does not contain WHICH tiles the player owns, only the number.
+	# Those will need to be serialized separately
 	var player_data : Dictionary = {
 		"cash": PlayerStats.get_cash(),
 		"rep": PlayerStats.get_rep(),
@@ -353,24 +353,15 @@ func save_game():
 	
 	# Get all nodes with the "Persist" group
 	var save_nodes = get_tree().get_nodes_in_group("Persist")
-	print_debug(save_nodes)
-	for node in save_nodes:
-		print_debug(node.get_groups())
-	# Output: [&"Holds Placeable Objects", &"Persist"]
 	
 	# Serialize node data
 	for node in save_nodes:
+		# Logic to serialize player owned cars placed in the garage
 		if node.get_groups().has("Player Car Container"):
-			# Logic to serialize player owned cars placed in the garage
-				# Player cars have an internal ID, which is the ID/key in the 
-				# player owned cars dictionary in PlayerStats
-				# Can save the internal id, position and rotation. Car model, color can be taken from the afore-
-				# mentioned dictionary.
 			for car : Node3D in node.get_children():
-				print_debug(str(car) + " / Internal ID: " + str(car.get_internal_id()))
-				print_debug(car.position)
-				print_debug(car.rotation)
 				var player_car_entry : Dictionary = {
+					"internal_name": car.get_internal_name(),
+					"internal_id": car.get_internal_id(),
 					"position_x": car.position.x,
 					"position_y": car.position.y,
 					"position_z": car.position.z,
@@ -378,17 +369,82 @@ func save_game():
 					"rotation_y": car.rotation.y,
 					"rotation_z": car.rotation.z,
 				}
-				player_cars_placed_in_garage.get_or_add(car.get_internal_id(), player_car_entry)
-				# Might need to add the wheel and colors, we'll see
+				player_cars_placed_in_garage.get_or_add(car, player_car_entry)
 			# Add the serialized car data to the "serialized_data" dictionary
 			serialized_data.get_or_add("player_cars_placed_in_garage", player_cars_placed_in_garage)
-			print_debug(serialized_data)
-			
+		elif node.get_groups().has("Garage Decorations Container"):
+			for decor_item in node.get_children():
+				var decor_item_entry : Dictionary = {
+					"internal_name": decor_item.get_internal_name(),
+					"position_x": decor_item.position.x,
+					"position_y": decor_item.position.y,
+					"position_z": decor_item.position.z,
+					"rotation_x": decor_item.rotation.x,
+					"rotation_y": decor_item.rotation.y,
+					"rotation_z": decor_item.rotation.z,
+				}
+				decor_items_in_garage.get_or_add(decor_item, decor_item_entry)
+			# Add the serialized decorations data to the "serialized_data" dictionary
+			serialized_data.get_or_add("decor_items_in_garage", decor_items_in_garage)
+		elif node.get_groups().has("Car Lifts Container"):
+			for car_lift in node.get_children():
+				var car_lift_entry : Dictionary = {
+					"internal_name": car_lift.get_internal_name(),
+					"position_x": car_lift.position.x,
+					"position_y": car_lift.position.y,
+					"position_z": car_lift.position.z,
+					"rotation_x": car_lift.rotation.x,
+					"rotation_y": car_lift.rotation.y,
+					"rotation_z": car_lift.rotation.z,
+				}
+				car_lifts_in_garage.get_or_add(car_lift, car_lift_entry)
+			# Add the serialized car lifts data to the "serialized_data" dictionary
+			serialized_data.get_or_add("car_lifts_in_garage", car_lifts_in_garage)
+		elif node.get_groups().has("Walls Container"):
+			for wall in node.get_children():
+				var wall_entry : Dictionary = {
+					"internal_name": wall.get_internal_name(),
+					"position_x": wall.position.x,
+					"position_y": wall.position.y,
+					"position_z": wall.position.z,
+					"rotation_x": wall.rotation.x,
+					"rotation_y": wall.rotation.y,
+					"rotation_z": wall.rotation.z,
+				}
+				walls.get_or_add(wall, wall_entry)
+			# Add the serialized walls data to the "serialized_data" dictionary
+			serialized_data.get_or_add("walls", walls)
+		elif node.get_groups().has("Tile"):
+			# Store only the unlocked tiles
+			for tile : Tile in node.get_children():
+				if tile.is_unlocked:
+					var grid_map : GridMap = tile.get_grid_map()
+					var mesh_library_item_list = grid_map.mesh_library.get_item_list()
+					# Takes an item from the mesh library as a key
+					# Stores an array of Vector3's that represent cells in the tile in which that
+					# item is placed in
+					var mesh_library_items : Dictionary = {}
+					
+					for item in mesh_library_item_list:
+						var cells_by_item = grid_map.get_used_cells_by_item(item)
+						mesh_library_items.get_or_add(item, cells_by_item)
+				
+					var tile_entry : Dictionary = {
+						"mesh_library_items": mesh_library_items,
+						"position_x": tile.position.x,
+						"position_y": tile.position.y,
+						"position_z": tile.position.z,
+					}
+					tiles.get_or_add(tile, tile_entry)
+			# Add the serialized tiles data to the "serialized_data" dictionary
+			serialized_data.get_or_add("tiles", tiles)
+	
 	# Write serialized data to file - JSON FORMAT
 	var save_file = FileAccess.open(save_data_path+"/"+save_file_name, FileAccess.WRITE)
 	var json_string = JSON.stringify(serialized_data, "\t",false)
 	save_file.store_string(json_string)
 	save_file.close()
+	print_debug("Save completed")
 	
 func load_game():
 	if FileAccess.file_exists(save_data_path+"/"+save_file_name):
@@ -405,6 +461,7 @@ func load_game():
 		PlayerStats.fuel = save_data["player_data"]["fuel"]
 		PlayerStats.tiles_owned = save_data["player_data"]["tiles_owned"]
 		PlayerStats.total_mechanics = save_data["player_data"]["total_mechanics"]
+		PlayerStats.available_mechanics = PlayerStats.total_mechanics
 		PlayerStats.engine_parts = save_data["player_data"]["upgrade_parts"]["engine"]
 		PlayerStats.weight_parts = save_data["player_data"]["upgrade_parts"]["weight"]
 		PlayerStats.transmission_parts = save_data["player_data"]["upgrade_parts"]["transmission"]
@@ -412,4 +469,14 @@ func load_game():
 		PlayerStats.owned_cars = save_data["player_data"]["owned_cars"]
 		PlayerStats.active_car = save_data["player_data"]["active_car"]
 		
-		#Other data to load
+		# Place player owned cars in the garage
+		garage_scene.place_player_owned_cars(save_data["player_cars_placed_in_garage"])
+		# Place decor items in the garage
+		garage_scene.place_garage_decor(save_data["decor_items_in_garage"])
+		# Place car lifts in the garage
+		garage_scene.place_car_lifts(save_data["car_lifts_in_garage"])
+		# Place walls in the garage
+		garage_scene.place_walls(save_data["walls"])
+		# Tiles
+		garage_scene.load_tiles(save_data["tiles"])
+		print_debug("Finished loading")

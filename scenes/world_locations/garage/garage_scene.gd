@@ -133,3 +133,137 @@ func remove_car(id : int):
 		if car.internal_id == id:
 			car.queue_free()
 			break
+
+func place_player_owned_cars(player_cars_placed_in_garage : Dictionary):
+	for car in player_cars_placed_in_garage:
+		var player_car_data : Dictionary = PlayerStats.get_car(player_cars_placed_in_garage[car]["internal_id"])
+		var general_car_data : Dictionary = CarsData.get_car(player_car_data["model"])
+		
+		# Load and instantiate the player car scene and assign internal variables
+		var player_car_scene = load(general_car_data["scene_path"])
+		var player_car = player_car_scene.instantiate()
+		player_car.set_internal_name(player_car_data["model"])
+		player_car.set_internal_id(player_cars_placed_in_garage[car]["internal_id"])
+		
+		# Place car in the garage
+		player_cars.add_child(player_car)
+		var position_vector : Vector3 = Vector3(player_cars_placed_in_garage[car]["position_x"], \
+												player_cars_placed_in_garage[car]["position_y"], \
+												player_cars_placed_in_garage[car]["position_z"])
+		var rotation_vector : Vector3 = Vector3(player_cars_placed_in_garage[car]["rotation_x"], \
+												player_cars_placed_in_garage[car]["rotation_y"], \
+												player_cars_placed_in_garage[car]["rotation_z"])
+		player_car.position = position_vector
+		player_car.rotation = rotation_vector
+		
+		# Add wheels to the car model
+		var wheel_model = load("res://cars/wheels/"+player_car_data["wheels"]+"/"+player_car_data["wheels"]+".glb").instantiate()
+		for child in player_car.get_children():
+			if child.name == "WheelPositions":
+				for wheel_position in child.get_children():
+					wheel_position.add_child(wheel_model.duplicate())
+				break
+		
+		# Change color
+		var material : StandardMaterial3D = load("res://resources/shaders/car_base_color.tres").duplicate()
+		var mesh : MeshInstance3D = null
+		for child in player_car.get_children():
+			if child is MeshInstance3D:
+				mesh = child
+		if mesh != null && material != null:
+			print_debug("Problem: Car colors are not displayed properly")
+			material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
+			print_debug(player_car_data["color"])
+			mesh.set_surface_override_material(0, material)
+
+func place_garage_decor(decor_items_in_garage : Dictionary):
+	for decor_item in decor_items_in_garage:
+		var decor_item_data : Dictionary = FurnitureData.get_values_from_key(decor_items_in_garage[decor_item]["internal_name"])
+		var decor_item_scene = load(decor_item_data["scene_path"])
+		var decor_item_instance = decor_item_scene.instantiate()
+		decor_item_instance.set_internal_name(decor_items_in_garage[decor_item]["internal_name"])
+		
+		# Place decor item in the garage
+		furniture.add_child(decor_item_instance)
+		var position_vector : Vector3 = Vector3(decor_items_in_garage[decor_item]["position_x"], \
+												decor_items_in_garage[decor_item]["position_y"], \
+												decor_items_in_garage[decor_item]["position_z"])
+		var rotation_vector : Vector3 = Vector3(decor_items_in_garage[decor_item]["rotation_x"], \
+												decor_items_in_garage[decor_item]["rotation_y"], \
+												decor_items_in_garage[decor_item]["rotation_z"])
+		decor_item_instance.position = position_vector
+		decor_item_instance.rotation = rotation_vector
+
+func place_car_lifts(car_lifts_in_garage : Dictionary):
+	for child in car_lifts.get_children():
+		child.queue_free()
+	for car_lift in car_lifts_in_garage:
+		var car_lift_data : Dictionary = FurnitureData.get_values_from_key(car_lifts_in_garage[car_lift]["internal_name"])
+		var car_lift_scene = load(car_lift_data["scene_path"])
+		var car_lift_instance = car_lift_scene.instantiate()
+		car_lift_instance.set_internal_name(car_lifts_in_garage[car_lift]["internal_name"])
+		
+		# Place decor item in the garage
+		car_lifts.add_child(car_lift_instance)
+		var position_vector : Vector3 = Vector3(car_lifts_in_garage[car_lift]["position_x"], \
+												car_lifts_in_garage[car_lift]["position_y"], \
+												car_lifts_in_garage[car_lift]["position_z"])
+		var rotation_vector : Vector3 = Vector3(car_lifts_in_garage[car_lift]["rotation_x"], \
+												car_lifts_in_garage[car_lift]["rotation_y"], \
+												car_lifts_in_garage[car_lift]["rotation_z"])
+		car_lift_instance.position = position_vector
+		car_lift_instance.rotation = rotation_vector
+
+func place_walls(_walls : Dictionary):
+	for child in walls.get_children():
+		child.queue_free()
+	var wall_material : StandardMaterial3D = load("res://resources/materials/grid_pallete_material_with_backfaces.tres")
+	for wall in _walls:
+		var wall_data = FurnitureData.walls[_walls[wall]["internal_name"]]
+		var wall_scene = load("res://garage_decorations/props/walls/wall_scene.tscn").instantiate()
+		var wall_model = load(wall_data["model_path"]).instantiate()
+		var wall_mesh : MeshInstance3D = wall_model.get_child(0)
+		wall_mesh.reparent(wall_scene, true)
+		wall_scene.move_child(wall_mesh, 0)
+		wall_mesh.set_surface_override_material(0, wall_material)
+		# Offset mesh in wall scene to match collision
+		wall_mesh.global_position.z = -1
+		
+		wall_scene.set_internal_name(_walls[wall]["internal_name"])
+		
+		# Place decor item in the garage
+		walls.add_child(wall_scene)
+		var position_vector : Vector3 = Vector3(_walls[wall]["position_x"], \
+												_walls[wall]["position_y"], \
+												_walls[wall]["position_z"])
+		var rotation_vector : Vector3 = Vector3(_walls[wall]["rotation_x"], \
+												_walls[wall]["rotation_y"], \
+												_walls[wall]["rotation_z"])
+		wall_scene.position = position_vector
+		wall_scene.rotation = rotation_vector
+
+func load_tiles(_tiles : Dictionary):
+	# Go through each tile and paint the cells from the loaded tile data
+	for _tile in _tiles:
+		var position_vector : Vector3 = Vector3(_tiles[_tile]["position_x"], \
+												_tiles[_tile]["position_y"], \
+												_tiles[_tile]["position_z"])
+		for tile : Tile in garage_tiles.get_children():
+			if position_vector == tile.position:
+				if tile.is_unlocked == false:
+					tile.unlock_tile()
+					tile.show()
+					tile.make_adjacent_tiles_available()
+				
+				var tile_grid_map : GridMap = tile.get_grid_map()
+				for mesh_library_item in _tiles[_tile]["mesh_library_items"]:
+					for cell in _tiles[_tile]["mesh_library_items"][mesh_library_item]:
+						var remove_brackets = cell.erase(0, 1)
+						remove_brackets = remove_brackets.erase(remove_brackets.length()-1, 1)
+						var split_segments = remove_brackets.split(',')
+						var x : float = float(split_segments[0])
+						var y : float = float(split_segments[1])
+						var z : float = float(split_segments[2])
+						var cell_coordinates : Vector3 = Vector3(x, y, z)
+						tile_grid_map.set_cell_item(cell_coordinates, int(mesh_library_item))
+				break
