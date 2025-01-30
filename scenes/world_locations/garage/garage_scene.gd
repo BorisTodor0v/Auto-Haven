@@ -35,22 +35,20 @@ func _ready():
 func get_job_car_spots() -> Node3D:
 	return job_car_spots
 
-func add_pending_car(pending_car : StaticBody3D):
+func add_pending_car(pending_car : JobCar):
 	if pending_cars.size() < job_car_spots.get_child_count():
 		pending_cars.append(pending_car)
 		pending_car.connect("start_repair", start_car_repair)
 		pending_car.connect("repair_completed", finish_car_repair)
+		pending_car.connect("ask_for_repair", process_pending_car_repair_request)
 
-func start_car_repair(car : StaticBody3D, is_started_by_player : bool):
-	# Find first available car lift
-	for lift : Node3D in car_lifts.get_children():
-		if lift.can_take_car():
-			car.global_position = lift.global_position
-			car.global_rotation = lift.global_rotation
-			car.reparent(lift, true)
-			lift.start(car, is_started_by_player)
-			pending_cars.erase(car)
-			break
+func start_car_repair(car : JobCar, is_started_by_player : bool):
+	var vacant_car_lift : CarLift = find_available_car_lift()
+	car.reparent(vacant_car_lift, true)
+	car.global_position = vacant_car_lift.global_position
+	car.global_rotation = vacant_car_lift.global_rotation
+	vacant_car_lift.start(car, is_started_by_player)
+	pending_cars.erase(car)
 
 func finish_car_repair(cash_reward : int, rep_reward : int, is_repaired_by_player : bool):
 	repair_completed.emit(cash_reward, rep_reward, is_repaired_by_player)
@@ -119,7 +117,7 @@ func finish_placing_item(placed_successfully : bool, placed_item_type : String, 
 		raycast_place_object_state.clear_item()
 		end_placing_item.emit("", null)
 	set_camera_raycast_states("default")
-	
+
 func begin_floor_tile_edit(selected_tile_index : int):
 	raycast_edit_floor_tiles_state.selected_tile_index = selected_tile_index
 	set_camera_raycast_states("edit_floor_tiles")
@@ -127,6 +125,7 @@ func begin_floor_tile_edit(selected_tile_index : int):
 func _on_visibility_changed():
 	camera.global_position = camera_initial_position
 	camera.global_rotation = camera_initial_rotation
+	raycast_default_state.raycast_enabled = self.visible
 
 func remove_car(id : int):
 	for car in player_cars.get_children():
@@ -171,7 +170,6 @@ func place_player_owned_cars(player_cars_placed_in_garage : Dictionary):
 			if child is MeshInstance3D:
 				mesh = child
 		if mesh != null && material != null:
-			print_debug("Problem: Car colors are not displayed properly")
 			material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
 			print_debug(player_car_data["color"])
 			mesh.set_surface_override_material(0, material)
@@ -267,3 +265,12 @@ func load_tiles(_tiles : Dictionary):
 						var cell_coordinates : Vector3 = Vector3(x, y, z)
 						tile_grid_map.set_cell_item(cell_coordinates, int(mesh_library_item))
 				break
+
+func find_available_car_lift() -> CarLift:
+	for car_lift in car_lifts.get_children():
+		if car_lift.can_take_car():
+			return car_lift
+	return null
+
+func process_pending_car_repair_request(pending_car : JobCar):
+	pending_car.process_repair_response(find_available_car_lift() != null)

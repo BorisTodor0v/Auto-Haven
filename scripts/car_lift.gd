@@ -1,6 +1,7 @@
+class_name CarLift
 extends PlaceableObject
 
-var current_car : StaticBody3D
+var current_car : JobCar
 var is_started_by_player : bool
 @onready var mesh: MeshInstance3D = self.get_child(0)
 @onready var default_material : Material = mesh.get_active_material(0)
@@ -28,7 +29,7 @@ func enable_car_collision():
 	current_car.enable_collision()
 	current_car.disable_area_3d()
 
-func start(car : StaticBody3D, _started_by_player : bool):
+func start(car : JobCar, _started_by_player : bool):
 	is_started_by_player = _started_by_player
 	current_car = car
 	current_car.add_to_group("Repairing")

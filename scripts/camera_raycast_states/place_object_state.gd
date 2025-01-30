@@ -236,7 +236,19 @@ func _process(_delta):
 			current_item_mesh.set_surface_override_material(0, deny_placement_material)
 	
 	if(Input.is_action_just_pressed("mouse1")):
-		place_item(true)
+		# Specifically for when taking a car out of storage, if the car is in a valid spot in the 
+		# garage, but the player has his cursor over the back button in the UI, upon pressing it
+		# it will both place the car and leave the menu instead of just leaving. With this, it
+		# KIND OF works so that it checks if the player has the cursor outside of the garage
+		# when pressing the back button it will cancel the placement and not take the car out of
+		# storage. HOWEVER, if the camera of the player is positioned so that both the car and the
+		# back button is in the garage, the car will still be placed in the garage when pressing 
+		# the back button.
+		if edit_mode_enabled == false:
+			if intersection:
+				place_item(true)
+		else:
+			place_item(true)
 	
 	if(Input.is_action_just_pressed("mouse2")):
 		place_item(false)

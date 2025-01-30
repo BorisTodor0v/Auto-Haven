@@ -121,7 +121,7 @@ _data = {
 "gear_shift": SubResource("Animation_hxn5l")
 }
 
-[node name="Swift" type="StaticBody3D" groups=["Car"]]
+[node name="Ris" type="StaticBody3D" groups=["Car"]]
 script = ExtResource("1_0p0aj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

@@ -4,24 +4,34 @@ var car_path : String = "res://cars/models"
 var directory : PackedStringArray = DirAccess.get_directories_at(car_path)
 
 @onready var car_spots : Node3D
-
 @onready var timer : Timer = $Timer
+var minimum_spawn_time : float = 1.0
+var maximum_spawn_time : float = 10.0
+var wait_time_reduction_threshhold : int = 1000 # Every X rep, reduce the wait time of the timer
+var wait_time_reduction_amount : float = 0.1 # by this amount
 
-signal job_car_spawned(car : StaticBody3D)
+signal job_car_spawned(car : JobCar)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	timer.wait_time = randi_range(2, 10)
+	update_timer_wait_time()
+	timer.wait_time = randi_range(minimum_spawn_time, maximum_spawn_time)
 	timer.timeout.connect(_on_timer_timeout)
 
 func set_car_spots(_car_spots : Node3D):
 	car_spots = _car_spots
 
 func _on_timer_timeout():
+	update_timer_wait_time()
+	timer.wait_time = randi_range(minimum_spawn_time, maximum_spawn_time)
 	spawn_job()
 
+func update_timer_wait_time():
+	if PlayerStats.get_rep() % wait_time_reduction_threshhold == 0:
+		maximum_spawn_time = max(minimum_spawn_time, maximum_spawn_time - wait_time_reduction_amount)
+
 func spawn_job():
-	timer.wait_time = randi_range(2, 8)
+	# Spawn car
 	for spot : Node3D in car_spots.get_children():
 		if spot.get_child_count() == 0:
 			var size = CarsData.get_all_cars().size()

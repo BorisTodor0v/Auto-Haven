@@ -1,6 +1,7 @@
 extends State
 
 @onready var camera : Camera3D = $"../../CameraPivot/Camera3D"
+@export var raycast_enabled : bool = true
 
 signal pressed_on_tile(tile : Tile)
 signal pressed_on_object(object_node : Node3D, object_name : String, car_id : int)
@@ -16,7 +17,7 @@ func _process(_delta):
 	var collider
 	
 	if(Input.is_action_just_pressed("mouse1")):
-		if intersection:
+		if intersection and raycast_enabled:
 			collider = intersection["collider"]
 			if collider is Interactable:
 				collider.interact()
@@ -29,4 +30,4 @@ func _process(_delta):
 						pressed_on_object.emit(collider, PlayerStats.get_car((collider.get_internal_id()))["model"], collider.get_internal_id())
 				# Else, if it's a furniture item, pass only the model name
 				else:
-					pressed_on_object.emit(collider, collider.get_internal_name(), -1)
+					pressed_on_object.emit(collider, collider.get_internal_name(), "-1")

@@ -21,7 +21,7 @@ var nighttime_light_orientation : Vector3 = Vector3(deg_to_rad(-42.3), deg_to_ra
 var nighttime_world_environment_energy_multiplier : float = 0.01
 
 # Saving and loading variables
-var save_data_path : String = "res://save_data/"
+var save_data_path : String = "user://save_data/"
 var save_file_name : String = "save_data.json"
 
 # Called when the node enters the scene tree for the first time.
@@ -59,12 +59,16 @@ func complete_job(cash_reward : int, rep_reward : int, is_repaired_by_player : b
 	PlayerStats.add_rep(rep_reward)
 	ui.update_labels()
 
-### When a job car is spawned, check to see if there are available mechanics to take this job
-func check_for_mechanics(pending_car : StaticBody3D):
+## When a job car is spawned, check to see if there are available mechanics to take this job
+## Additionally, check if there are any car lifts available to take the car for repair
+func check_for_mechanics(pending_car : JobCar):
 	garage_scene.add_pending_car(pending_car)
+	# Check if there is atleast one available mechanic to take this car
 	if PlayerStats.get_available_mechanics() > 0:
-		pending_car.begin_repair()
-		PlayerStats.assign_mechanic()
+		# Find if there are any available car lifts to take the car
+		if garage_scene.find_available_car_lift() != null:
+			pending_car.begin_repair()
+			PlayerStats.assign_mechanic()
 	ui.update_labels()
 
 func hire_mechanic():
@@ -77,12 +81,10 @@ func hire_mechanic():
 		ui.show_message("Not enough money to hire a mechanic", 5.0)
 
 ## When a mechanic finishes a job, a cooldown timer is started before they can take another one
-## This cooldown is necessary because without it a major bug that breaks the number of available
-## mechanics and prevents a car from being repaired if all available mechanics are utilized
 func _on_mechanic_job_cooldown_timer_timeout():
 	check_for_job_cars()
 
-## When a mechanic completes a job, and when hiring one, 
+## When a mechanic completes a job, and when hiring one,
 ## check to see if there are cars waiting for repairs
 func check_for_job_cars():
 	var pending_cars : Array = garage_scene.get_pending_cars()
@@ -322,7 +324,7 @@ func update_car_color(color : Color):
 	ui.update_labels()
 
 func save_game():
-	print_debug("Saving game...")
+	ui.show_message("Saving game...", 9999)
 	var serialized_data : Dictionary = {}
 	var player_cars_placed_in_garage : Dictionary = {}
 	var decor_items_in_garage : Dictionary = {}
@@ -439,16 +441,21 @@ func save_game():
 			# Add the serialized tiles data to the "serialized_data" dictionary
 			serialized_data.get_or_add("tiles", tiles)
 	
+	# Create save data folder in user directory if it doesn't exist
+	var dir = DirAccess.open("user://")
+	if dir and not dir.dir_exists(save_data_path):
+		dir.make_dir_recursive(save_data_path)
+	
 	# Write serialized data to file - JSON FORMAT
 	var save_file = FileAccess.open(save_data_path+"/"+save_file_name, FileAccess.WRITE)
 	var json_string = JSON.stringify(serialized_data, "\t",false)
 	save_file.store_string(json_string)
 	save_file.close()
-	print_debug("Save completed")
-	
+	ui.show_message("Save completed", 3)
+
 func load_game():
 	if FileAccess.file_exists(save_data_path+"/"+save_file_name):
-		print_debug("Existing save file found, loading")
+		ui.show_message("Existing save file found, loading...", 9999)
 		# Read data from file
 		var save_file = FileAccess.open(save_data_path+"/"+save_file_name, FileAccess.READ)
 		var save_data : Dictionary = JSON.parse_string(save_file.get_as_text())
@@ -479,4 +486,4 @@ func load_game():
 		garage_scene.place_walls(save_data["walls"])
 		# Tiles
 		garage_scene.load_tiles(save_data["tiles"])
-		print_debug("Finished loading")
+		ui.show_message("Loaded save data", 3)
