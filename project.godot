@@ -14,7 +14,7 @@ config/name="Auto Haven"
 config/tags=PackedStringArray("game")
 run/main_scene="res://scenes/base_scene/base_scene.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [autoload]
 

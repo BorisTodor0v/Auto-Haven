@@ -2,7 +2,7 @@ extends WorldLocation
 
 @onready var car_lifts : Node3D = $CarLifts
 @onready var job_car_spots : Node3D = $JobCarSpots
-@onready var pending_cars : Array = []
+@onready var pending_cars : Array[JobCar] = []
 @onready var garage_tiles : Node3D = $Tiles
 @onready var player_cars : Node3D = $PlayerCars
 @onready var furniture : Node3D = $Furniture
@@ -36,11 +36,23 @@ func get_job_car_spots() -> Node3D:
 	return job_car_spots
 
 func add_pending_car(pending_car : JobCar):
+	#for car_spot in job_car_spots.get_children():
+		#if car_spot.get_child_count() == 0:
+			#pending_car.connect("start_repair", start_car_repair)
+			#pending_car.connect("repair_completed", finish_car_repair)
+			#pending_car.connect("ask_for_repair", process_pending_car_repair_request)
+			#break
+
+	# TODO: Fix above
+	#print_debug(str(pending_cars.size()) + "/" + str(job_car_spots.get_child_count()))
 	if pending_cars.size() < job_car_spots.get_child_count():
 		pending_cars.append(pending_car)
 		pending_car.connect("start_repair", start_car_repair)
 		pending_car.connect("repair_completed", finish_car_repair)
 		pending_car.connect("ask_for_repair", process_pending_car_repair_request)
+
+func erase_pending_car(car : JobCar) -> void:
+	pending_cars.erase(car)
 
 func start_car_repair(car : JobCar, is_started_by_player : bool):
 	var vacant_car_lift : CarLift = find_available_car_lift()
@@ -53,7 +65,11 @@ func start_car_repair(car : JobCar, is_started_by_player : bool):
 func finish_car_repair(cash_reward : int, rep_reward : int, is_repaired_by_player : bool):
 	repair_completed.emit(cash_reward, rep_reward, is_repaired_by_player)
 
-func get_pending_cars() -> Array:
+func get_pending_cars() -> Array[JobCar]:
+	#var pending_cars : Array[JobCar] = []
+	#for car_spot in job_car_spots.get_children():
+		#if car_spot.get_child_count() != 0:
+			#pending_cars.append(car_spot.get_child(0))
 	return pending_cars
 
 func show_unlockable_tiles():
@@ -273,4 +289,7 @@ func find_available_car_lift() -> CarLift:
 	return null
 
 func process_pending_car_repair_request(pending_car : JobCar):
-	pending_car.process_repair_response(find_available_car_lift() != null)
+	var available_car_lift : CarLift = find_available_car_lift()
+	if available_car_lift:
+		pending_car.process_repair_response(available_car_lift != null)
+		pending_car.car_lift = available_car_lift

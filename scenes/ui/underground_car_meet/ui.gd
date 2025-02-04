@@ -140,7 +140,6 @@ func show_racer_interact_screen(_racer_data : Dictionary):
 	
 	if racer_data["pink_slip"]:
 		print_debug("Racer only offers pink slip")
-		# TODO: Make adjustments to the racer interaction menu for pink slip racers
 		
 		# Display the pink slip in the wager negotiation segment
 		wager_negotiation_labels[0].text = "Racer wants to race for pink slips."

@@ -1,6 +1,2 @@
-- Fixed bug that disabled moving decor/furniture items when redecorating garage.
-- Fixed bug that would register clicking on objects in the garage scene while the player is in a different location.
-- Fixed bug that would desync the number of mechanics when a job car is spawned and immediately it's repair is started.
-- Made player Rep affect how often job cars are spawned
-	- Job cars are spawned between a minimum and maximum amount of seconds. Every 1000 rep the player earns the maximum time to spawn a new job car is reduced slightly.
-- Save data is now stored in the user directory, instead of inside the project files
+- Fixed a bug caused by the way bought cars are stored in the "owned_cars" dictionary in PlayerStats.
+- Added custom icon

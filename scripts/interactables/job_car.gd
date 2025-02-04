@@ -5,6 +5,8 @@ var is_repair_started : bool = false
 var is_repair_finished : bool = false
 var is_repaired_by_player : bool = false
 
+@export var car_lift : CarLift
+
 signal start_repair(job_car : JobCar, is_started_by_player : bool)
 signal repair_completed(cash_reward : int, rep_reward : int)
 signal ask_for_repair(job_car : JobCar)
@@ -37,7 +39,7 @@ func finish_repair():
 
 func confirm_repair_completion():
 	if is_repair_started == true && is_repair_finished == true:
-		var rewards = get_parent().end()
+		var rewards = car_lift.end()
 		# TODO: Fix problem - Somehow gave -1 for rewards when repair is considered finished, but timer wasn't considered stopped
 		# Probably a frame difference between the timer stopping and the repair job being considered finished
 		# Another problem is when hiring a bunch of mechanics at once, if a car is available to repair and is ACTIVELY BEING REPAIRED

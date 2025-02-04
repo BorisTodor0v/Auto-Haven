@@ -128,7 +128,6 @@ func set_edit_item(item_node : Node3D, item_name : String, car_id : String):
 			print_debug("PROBLEM, MESH IS NULL")
 		current_item.reparent(self, true)
 	elif int(car_id) >= 0: # Item is a player owned car
-		# TODO: Instantiate wheels and add them to the car
 		current_item = item_node
 		current_item_type = "car"
 		current_item.set_internal_name(str(item_name))

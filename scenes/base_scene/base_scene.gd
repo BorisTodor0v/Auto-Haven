@@ -66,9 +66,14 @@ func check_for_mechanics(pending_car : JobCar):
 	# Check if there is atleast one available mechanic to take this car
 	if PlayerStats.get_available_mechanics() > 0:
 		# Find if there are any available car lifts to take the car
-		if garage_scene.find_available_car_lift() != null:
+		var car_lift : CarLift = garage_scene.find_available_car_lift()
+		if car_lift != null:
 			pending_car.begin_repair()
+			pending_car.car_lift = car_lift
 			PlayerStats.assign_mechanic()
+			garage_scene.erase_pending_car(pending_car)
+	else:
+		print_debug("No mechanic able to take this car | " + pending_car.name)
 	ui.update_labels()
 
 func hire_mechanic():
@@ -88,6 +93,7 @@ func _on_mechanic_job_cooldown_timer_timeout():
 ## check to see if there are cars waiting for repairs
 func check_for_job_cars():
 	var pending_cars : Array = garage_scene.get_pending_cars()
+	print_debug(pending_cars)
 	for car in pending_cars:
 		if car == null:
 			return false
@@ -289,6 +295,7 @@ func sell_car(car_id : String):
 	
 	car_interaction_menu_active_car_node.queue_free()
 	PlayerStats.add_cash(sale_price)
+	PlayerStats.remove_car(car_id)
 	ui.update_labels()
 
 func remove_player_car_from_garage(car_id : int):

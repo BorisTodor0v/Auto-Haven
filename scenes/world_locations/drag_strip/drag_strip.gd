@@ -1,9 +1,5 @@
 extends WorldLocation
 
-## TODO: Refactor this script file so that the racing mechanics are in a separate class/script
-## res://scripts/drag_race_mechanics.gd
-var drag_race_mechanics : DragRaceDriving = DragRaceDriving.new()
-
 # Cameras
 @onready var menu_camera : Camera3D = $CameraHolder/CarShowcaseCamera
 @onready var race_camera : Camera3D = $CameraHolder/RaceCamera
@@ -308,8 +304,9 @@ func reset_cars():
 	current_gear = 1
 	current_velocity = 0
 	player_nitrous_duration_remaining = player_nitrous_duration
-	ui.show_nitrous_button()
-	ui.set_nitrous_bar_value(player_nitrous_duration)
+	if player_car_data["upgrades"]["nitrous"] > 0:
+		ui.show_nitrous_button()
+		ui.set_nitrous_bar_value(player_nitrous_duration)
 	is_nitrous_active = false
 	
 	rival_reaction_time = 0

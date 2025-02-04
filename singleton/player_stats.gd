@@ -1,6 +1,9 @@
 extends Node
 
-var cash : int = 100000
+# Initial cash used for testing/debugging
+#var cash : int = 100000
+# Normal initial cash
+var cash : int = 5000
 var rep : int = 0
 
 var max_fuel : int = 50
@@ -18,14 +21,20 @@ var total_mechanics : int = 0
 var available_mechanics : int = 0
 var mechanic_base_cost : int = 5000
 
-var engine_parts : int = 1000
-var weight_parts : int = 1000 # Carbon fibre parts to reduce weight
-var transmission_parts : int = 1000
-var nitrous_parts : int = 1000
+# Initial values used for testing/debugging
+#var engine_parts : int = 1000
+#var weight_parts : int = 1000
+#var transmission_parts : int = 1000
+#var nitrous_parts : int = 1000
+
+# Normal initial values
+var engine_parts : int = 10
+var weight_parts : int = 10
+var transmission_parts : int = 10
+var nitrous_parts : int = 10
 
 var owned_cars : Dictionary = {}
 var active_car : int = -1
-
 
 func _process(delta):
 	# Refill fuel when it's below max capacity
@@ -84,14 +93,11 @@ func get_garage_expansion_cost() -> int:
 	return tile_base_price * tiles_owned
 
 func add_car(new_car : Dictionary):
-	#TODO: Change the way the ID is assigned
-	# Instead of the number of owned cars + 1, get the id of the last element of the owned cars dictionary
-	# and increment the new id from that value.
-	# The method currently defined doesn't work because if you buy a car (ids: 1, 2) and sell the
-	# previous one (ids: 2), the size of the owned cars dict is 1, so +1 will give the same id of
-	# an already existing car.
-	var id : String = str(owned_cars.size()+1)
-	owned_cars.get_or_add(id, new_car)
+	var most_recent_car_id : int = 0
+	if owned_cars.size() > 0:
+		most_recent_car_id = int(owned_cars.keys()[owned_cars.size()-1])
+	var new_car_id : String = str(most_recent_car_id+1)
+	owned_cars.get_or_add(new_car_id, new_car)
 
 ## Returns all player owned cars
 func get_owned_cars():
@@ -108,8 +114,6 @@ func set_active_car(id : String):
 	active_car = int(id)
 
 func remove_car(id : String):
-	# TODO: Remove_car doesn't actually erase the car. Probably problem with the new type of the id
-	# Change to string and test
 	owned_cars.erase(id)
 
 func add_upgrade_parts(type : String, amount : int):
@@ -210,24 +214,3 @@ func change_player_car_property(car_id : String, property_name : String, value):
 					print_debug("Invalid property name")
 		else:
 			print_debug("Player doesn't own a car with ID: %d" % car_id)
-
-#car = {
-	#"model": car_key,
-	#"color": car_color,
-	#"wheels": car_data["default_wheels"],
-	#"upgrades": {
-		#"engine": 0,
-		#"weight": 0,
-		#"transmission": 0,
-		#"nitrous": 0
-	#},
-	#"is_stored": true,
-	#"performance_data": {
-		#"top_speed_for_gear": car_data["top_speed_for_gear"],
-		#"top_speed_mps": car_data["top_speed_mps"],
-		#"acceleration_rate_for_gear": car_data["acceleration_rate_for_gear"],
-		#"redline": car_data["redline"],
-		#"max_rpm": car_data["max_rpm"],
-		#"gears": car_data["gears"]
-	#}
-#}

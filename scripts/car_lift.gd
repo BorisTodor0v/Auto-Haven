@@ -9,11 +9,15 @@ var is_started_by_player : bool
 @onready var timer : Timer = $Timer
 
 func _process(_delta):
-	if timer.is_stopped():
-		label.hide()
+	if current_car:
+		if timer.is_stopped():
+			label.hide()
+		else:
+			label.show()
+			label.text = str("%.1f" % timer.time_left)
 	else:
-		label.show()
-		label.text = str("%.1f" % timer.time_left)
+		timer.stop()
+		label.hide()
 
 func can_take_car():
 	return current_car == null
@@ -35,9 +39,9 @@ func start(car : JobCar, _started_by_player : bool):
 	current_car.add_to_group("Repairing")
 	timer.one_shot = true
 	# Debug timer, one second to repair
-	timer.start(1)
+	#timer.start(1)
 	# Normal timer, randomized time to repair
-	#timer.start(randi_range(5, 20))
+	timer.start(randi_range(5, 20))
 
 func end():
 	if timer.is_stopped():
