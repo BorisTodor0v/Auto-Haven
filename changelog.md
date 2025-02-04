@@ -1,2 +1,1 @@
-- Fixed a bug caused by the way bought cars are stored in the "owned_cars" dictionary in PlayerStats.
-- Added custom icon
+- Changed the way pending job cars are passed from the garage scene to the base scene. This fixes a bug that makes mechanics start a repair on a car that doesn't exist and causes the player to lose that mechanic permanently.

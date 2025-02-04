@@ -48,8 +48,6 @@ func _ready():
 	car_interaction_menu.connect("wheels_changed", update_car_wheels)
 	car_interaction_menu.connect("color_changed", update_car_color)
 	ui.update_labels()
-	# Function calls for testing, remove in final version
-	#test_func_give_player_car()
 
 func complete_job(cash_reward : int, rep_reward : int, is_repaired_by_player : bool):
 	if is_repaired_by_player == false:
@@ -71,7 +69,6 @@ func check_for_mechanics(pending_car : JobCar):
 			pending_car.begin_repair()
 			pending_car.car_lift = car_lift
 			PlayerStats.assign_mechanic()
-			garage_scene.erase_pending_car(pending_car)
 	else:
 		print_debug("No mechanic able to take this car | " + pending_car.name)
 	ui.update_labels()
@@ -93,7 +90,6 @@ func _on_mechanic_job_cooldown_timer_timeout():
 ## check to see if there are cars waiting for repairs
 func check_for_job_cars():
 	var pending_cars : Array = garage_scene.get_pending_cars()
-	print_debug(pending_cars)
 	for car in pending_cars:
 		if car == null:
 			return false
@@ -222,7 +218,6 @@ func begin_placing_item(item_type : String, item):
 func end_placing_item(placed_item_type : String, placed_item_id):
 	if placed_item_type != "" && placed_item_id != null:
 		print_debug("Update submenu list")
-		
 		## Specific procedures for placing specific types of items
 		match placed_item_type:
 			"car":
@@ -298,16 +293,8 @@ func sell_car(car_id : String):
 	PlayerStats.remove_car(car_id)
 	ui.update_labels()
 
-func remove_player_car_from_garage(car_id : int):
+func remove_player_car_from_garage(car_id : String):
 	garage_scene.remove_car(car_id)
-
-func test_signal(a : String):
-	print_debug("Signal reached base scene " + a)
-
-func test_func_give_player_car():
-	PlayerStats.add_cash(50000)
-	buy_car("chal", Color(1, .9, 0))
-	PlayerStats.set_active_car("1")
 
 func switch_time_of_day_to(target_time : String):
 	match target_time:
