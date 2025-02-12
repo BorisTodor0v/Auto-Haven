@@ -50,8 +50,8 @@ func assign_floor_tile(tile_id : int):
 	sub_viewport.add_child(preview_scene_instance)
 	set_labels(floor_tiles_mesh_library.get_item_name(tile_id), 50)
 
-func set_labels(name : String, price : int) -> void:
-	name_label.text = name
+func set_labels(item_name : String, price : int) -> void:
+	name_label.text = item_name
 	if price == -1:
 		price_label.text = ""
 	else:

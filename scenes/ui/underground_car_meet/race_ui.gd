@@ -36,19 +36,11 @@ signal fire_nitrous
 @export var rewards_label : Label
 signal run_finished
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_start_run_button_pressed():
 	confirm_race_screen.hide()
 	launch_screen.show()
 	race_confirmed.emit()
-	print_debug("Start street race")
+	#print_debug("Start street race")
 
 func set_countdown_label_text(time : String):
 	race_start_countdown_label.text = time
@@ -120,7 +112,7 @@ func show_nitrous_components():
 	nitrous_button.show()
 
 func _on_countdown_timer_timeout():
-	print_debug("Timed out")
+	#print_debug("Timed out")
 	pass # Replace with function body.
 
 func _on_nos_button_pressed():

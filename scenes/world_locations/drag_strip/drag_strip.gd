@@ -154,7 +154,7 @@ func set_active_camera(camera_type : int):
 		1: # Race Camera
 			race_camera.current = true
 		_: # Other
-			print_debug("Invalid camera - " + str(camera_type))
+			#print_debug("Invalid camera - " + str(camera_type))
 			pass
 
 func confirm_race(race_type : String):
@@ -275,6 +275,7 @@ func _on_finish_line_area_3d_area_entered(area):
 func end_race():
 	if race_state == RaceStates.TEST_RUN:
 		show_post_race_screen("win")
+		ui.rewards_label.text = ""
 	elif race_state == RaceStates.VERSUS_RUN:
 		if player_crossed_line && rival_crossed_line == false:
 			show_post_race_screen("win")
@@ -291,6 +292,7 @@ func end_race():
 
 func reset_cars():
 	race_state = RaceStates.NONE
+	race_countdown_timer.stop()
 	camera_tracker.global_position = camera_tracker_initial_position
 	race_camera.global_position = camera_tracker.global_position
 	player_car.global_transform.origin = player_car_position.global_transform.origin
@@ -321,14 +323,25 @@ func reset_cars():
 	generate_rival()
 
 func show_post_race_screen(finish_type : String):
-	var run_stats = {
-		"reaction_time" : player_reaction_time,
-		"player_run_time": player_time - player_reaction_time,
-		"total_time": player_time,
-		"rival_reaction_time": rival_reaction_time,
-		"rival_run_time": rival_time - rival_reaction_time,
-		"rival_total_time": rival_time
-	}
+	var run_stats : Dictionary
+	if race_state == RaceStates.TEST_RUN:
+		run_stats = {
+			"reaction_time" : player_reaction_time,
+			"player_run_time": player_time - player_reaction_time,
+			"total_time": player_time,
+			"rival_reaction_time": 0,
+			"rival_run_time": 0,
+			"rival_total_time": 0
+		}
+	else:
+		run_stats = {
+			"reaction_time" : player_reaction_time,
+			"player_run_time": player_time - player_reaction_time,
+			"total_time": player_time,
+			"rival_reaction_time": rival_reaction_time,
+			"rival_run_time": rival_time - rival_reaction_time,
+			"rival_total_time": rival_time
+		}
 	ui.show_post_race_screen(finish_type, run_stats)
 
 func generate_rival():
@@ -376,40 +389,43 @@ func give_rewards():
 	PlayerStats.get_car(PlayerStats.get_active_car())["wins"] += 1
 	var rep_reward : int = 250
 	PlayerStats.add_rep(rep_reward)
-	var rewards_string : String = "Rewards: %d Rep" % [rep_reward]
-	ui.update_labels()
+	var rewards_string : String = "Rewards: %d Rep" % rep_reward
+	var rng : float = randf_range(0, 1) # random_number_generator
+	# 50% chance to get an upgrade part
+	if rng >= 0.5:
+		if rng >= 0.5 && rng < 0.7: # Parts from 1 category
+			var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+			var parts_category_index : int = randi_range(0, 3)
+			var parts_amount : int = randi_range(1, 20)
+			rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+			PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+		elif rng >= 0.7 && rng < 0.85: # Parts from 2 categories
+			for i in 2:
+				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+				var parts_category_index : int = randi_range(0, 3)
+				var parts_amount : int = randi_range(1, 20)
+				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+		elif rng >= 0.85 && rng < 0.925: # Parts from 3 categories
+			for i in 3:
+				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+				var parts_category_index : int = randi_range(0, 3)
+				var parts_amount : int = randi_range(1, 20)
+				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+		else: # Parts from all 4 categories
+			for i in 4:
+				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
+				var parts_category_index : int = i
+				var parts_amount : int = randi_range(1, 20)
+				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
+				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
+	else: # 50% chance to NOT get an upgrade part, better luck next time
+		pass
 	ui.rewards_label.text = rewards_string
+	ui.update_labels()
 
 func fire_nitrous_player():
 	ui.hide_nitrous_button()
 	is_nitrous_active = true
-	print_debug("Nitro duration: " + str(player_nitrous_duration) + " - Power" + str(player_nitrous_power) )
-
-#car = {
-	#"model": car_key,
-	#"color": car_color,
-	#"wheels": car_data["default_wheels"],
-	#"upgrades": {
-		#"engine": 0,
-		#"weight": 0,
-		#"transmission": 0,
-		#"nitrous": 0
-	#},
-	#"is_stored": true
-#}
-
-#"chal":{
-	#"name": "Phoenix",
-	#"manufacturer": "Liberty Motors",
-	#"price": 20000,
-	#"gears": 6,
-	#"top_speed_for_gear": [24.5435, 34.43281, 44.3889, 54.7222, 64.5913, 68.4444],
-	#"acceleration_rate_for_gear": [6, 6, 5, 5, 4, 3],
-	#"top_speed_mps": 68.4444,
-	#"redline": 7500,
-	#"max_rpm": 7700,
-	#"peak_hp_rpm": 7100,
-	#"scene_path": "res://cars/models/chal/chal.tscn",
-	#"model_path": "res://cars/models/chal/chal.glb",
-	#"default_wheels": "wheel_001"
-#}
+	#print_debug("Nitro duration: " + str(player_nitrous_duration) + " - Power" + str(player_nitrous_power) )

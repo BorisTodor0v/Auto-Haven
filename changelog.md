@@ -1,1 +1,12 @@
-- Changed the way pending job cars are passed from the garage scene to the base scene. This fixes a bug that makes mechanics start a repair on a car that doesn't exist and causes the player to lose that mechanic permanently.
+- Added a quit game button
+- Clamped camera in garage scene to not go into the void
+- Changed rewards system
+	- Drag strip now give upgrade parts as rewards
+	- Underground races give increased rewards
+- Fixed a bug that would cause the opponent car in races to accelerate when the player is disqualified
+- Added icon to the "Save game" button
+- Changed the time and amount of money needed to refill one unit of fuel
+- Fixed the post race screen at the Drag Strip after a test run showing times for a non-existent rival and rewards
+- Increased the countdown timer for a race start in both the Drag Strip and Underground Race Meet
+- Fixed bug that would not connect the signals for a Job Car when it spawns, making it permanently stuck waiting for a repair
+- Added README.md

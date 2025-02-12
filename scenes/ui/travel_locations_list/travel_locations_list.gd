@@ -15,7 +15,6 @@ func _ready():
 		list_item.queue_free()
 	# Fill with data for locations
 	for location in LocationsData.get_locations():
-		#if LocationsData.get_location(location)["requires_car"] == false:
 		var button : Button = Button.new()
 		button.text = LocationsData.get_location(location)["name"]
 		locations_list.add_child(button)
@@ -35,9 +34,5 @@ func on_cancel_button_pressed():
 	self.hide()
 
 func _on_travel_to_location_button_pressed():
-	var location = LocationsData.get_location(selected_location)
-	#if location["requires_car"] == true:
-		#print_debug("Can't go to that location yet, need to implement selecting with which car to go there")
-	#else:
 	self.hide()
 	travel_to_location.emit(selected_location)

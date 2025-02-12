@@ -21,7 +21,6 @@ signal launch
 @onready var rpm_gauge_redline : TextureProgressBar = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM/Redline
 @onready var rpm_gauge_rpm : TextureProgressBar = $Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Control/RPM
 
-@onready var wager_reminder_label : Label = $Race/MarginContainer/Control/HBoxContainer/Middle/VBoxContainer/WagerLabel
 @onready var gear_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Gear/Value
 @onready var speed_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/Speed/Value
 @onready var race_time_label : Label = $Race/MarginContainer/Control/HBoxContainer/Right/VBoxContainer/Control/VBoxContainer/RaceTime/Value
@@ -57,7 +56,7 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if PlayerStats.fuel < PlayerStats.race_fuel_cost:
 		versus_run_button.text = cannot_do_versus_run_text
 		versus_run_button.disabled = true
@@ -88,7 +87,8 @@ func show_confirm_race_screen(race_type : String):
 			test_run_confirm_screen.hide()
 			versus_run_confirm_screen.show()
 		_:
-			print_debug("Invalid race type")
+			#print_debug("Invalid race type")
+			pass
 
 func _on_cancel_run_button_pressed():
 	confirm_race_screen.hide()
@@ -109,7 +109,6 @@ func _on_start_versus_run_button_pressed():
 	confirm_race_screen.hide()
 	launch_screen.show()
 	race_confirmed.emit("versus_run")
-	print_debug("Start versus run")
 
 func set_countdown_label_text(time : String):
 	race_start_countdown_label.text = time
@@ -145,13 +144,6 @@ func show_post_race_screen(finish_type : String, run_stats : Dictionary):
 		rival_total_time_label.text = "Rival total time: %.3f" % run_stats["rival_total_time"]
 	
 	post_race_screen.show()
-	#
-	#"reaction_time" : player_reaction_time,
-		#"player_run_time": player_time - player_reaction_time,
-		#"total_time": player_time,
-		#"rival_reaction_time": rival_reaction_time,
-		#"rival_run_time": rival_time - rival_reaction_time,
-		#"rival_total_time": rival_time
 
 func _on_shift_gear_button_pressed():
 	shift_gear.emit()
@@ -187,7 +179,7 @@ func show_nitrous_components():
 	nitrous_button.show()
 
 func _on_countdown_timer_timeout():
-	print_debug("Timed out")
+	#print_debug("Timed out")
 	pass # Replace with function body.
 
 func _on_nos_button_pressed():

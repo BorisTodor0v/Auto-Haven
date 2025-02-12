@@ -17,8 +17,7 @@ func _ready():
 		furniture_items_file.close()
 		furniture_items = furniture_items_json
 	else:
-		# Make this a dialog window that pops up and then quits the game
-		print_debug("File furniture_items.json in game directory /data not found!")
+		#print_debug("File furniture_items.json in game directory /data not found!")
 		get_tree().quit()
 	
 	# Get the walls from walls.json
@@ -28,8 +27,7 @@ func _ready():
 		walls_items_file.close()
 		walls = walls_items_json
 	else:
-		# Make this a dialog window that pops up and then quits the game
-		print_debug("File walls.json in game directory /data not found!")
+		#print_debug("File walls.json in game directory /data not found!")
 		get_tree().quit()
 
 func get_furniture_items():

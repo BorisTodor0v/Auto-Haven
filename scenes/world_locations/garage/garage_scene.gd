@@ -6,6 +6,7 @@ extends WorldLocation
 @onready var player_cars : Node3D = $PlayerCars
 @onready var furniture : Node3D = $Furniture
 @onready var walls : Node3D = $Walls
+@onready var camera_pivot : Node3D = $CameraPivot
 
 var raycast_default_state_enabled : bool = false
 @onready var raycast_default_state : State = $CameraStates/DefaultState
@@ -28,19 +29,16 @@ func _ready():
 	raycast_place_object_state.connect("item_placed", finish_placing_item)
 	raycast_edit_floor_tiles_state.connect("floor_tile_changed", update_labels.emit)
 	set_camera_raycast_states("default")
-	camera_initial_position = camera.global_position
-	camera_initial_rotation = camera.global_rotation
+	camera_initial_position = camera_pivot.global_position
+	camera_initial_rotation = camera_pivot.global_rotation
 
 func get_job_car_spots() -> Node3D:
 	return job_car_spots
 
 func add_pending_car(pending_car : JobCar):
-	for car_spot in job_car_spots.get_children():
-		if car_spot.get_child_count() == 0:
-			pending_car.connect("start_repair", start_car_repair)
-			pending_car.connect("repair_completed", finish_car_repair)
-			pending_car.connect("ask_for_repair", process_pending_car_repair_request)
-			break
+	pending_car.connect("start_repair", start_car_repair)
+	pending_car.connect("repair_completed", finish_car_repair)
+	pending_car.connect("ask_for_repair", process_pending_car_repair_request)
 
 func start_car_repair(car : JobCar, is_started_by_player : bool):
 	var vacant_car_lift : CarLift = find_available_car_lift()
@@ -74,19 +72,19 @@ func hide_unlockable_tiles():
 func set_camera_raycast_states(state : String):
 	match state:
 		"default":
-			print_debug("ENABLING DEFAULT STATE")
+			#print_debug("ENABLING DEFAULT STATE")
 			raycast_default_state.enable_state()
 			raycast_place_object_state.disable_state()
 			raycast_edit_floor_tiles_state.disable_state()
 			raycast_edit_floor_tiles_state.selected_tile_index = -1
 		"place_object":
-			print_debug("ENABLING PLACE OBJECT STATE")
+			#print_debug("ENABLING PLACE OBJECT STATE")
 			raycast_default_state.disable_state()
 			raycast_place_object_state.enable_state()
 			raycast_edit_floor_tiles_state.disable_state()
 			raycast_edit_floor_tiles_state.selected_tile_index = -1
 		"edit_floor_tiles":
-			print_debug("ENABLING EDIT FLOOR TILE STATE")
+			#print_debug("ENABLING EDIT FLOOR TILE STATE")
 			raycast_default_state.disable_state()
 			raycast_place_object_state.disable_state()
 			raycast_edit_floor_tiles_state.enable_state()
@@ -102,7 +100,7 @@ func begin_edit_item(item_node : Node3D, item_name : String, car_id : String):
 func finish_placing_item(placed_successfully : bool, placed_item_type : String, placed_item_id, placed_item : Node3D): # : String):
 	if placed_successfully == true && placed_item_type != "" && placed_item_id != null:
 		end_placing_item.emit(placed_item_type, placed_item_id)
-		print_debug("Placed item successfully")
+		#print_debug("Placed item successfully")
 		match placed_item_type:
 			"car":
 				placed_item.reparent(player_cars, true)
@@ -114,9 +112,10 @@ func finish_placing_item(placed_successfully : bool, placed_item_type : String, 
 			"walls":
 				placed_item.reparent(walls, true)
 			_:
-				print_debug("Invalid item type, can't reparent. Won't be saved")
+				#print_debug("Invalid item type, can't reparent. Won't be saved")
+				pass
 	else:
-		print_debug("Cancelled placing item")
+		#print_debug("Cancelled placing item")
 		raycast_place_object_state.clear_item()
 		end_placing_item.emit("", null)
 	set_camera_raycast_states("default")
@@ -126,8 +125,8 @@ func begin_floor_tile_edit(selected_tile_index : int):
 	set_camera_raycast_states("edit_floor_tiles")
 
 func _on_visibility_changed():
-	camera.global_position = camera_initial_position
-	camera.global_rotation = camera_initial_rotation
+	camera_pivot.global_position = camera_initial_position
+	camera_pivot.global_rotation = camera_initial_rotation
 	raycast_default_state.raycast_enabled = self.visible
 
 func remove_car(id : String):
@@ -174,7 +173,6 @@ func place_player_owned_cars(player_cars_placed_in_garage : Dictionary):
 				mesh = child
 		if mesh != null && material != null:
 			material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
-			print_debug(player_car_data["color"])
 			mesh.set_surface_override_material(0, material)
 
 func place_garage_decor(decor_items_in_garage : Dictionary):
@@ -224,16 +222,16 @@ func place_walls(_walls : Dictionary):
 		var wall_scene = load("res://garage_decorations/props/walls/wall_scene.tscn").instantiate()
 		var wall_model = load(wall_data["model_path"]).instantiate()
 		var wall_mesh : MeshInstance3D = wall_model.get_child(0)
+		# Place decor item in the garage
+		walls.add_child(wall_scene)
+		wall_scene.set_internal_name(_walls[wall]["internal_name"])
+		
 		wall_mesh.reparent(wall_scene, true)
 		wall_scene.move_child(wall_mesh, 0)
 		wall_mesh.set_surface_override_material(0, wall_material)
 		# Offset mesh in wall scene to match collision
 		wall_mesh.global_position.z = -1
 		
-		wall_scene.set_internal_name(_walls[wall]["internal_name"])
-		
-		# Place decor item in the garage
-		walls.add_child(wall_scene)
 		var position_vector : Vector3 = Vector3(_walls[wall]["position_x"], \
 												_walls[wall]["position_y"], \
 												_walls[wall]["position_z"])

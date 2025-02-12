@@ -261,7 +261,7 @@ shape = SubResource("BoxShape3D_j1u0a")
 [node name="Node" type="Node" parent="."]
 
 [node name="RaceStartCountdownTimer" type="Timer" parent="Node"]
-wait_time = 2.0
+wait_time = 5.0
 one_shot = true
 
 [node name="RivalDriverReactionTimeTimer" type="Timer" parent="Node"]

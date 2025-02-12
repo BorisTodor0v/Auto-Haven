@@ -109,7 +109,6 @@ func click_on_gridmap(intersect_position : Vector3, tile : int):
 	if is_unlocked == true:
 		intersect_position.y = 0
 		var point = grid_map.local_to_map(intersect_position)
-		print_debug(point)
 		# When getting only point.x/y it can give coordinates outside of the bounds of the grid
 		# map. One grid has 10 tiles, so to get the coordinates of the tile within the bounds
 		# of the grid, the point.x/y coordinate is divided by 10 and the remainder of the

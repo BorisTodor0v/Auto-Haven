@@ -13,8 +13,7 @@ func _ready():
 		cars_file.close()
 		cars = cars_json
 	else:
-		# Make this a dialog window that pops up and then quits the game
-		print_debug("File cars_data.json in game directory /data not found!")
+		#print_debug("File cars_data.json in game directory /data not found!")
 		get_tree().quit()
 	
 	if DirAccess.dir_exists_absolute("res://cars/wheels"):
@@ -28,9 +27,8 @@ func _ready():
 			
 			wheels.get_or_add(wheel, wheel_data)
 	else:
-		print_debug("Wheels directory in game directory /cars not found!")
+		#print_debug("Wheels directory in game directory /cars not found!")
 		get_tree().quit()
-		
 
 func get_all_cars():
 	return cars
@@ -45,7 +43,7 @@ func get_all_wheels():
 	return wheels
 
 func get_wheel(wheel_name : String):
-	wheels[wheel_name]
+	return wheels[wheel_name]
 
 # Car classes:
 # 0 - Poor
@@ -55,7 +53,7 @@ func get_wheel(wheel_name : String):
 # -- More might be added
 func get_all_cars_by_class(class_value : int) -> Dictionary:
 	if class_value > number_of_car_classes - 1 || class_value < 0:
-		print_debug("Invalid car class value: %d | Must be above 0 and below %d" % [class_value, number_of_car_classes])
+		#print_debug("Invalid car class value: %d | Must be above 0 and below %d" % [class_value, number_of_car_classes])
 		return {}
 	else:
 		var result_cars : Dictionary = {}
@@ -67,13 +65,13 @@ func get_all_cars_by_class(class_value : int) -> Dictionary:
 func parse_color_from_string(color_string : String) -> Color:
 	var error_color : Color = Color(1, 0.412, .716, 1)
 	if !color_string.begins_with("(") and !color_string.ends_with(")"):
-		print_debug("Color string does not start and end with brackets")
+		#print_debug("Color string does not start and end with brackets")
 		return error_color
 	var remove_brackets = color_string.erase(0, 1)
 	remove_brackets = remove_brackets.erase(remove_brackets.length()-1, 1)
 	var split_segments = remove_brackets.split(',')
 	if split_segments.size() != 4:
-		print_debug("Invalid amount of segments after splitting (Expected 4, got %d)" % split_segments.size())
+		#print_debug("Invalid amount of segments after splitting (Expected 4, got %d)" % split_segments.size())
 		return error_color
 	var r : float = float(split_segments[0])
 	var g : float = float(split_segments[1])

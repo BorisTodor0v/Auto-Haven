@@ -5,7 +5,7 @@ signal pressed_on_racer(racer_position : Node3D)
 @export var raycast_enabled : bool = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	var ray_origin = self.project_ray_origin(mouse_position)
 	var ray_end = self.project_ray_normal(mouse_position) * 2000

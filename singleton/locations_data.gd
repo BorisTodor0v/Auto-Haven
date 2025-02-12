@@ -12,8 +12,7 @@ func _ready():
 		world_locations_file.close()
 		locations = world_locations_json
 	else:
-		# Make this a dialog window that pops up and then quits the game
-		print_debug("File world_locations.json in game directory /data not found!")
+		#print_debug("File world_locations.json in game directory /data not found!")
 		get_tree().quit()
 
 func get_locations():

@@ -6,7 +6,7 @@ extends State
 
 signal floor_tile_changed
 
-func _process(delta):
+func _process(_delta):
 	var mouse_position : Vector2 = get_viewport().get_mouse_position()
 	var ray_origin = camera.project_ray_origin(mouse_position)
 	var ray_end = camera.project_ray_normal(mouse_position) * 2000

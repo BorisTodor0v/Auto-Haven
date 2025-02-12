@@ -43,10 +43,6 @@ func _ready():
 	generate_background_cars()
 	player_car_marker.get_child(1).current_animation = "hover"
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func get_camera():
 	return $CameraPivot/Camera3D
 
@@ -166,6 +162,7 @@ func generate_racer_cars():
 					var pink_slip_marker : Node3D = pink_slip_racer_marker.duplicate()
 					pink_slip_marker.position = Vector3.ZERO
 					static_body_parent.add_child(pink_slip_marker)
+					
 				
 				# Calculate performance based on upgrades
 				var engine_upgrade_level : int = randi_range(5 if is_pink_slip_racer else 0, 10)

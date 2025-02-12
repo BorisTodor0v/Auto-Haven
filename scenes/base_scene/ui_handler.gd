@@ -51,7 +51,8 @@ func change_active_menu(menu_name : String):
 				car_interaction_menu.show()
 				active_menu = "car_interaction_menu"
 		_:
-			print_debug("Invalid menu name")
+			#print_debug("Invalid menu name")
+			pass
 
 func update_labels():
 	base_ui.update_labels()
@@ -64,7 +65,8 @@ func show_message(text : String, duration : float):
 		"garage_managament_menu":
 			garage_managament_menu.show_message(text, duration)
 		_:
-			print_debug("Invalid menu")
+			#print_debug("Invalid menu")
+			pass
 
 func show_travel_locations():
 	travel_locations_menu.show()

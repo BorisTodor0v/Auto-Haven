@@ -25,10 +25,6 @@ func _ready():
 	update_labels()
 	list_cars()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_leave_location_button_pressed():
 	leave_location.emit()
 

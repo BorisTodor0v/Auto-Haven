@@ -4,11 +4,14 @@ extends Node3D
 
 var rotation_amount : float = 1.25
 @export var movement_speed : float = 25
-var movement_z : int = 0 # Front to Back
-var movement_x : int = 0 # Left to Right
-
 @export var rotation_enabled : bool
 @export var movement_enabled : bool
+
+@export_group("Movement Limits", "limit")
+@export var limit_x_pos : float = 120
+@export var limit_x_neg : float = -136
+@export var limit_z_pos : float = 120
+@export var limit_z_neg : float = -136
 
 func _process(delta):
 	## Camera rotation
@@ -22,7 +25,10 @@ func _process(delta):
 	## Camera movement
 	var input_direction : Vector2 = Input.get_vector("CameraMoveLeft", "CameraMoveRight", "CameraMoveForward", "CameraMoveBackward")
 	var direction : Vector3 = Vector3(input_direction.x, 0, input_direction.y).normalized()
-	
 	if direction != Vector3.ZERO:
 		if movement_enabled:
-			self.global_transform.origin += self.global_transform.basis * direction * movement_speed * delta
+			var new_position = self.global_transform.origin + (self.global_transform.basis * direction * movement_speed * delta)
+
+			if (limit_x_neg <= new_position.x and new_position.x <= limit_x_pos) and \
+			(limit_z_neg <= new_position.z and new_position.z <= limit_z_pos):
+				self.global_transform.origin = new_position

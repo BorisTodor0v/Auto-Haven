@@ -58,6 +58,7 @@ billboard = 1
 no_depth_test = true
 text = "HELLO"
 font_size = 128
+outline_size = 35
 
 [node name="Area3D" type="Area3D" parent="."]
 

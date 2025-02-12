@@ -2,10 +2,6 @@ extends Node3D
 
 @export var camera_fov : float = 50
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
 func set_car(car_data : Dictionary):
 	var car_model = load(car_data["model_path"]).instantiate()
 	var wheel_model = load("res://cars/wheels/"+car_data["default_wheels"]+"/"+car_data["default_wheels"]+".glb").instantiate()
@@ -18,7 +14,6 @@ func set_car(car_data : Dictionary):
 	$CarPosition.add_child(car_model)
 
 func set_player_car(car_data : Dictionary):
-	#print_debug(car_data["color"])
 	var general_car_data = CarsData.get_car(car_data["model"])
 	var car_model = load(general_car_data["model_path"]).instantiate()
 	var wheel_model = load("res://cars/wheels/"+car_data["wheels"]+"/"+car_data["wheels"]+".glb").instantiate()
@@ -43,7 +38,6 @@ func set_player_car(car_data : Dictionary):
 				unique_material.albedo_color = car_data["color"]
 			else:
 				unique_material.albedo_color = CarsData.parse_color_from_string(car_data["color"])
-			#print_debug(unique_material.albedo_color)
 			mesh.set_surface_override_material(0, unique_material)
 
 func set_model(model_path : String, model_scale : float):

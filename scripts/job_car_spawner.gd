@@ -15,6 +15,7 @@ signal job_car_spawned(car : JobCar)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	update_timer_wait_time()
+	@warning_ignore("narrowing_conversion")
 	timer.wait_time = randi_range(minimum_spawn_time, maximum_spawn_time)
 	timer.timeout.connect(_on_timer_timeout)
 
@@ -23,6 +24,7 @@ func set_car_spots(_car_spots : Node3D):
 
 func _on_timer_timeout():
 	update_timer_wait_time()
+	@warning_ignore("narrowing_conversion")
 	timer.wait_time = randi_range(minimum_spawn_time, maximum_spawn_time)
 	spawn_job()
 

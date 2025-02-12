@@ -76,12 +76,15 @@ func _on_propose_counter_offer_button_pressed():
 	match negotiation_phase:
 		1:
 			wager_negotiation_labels[1].text = "Counter-offer: $%d" % counter_offer_input.value
+			@warning_ignore("narrowing_conversion")
 			negotiate_wager(negotiation_phase, counter_offer_input.value, true)
 		2:
 			wager_negotiation_labels[3].text = "Counter-offer: $%d" % counter_offer_input.value
+			@warning_ignore("narrowing_conversion")
 			negotiate_wager(negotiation_phase, counter_offer_input.value, true)
 		3:
 			wager_negotiation_labels[5].text = "Counter-offer: $%d" % counter_offer_input.value
+			@warning_ignore("narrowing_conversion")
 			negotiate_wager(negotiation_phase, counter_offer_input.value, true)
 		_:
 			pass
@@ -139,7 +142,7 @@ func show_racer_interact_screen(_racer_data : Dictionary):
 			]
 	
 	if racer_data["pink_slip"]:
-		print_debug("Racer only offers pink slip")
+		#print_debug("Racer only offers pink slip")
 		
 		# Display the pink slip in the wager negotiation segment
 		wager_negotiation_labels[0].text = "Racer wants to race for pink slips."
@@ -160,7 +163,8 @@ func show_racer_interact_screen(_racer_data : Dictionary):
 ## offer = 0 indicates no offer has been made, aka it's the first offer.
 ## check_offer = true - Player is giving an offer, make the racer consider it
 ## check_offer = false - Racer is making an offer
-func negotiate_wager(phase : int, offer : int, check_offer : bool):
+@warning_ignore("unused_parameter")
+func negotiate_wager(_phase : int, offer : int, check_offer : bool):
 	match negotiation_phase:
 		1:
 			# Make initial offer
@@ -194,7 +198,7 @@ func negotiate_wager(phase : int, offer : int, check_offer : bool):
 					negotiate_wager(negotiation_phase, new_offer, false)
 		2:
 			# Make second offer
-			print_debug("Second phase of negotiation")
+			#print_debug("Second phase of negotiation")
 			if check_offer == false:
 				wager_negotiation_labels[2].text = "Next offer: $%d" % offer
 				current_wager = offer
@@ -209,7 +213,7 @@ func negotiate_wager(phase : int, offer : int, check_offer : bool):
 					negotiate_wager(negotiation_phase, new_offer, false)
 		3:
 			# Make third and final offer
-			print_debug("Third phase of negotiation")
+			#print_debug("Third phase of negotiation")
 			if check_offer == false:
 				wager_negotiation_labels[4].text = "Next offer: $%d" % offer
 				current_wager = offer
@@ -224,19 +228,18 @@ func negotiate_wager(phase : int, offer : int, check_offer : bool):
 
 ## True accepts offer, can start racing. False denies offer, makes another offer.
 ## Currently always false to test messages
-func racer_consider_offer(current_wager : int, player_offer : int) -> bool:
+func racer_consider_offer(_current_wager : int, player_offer : int) -> bool:
 	const greed_threshold_percent : int = 10 # Percent above initial wager that the racer may accept
 	const lowball_threshhold_percent : int = 80 # Percent within the initial wager that the racer will accept
 	
-	if current_wager == player_offer:
+	if _current_wager == player_offer:
 		return true # Same offer, accept wager
 	else:
 		var greed_threshold : int = int(current_wager * (1 + greed_threshold_percent / 100.0))
 		var min_acceptable_wager : int = int(current_wager * (lowball_threshhold_percent / 100.0))
 		
-		print_debug("Current wager: $", current_wager," | Player offer: $", player_offer, " | Greed threshhold : $", greed_threshold, \
-			" | Min. acceptable wager: $", min_acceptable_wager
-		)
+		#print_debug("Current wager: $", current_wager," | Player offer: $", player_offer, " | Greed threshhold : $", greed_threshold, \
+		#	" | Min. acceptable wager: $", min_acceptable_wager)
 		
 		if player_offer > current_wager:
 			if player_offer <= greed_threshold && player_offer <= racer_data["money"]:
@@ -266,6 +269,7 @@ func racer_accept_offer():
 func generate_counter_offer(offer : int) -> int:
 	var difference_between_offers : int = abs(offer-current_wager)
 	var smaller_offer : int = min(current_wager, offer)
+	@warning_ignore("integer_division", "narrowing_conversion")
 	var counter_offer :int = smaller_offer+((difference_between_offers / 2) + (difference_between_offers / 2)*randf_range(.25, .75))
 	
 	counter_offer = min(counter_offer, racer_data["money"])

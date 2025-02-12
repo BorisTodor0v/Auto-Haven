@@ -38,12 +38,12 @@ func _ready():
 		margin.add_theme_constant_override("margin_left", margin_value)
 		margin.add_theme_constant_override("margin_bottom", margin_value)
 		margin.add_theme_constant_override("margin_right", margin_value)
-		$MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control/Button.hide()
+		$MarginContainer/VBoxContainer/Top/HBoxContainer/HBoxContainer2/HBoxContainer/Control2/VBoxContainer/Control/QuitGameButton.hide()
 		save_button.hide()
 	message.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	update_labels()
 
 func update_labels():
@@ -94,3 +94,6 @@ func _on_buy_fuel_refill_button_pressed():
 
 func _on_save_game_button_pressed():
 	save_game.emit()
+
+func _on_quit_game_button_pressed():
+	get_tree().quit()

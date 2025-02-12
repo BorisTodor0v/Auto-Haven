@@ -19,8 +19,6 @@ func _process(_delta):
 	if(Input.is_action_just_pressed("mouse1")):
 		if intersection and raycast_enabled:
 			collider = intersection["collider"]
-			if collider is Interactable:
-				collider.interact()
 			if collider is Tile:
 				pressed_on_tile.emit(collider)
 			if collider is PlaceableObject or collider is Car:
@@ -31,3 +29,5 @@ func _process(_delta):
 				# Else, if it's a furniture item, pass only the model name
 				else:
 					pressed_on_object.emit(collider, collider.get_internal_name(), "-1")
+			if collider is Interactable:
+				collider.interact()

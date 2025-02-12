@@ -3,7 +3,6 @@ extends Node
 
 @onready var collision_area : Area3D = $Area3D
 @onready var edge_rays : Node3D = $EdgeDetectionRays
-
 @export var internal_name : String
 
 func is_unobstructed() -> bool:

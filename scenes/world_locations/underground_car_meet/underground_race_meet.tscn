@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cdg7h775o3udm" path="res://resources/images/ui/rpm_gauge/rpm_gauge.png" id="15_454yf"]
 [ext_resource type="Script" path="res://scenes/ui/underground_car_meet/race_ui.gd" id="15_b6rci"]
 [ext_resource type="Script" path="res://scripts/camera_movement.gd" id="15_h1vn7"]
-[ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/TEST_camera_3d.gd" id="15_ttvs5"]
+[ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/underground_race_meet_camera.gd" id="15_ttvs5"]
 [ext_resource type="Script" path="res://scenes/world_locations/underground_car_meet/drag_race.gd" id="20_mbbnw"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_pcaef"]
@@ -1716,7 +1716,7 @@ shape = SubResource("BoxShape3D_p1l6l")
 [node name="Node" type="Node" parent="ugcm_race_location"]
 
 [node name="RaceStartCountdownTimer" type="Timer" parent="ugcm_race_location/Node"]
-wait_time = 2.0
+wait_time = 5.0
 one_shot = true
 
 [node name="RivalDriverReactionTimeTimer" type="Timer" parent="ugcm_race_location/Node"]

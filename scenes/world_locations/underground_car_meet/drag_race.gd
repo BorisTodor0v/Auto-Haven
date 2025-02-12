@@ -101,7 +101,7 @@ func _process(delta):
 		rival_nitrous_duration_remaining -= delta
 		if rival_nitrous_duration_remaining <= 0:
 			is_rival_nitrous_active = false
-			print_debug("Rival nitrous is no longer active")
+			#print_debug("Rival nitrous is no longer active")
 
 func set_player_car(player_car_id : String):
 	player_car_data = PlayerStats.get_car(player_car_id)
@@ -209,8 +209,8 @@ func set_rival_car(_rival_data : Dictionary):
 	reaction_timer.wait_time = rival_reaction_time
 	
 	if rival_data["upgrades"]["nitrous"] > 0:
-		rival_nitrous_gear = randi_range(2, rival_data["general_car_data"]["gears"])
-		print_debug("Nitrous will be used by rival in gear: %d" % rival_nitrous_gear)
+		rival_nitrous_gear = 2 #randi_range(2, rival_data["general_car_data"]["gears"])
+		#print_debug("Nitrous will be used by rival in gear: %d" % rival_nitrous_gear)
 		rival_nitrous_duration = float(rival_data["upgrades"]["nitrous"]) / 2
 		rival_nitrous_duration_remaining = rival_nitrous_duration
 		rival_nitrous_power = 1 + (float(rival_data["upgrades"]["nitrous"]) / 13.3)
@@ -357,6 +357,7 @@ func end_race():
 
 func reset_cars():
 	race_state = RaceStates.NONE
+	race_countdown_timer.stop()
 	camera_tracker.global_position = camera_tracker_initial_position
 	race_camera.global_position = camera_tracker.global_position
 	player_car.global_transform.origin = player_car_position.global_transform.origin
@@ -438,28 +439,28 @@ func give_rewards():
 			if rng >= 0.5 && rng < 0.7: # Parts from 1 category
 				var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
 				var parts_category_index : int = randi_range(0, 3)
-				var parts_amount : int = randi_range(1, 20)
+				var parts_amount : int = randi_range(1, 20) * 2
 				rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
 				PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
 			elif rng >= 0.7 && rng < 0.85: # Parts from 2 categories
 				for i in 2:
 					var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
 					var parts_category_index : int = randi_range(0, 3)
-					var parts_amount : int = randi_range(1, 20)
+					var parts_amount : int = randi_range(1, 20) * 2
 					rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
 					PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
 			elif rng >= 0.85 && rng < 0.925: # Parts from 3 categories
 				for i in 3:
 					var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
 					var parts_category_index : int = randi_range(0, 3)
-					var parts_amount : int = randi_range(1, 20)
+					var parts_amount : int = randi_range(1, 20) * 2
 					rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
 					PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
 			else: # Parts from all 4 categories
 				for i in 4:
 					var parts_categories : Array[String] = ["engine", "weight", "nitrous", "transmission"]
 					var parts_category_index : int = i
-					var parts_amount : int = randi_range(1, 20)
+					var parts_amount : int = randi_range(1, 20) * 2
 					rewards_string+= ", %d %s parts" % [parts_amount, parts_categories[parts_category_index]]
 					PlayerStats.add_upgrade_parts(parts_categories[parts_category_index], parts_amount)
 		else: # 50% chance to NOT get an upgrade part, better luck next time

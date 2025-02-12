@@ -23,7 +23,7 @@ func set_item(item_type : String, item):
 	edit_mode_enabled = false # Placing a new item in the garage
 	edit_object_original_position = null
 	edit_object_original_rotation = null
-	print_debug("Begin placing item:")
+	#print_debug("Begin placing item:")
 	if current_item != null:
 		clear_item()
 	current_item_type = item_type
@@ -32,11 +32,8 @@ func set_item(item_type : String, item):
 			var player_car_data = PlayerStats.get_car(item)
 			var car_model : String = player_car_data["model"]
 			var car_scene_path : String = CarsData.get_car(player_car_data["model"])["scene_path"]
-
-			var car_wheels : String = player_car_data["wheels"]
-			var wheels_path : String = "res://cars/wheels/"+car_wheels+"/"+car_wheels+".glb"
-
 			var car_instance = load(car_scene_path).instantiate()
+			
 			## Add wheels to the car model
 			var wheel_model = load("res://cars/wheels/"+player_car_data["wheels"]+"/"+player_car_data["wheels"]+".glb").instantiate()
 			for child in car_instance.get_children():
@@ -44,7 +41,7 @@ func set_item(item_type : String, item):
 					for wheel_position in child.get_children():
 						wheel_position.add_child(wheel_model.duplicate())
 					break
-
+			
 			current_item = car_instance
 			current_item.set_internal_name(car_model)
 			current_item.set_internal_id(item)
@@ -56,15 +53,14 @@ func set_item(item_type : String, item):
 					current_item_default_material.albedo_color = player_car_data["color"]
 				else:
 					current_item_default_material.albedo_color = CarsData.parse_color_from_string(player_car_data["color"])
-			else:
-				print_debug("PROBLEM, MESH IS NULL")
-
+			#else:
+				#print_debug("PROBLEM, MESH IS NULL")
+			
 			self.add_child(current_item)
 			current_item.global_rotation.y = 0
 		"furniture":
-			print_debug("Furniture item")
+			#print_debug("Furniture item")
 			var furniture_item_data = FurnitureData.get_values_from_key(item)
-			var furniture_item_model = furniture_item_data["model_path"]
 			var furniture_item_scene = furniture_item_data["scene_path"]
 			
 			var furniture_item_instance = load(furniture_item_scene).instantiate()
@@ -78,9 +74,9 @@ func set_item(item_type : String, item):
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
 				current_item_default_material = current_item_mesh.get_active_material(0)
-			else:
-				print_debug("PROBLEM, MESH IS NULL")
-
+			#else:
+				#print_debug("PROBLEM, MESH IS NULL")
+			
 			self.add_child(current_item)
 			current_item.global_rotation.y = 0
 		"walls":
@@ -90,6 +86,7 @@ func set_item(item_type : String, item):
 			var wall_mesh : MeshInstance3D = wall_model.get_child(0)
 			wall_mesh.reparent(wall_scene, true)
 			wall_scene.move_child(wall_mesh, 0)
+			
 			var wall_material : StandardMaterial3D = wall_mesh.get_active_material(0)
 			# Cull mode changed to render wall on both sides
 			wall_material.cull_mode = BaseMaterial3D.CULL_DISABLED
@@ -102,13 +99,14 @@ func set_item(item_type : String, item):
 			current_item_mesh = current_item.get_child(0)
 			if current_item_mesh != null:
 				current_item_default_material = current_item_mesh.get_active_material(0)
-			else:
-				print_debug("PROBLEM, MESH IS NULL")
-
+			#else:
+				#print_debug("PROBLEM, MESH IS NULL")
+			
 			self.add_child(current_item)
 			current_item.global_rotation.y = 0
 		_:
-			print_debug("Invalid item type")
+			#print_debug("Invalid item type")
+			pass
 
 func set_edit_item(item_node : Node3D, item_name : String, car_id : String):
 	edit_mode_enabled = true # Moving an existing object in the garage
@@ -124,8 +122,8 @@ func set_edit_item(item_node : Node3D, item_name : String, car_id : String):
 		current_item_mesh = current_item.get_child(0)
 		if current_item_mesh != null:
 			current_item_default_material = current_item_mesh.get_active_material(0)
-		else:
-			print_debug("PROBLEM, MESH IS NULL")
+		#else:
+			#print_debug("PROBLEM, MESH IS NULL")
 		current_item.reparent(self, true)
 	elif int(car_id) >= 0: # Item is a player owned car
 		current_item = item_node
@@ -135,10 +133,10 @@ func set_edit_item(item_node : Node3D, item_name : String, car_id : String):
 		current_item_mesh = current_item.get_child(0)
 		if current_item_mesh != null:
 			current_item_default_material = current_item_mesh.get_active_material(0)
-		else:
-			print_debug("PROBLEM, MESH IS NULL")
-	else:
-		print_debug("Unknown item type") # Unknown item type
+		#else:
+			#print_debug("PROBLEM, MESH IS NULL")
+	#else:
+		#print_debug("Unknown item type") # Unknown item type
 
 func clear_item():
 	if current_item != null:
@@ -203,7 +201,8 @@ func delete_item():
 					clear_item()
 					item_placed.emit(false, "", null, null)
 			_:
-				print_debug("Unknown item type")
+				#print_debug("Unknown item type")
+				pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -214,7 +213,6 @@ func _process(_delta):
 	var space_state = get_world_3d().direct_space_state
 	var intersection = space_state.intersect_ray(ray_query)
 	var collider
-	#var position
 	
 	if intersection:
 		collider = intersection["collider"]

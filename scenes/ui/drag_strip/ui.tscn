@@ -229,8 +229,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Challenge an opponent in a Versus run. Show off what
 cars tuned by your garage are capable of. Victory
-increases your reputation. A larger gap between
-you and your opponent increases your reputation even more."
+increases your reputation."
 horizontal_alignment = 1
 
 [node name="StartRunButton" type="Button" parent="ConfirmRace/VersusRun/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
@@ -365,11 +364,6 @@ grow_horizontal = 2
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 20
 text = "NOS"
-
-[node name="Node" type="Node" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar"]
-
-[node name="Timer" type="Timer" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer/Nitrous/Bar/Node"]
-one_shot = true
 
 [node name="Control" type="Control" parent="Race/MarginContainer/Control/HBoxContainer/Left/HBoxContainer"]
 layout_mode = 2

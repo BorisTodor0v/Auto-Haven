@@ -40,12 +40,6 @@ func finish_repair():
 func confirm_repair_completion():
 	if is_repair_started == true && is_repair_finished == true:
 		var rewards = car_lift.end()
-		# TODO: Fix problem - Somehow gave -1 for rewards when repair is considered finished, but timer wasn't considered stopped
-		# Probably a frame difference between the timer stopping and the repair job being considered finished
-		# Another problem is when hiring a bunch of mechanics at once, if a car is available to repair and is ACTIVELY BEING REPAIRED
-		# they will take that car from another mechanic and start working on it, which does not run the logic for freeing the by the other
-		# mechanic, which causes him to be lost permanently.
-		# Possibly the initial problem described above is caused by the second problem.
 		if rewards is Array:
 			repair_completed.emit(rewards[0], rewards[1], is_repaired_by_player)
 

@@ -208,9 +208,7 @@ func fill_wheels_menu():
 
 func purchase_wheel(wheel_name : String, price : int):
 	if PlayerStats.get_cash() >= price:
-		if player_car_data["wheels"] == wheel_name:
-			print_debug("Current car already has these wheels installed (%s)" % wheel_name)
-		else:
+		if player_car_data["wheels"] != wheel_name:
 			PlayerStats.change_player_car_property(current_car_id, "wheels", wheel_name)
 			PlayerStats.remove_cash(price)
 			assign_car(current_car_id)

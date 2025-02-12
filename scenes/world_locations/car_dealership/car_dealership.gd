@@ -32,8 +32,8 @@ func set_background_cars():
 	for spot : Node3D in background_cars.get_children():
 		if spot.get_child_count() == 0:
 			var size = CarsData.get_all_cars().size()
-			#var random_car_key = CarsData.get_all_cars().keys()[randi() % size]
 			var random_car_key
+			@warning_ignore("unassigned_variable")
 			while random_car_key == null:
 				var key = CarsData.get_all_cars().keys()[randi() % size]
 				if CarsData.get_car(key)["can_buy_in_dealership"] == true:

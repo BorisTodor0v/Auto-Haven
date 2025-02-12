@@ -90,17 +90,17 @@ func assign_car_to_button(button, car_id : int):
 
 func _button_pressed(item_id):
 	on_menu_item_pressed.emit(current_submenu_items_type, item_id)
-	match current_submenu_items_type:
-		"car":
-			print_debug("Pressed on car: " + str(item_id))
-		"furniture":
-			print_debug("Pressed on furniture item: " + str(item_id))
-		"floor_tiles":
-			print_debug("Pressed on floor tile: " + str(item_id))
-		"walls":
-			print_debug("Pressed on wall")
-		_:
-			print_debug("Don't know what was pressed..")
+	#match current_submenu_items_type:
+		#"car":
+			#print_debug("Pressed on car: " + str(item_id))
+		#"furniture":
+			#print_debug("Pressed on furniture item: " + str(item_id))
+		#"floor_tiles":
+			#print_debug("Pressed on floor tile: " + str(item_id))
+		#"walls":
+			#print_debug("Pressed on wall")
+		#_:
+			#print_debug("Don't know what was pressed..")
 	
 
 func update_labels():

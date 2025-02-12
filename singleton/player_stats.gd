@@ -8,8 +8,8 @@ var rep : int = 0
 
 var max_fuel : int = 50
 var fuel : int = max_fuel
-const refill_one_fuel_unit_time : float = 5 # seconds
-const buy_one_fuel_unit_cost : int = 100
+const refill_one_fuel_unit_time : float = 10 # seconds
+var buy_one_fuel_unit_cost : int = 500
 var fuel_refill_time = 0
 const race_fuel_cost : int = 5
 const fuel_increase_rep_threshold : int = 2000
@@ -88,7 +88,6 @@ func get_tiles_owned() -> int:
 func set_tiles_owned(new_value : int):
 	tiles_owned = new_value
 
-# Don't know if this should be here, in the player stats function, but leave as is for now
 func get_garage_expansion_cost() -> int:
 	return tile_base_price * tiles_owned
 
@@ -178,13 +177,13 @@ func upgrade_car(car_id : String, upgrade_type : String):
 						current_car["performance_data"]["acceleration_rate_for_gear"][i] += 0.25
 				elif upgrade_type == "nitrous":
 					pass
-			else:
-				print_debug("Not enough parts for this upgrade")
-		else:
-			print_debug("Car has reached maximum level for this upgrade")
-	else:
-		print_debug("Invalid upgrade type - " + upgrade_type)
-	print_debug(current_car)
+			#else:
+				#print_debug("Not enough parts for this upgrade")
+		#else:
+			#print_debug("Car has reached maximum level for this upgrade")
+	#else:
+		#print_debug("Invalid upgrade type - " + upgrade_type)
+	#print_debug(current_car)
 
 func change_player_car_property(car_id : String, property_name : String, value):
 	if get_car(car_id) != null:
@@ -197,20 +196,20 @@ func change_player_car_property(car_id : String, property_name : String, value):
 								var car : Dictionary = PlayerStats.get_car(car_id)
 								car["wheels"] = value
 								owned_cars[car_id] = car
-							else:
-								print_debug("Wheels %s not found" % value)
-						else:
-							print_debug("Invalid wheels name")
-					else:
-						print_debug("Invalid value type for wheels")
+							#else:
+								#print_debug("Wheels %s not found" % value)
+						#else:
+							#print_debug("Invalid wheels name")
+					#else:
+						#print_debug("Invalid value type for wheels")
 				"color":
 					if value is Color:
 						var car : Dictionary = PlayerStats.get_car(car_id)
 						car["color"] = value
 						owned_cars[car_id] = car
-					else:
-						print_debug("Invalid value type for color")
-				_:
-					print_debug("Invalid property name")
-		else:
-			print_debug("Player doesn't own a car with ID: %d" % car_id)
+					#else:
+						#print_debug("Invalid value type for color")
+				#_:
+					#print_debug("Invalid property name")
+		#else:
+			#print_debug("Player doesn't own a car with ID: %d" % car_id)

@@ -69,8 +69,8 @@ func check_for_mechanics(pending_car : JobCar):
 			pending_car.begin_repair()
 			pending_car.car_lift = car_lift
 			PlayerStats.assign_mechanic()
-	else:
-		print_debug("No mechanic able to take this car | " + pending_car.name)
+	#else:
+		#print_debug("No mechanic able to take this car | " + pending_car.name)
 	ui.update_labels()
 
 func hire_mechanic():
@@ -211,13 +211,13 @@ func begin_placing_item(item_type : String, item):
 		"floor_tiles":
 			ui.show_message("Select a tile color and press anywhere on the garage to apply it.", 9999)
 			garage_scene.begin_floor_tile_edit(item)
-			print_debug("Place floor tiles")
+			#print_debug("Place floor tiles")
 		_:
-			print_debug("Placing something else")
+			#print_debug("Placing something else")
+			pass
 
 func end_placing_item(placed_item_type : String, placed_item_id):
 	if placed_item_type != "" && placed_item_id != null:
-		print_debug("Update submenu list")
 		## Specific procedures for placing specific types of items
 		match placed_item_type:
 			"car":
@@ -249,15 +249,9 @@ func set_edit_mode(state : bool):
 	else:
 		ui.show_message("", 1)
 
-# Removed static type of object_node (Node3D) to fix error:
-# Invalid call. Nonexistent function car_interaction_menu_assign_car in base Control
-# When switching from garage scene after using car interaction menu
-# To drag race when selecting a run type (Versus run)
-# In it's place, added a check to see if the object is a Car, and if so to then call the function
-# Will probably need to check the UI instead of the car, as the problem is thrown there
 func handle_object_clicked(object_node, object_name : String, car_id : String):
 	if is_redecorating:
-		print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
+		#print_debug("Editing: " + str(object_node) + " | " + object_name + " | " + str(car_id))
 		garage_scene.begin_edit_item(object_node, object_name, car_id)
 		ui.show_message("Left Mouse Button to place anywhere. R to rotate.\nRight Mouse Button to cancel. X to delete, or if it's a car to send back to storage.", 9999)
 	else:
