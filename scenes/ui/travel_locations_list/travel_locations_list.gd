@@ -24,9 +24,8 @@ func _ready():
 
 func _on_location_list_item_pressed(_location : String):
 	var location = LocationsData.get_location(_location)
-	var image = Image.load_from_file(location["image_preview_path"])
-	var texture = ImageTexture.create_from_image(image)
-	location_preview.set_texture(texture)
+	var image_texture = load(location["image_preview_path"]) as Texture2D
+	location_preview.set_texture(image_texture)
 	selected_location = _location
 	location_description.text = location["description"]
 
